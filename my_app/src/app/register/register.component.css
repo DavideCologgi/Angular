@@ -1,0 +1,120 @@
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    
+    background: url('./background6.jpg')no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.form-box{
+    position: relative;
+    width: 800px;
+    height: 900px;
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+h2{
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+.inputbox{
+    position: relative;
+    margin: 30px 0;
+    width: 250px;
+}
+.input-container {
+    position: relative;
+}
+.input-container label{
+    position: absolute;
+    top: 50%;
+    left: -160px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+.input-container input {
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding:0 35px 0 5px;
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+button{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background: #fff;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+}
+.date {
+    border-bottom: none;
+    color: #fff;
+}
+.date input {
+    padding-right: 0%;
+}
+.password-container {
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+.password-container input[type="password"] {
+    flex: 1;
+    padding-right: 30px;
+}
+.password-container .bi-eye {
+    position: absolute;
+    cursor: pointer;
+    right: 5px;
+}
+.password-container .bi-eye-slash {
+    position: absolute;
+    cursor: pointer;
+    right: 5px;
+}
+.upload{
+    border-bottom: none;
+}
+.upload label {
+    top: 30%;
+}
+.upload input {
+    color:#fff;
+    border: none;
+}
+.privacy {
+    border-bottom: none;
+}
+.privacy input {
+    height: 0%;
+    width: 60%;
+}
+.alert {
+    position: absolute;
+    width: 250px;
+    top: 0;
+    left: 120%;
+    color: red;
+    font-size: 0.8em;
+}
