@@ -10,6 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     IonicModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      { path: '', title: 'Home Page', component: HeaderComponent},
+      { path: 'home', title: 'Home Page', component: HomeComponent },
+      { path: 'login', title: 'Login Page', component: LoginComponent},
+      { path: 'register', title: 'Register Page', component: RegisterComponent},
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent],

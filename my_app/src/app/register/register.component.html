@@ -8,13 +8,13 @@
 					  <input type="text" id="firstName" formControlName="firstName">
 					  <label for="firstName">First name</label>
 					</div>
-					<div *ngIf="registerForm?.get('firstName')?.touched && registerForm?.get('firstName')?.invalid" class="alert">
+					<div *ngIf="registerForm?.get('firstName')?.touched" class="alert">
 						<div *ngIf="registerForm?.get('firstName')?.hasError('required')">
-						  Invalid first name!
-					  </div>
-					  <div *ngIf="registerForm.get('firstName')?.hasError('pattern') && registerForm.get('firstName')?.touched">
-						Insert only letters please
-					  </div>
+							Invalid first name!
+						</div>
+						<div *ngIf="!isValidFirstName() && !registerForm?.get('firstName')?.hasError('required')">
+							Insert only letters please
+						</div>
 					</div>
 				</div>
 				<div class="inputbox">
@@ -22,25 +22,36 @@
 						<input type="text" id="lastName" formControlName="lastName">
 						<label for="lastName">Last name</label>
 					</div>
-					<div *ngIf="registerForm?.get('lastName')?.invalid && registerForm?.get('lastName')?.touched" class="alert">
+					<div *ngIf="registerForm?.get('lastName')?.touched" class="alert">
 						<div *ngIf="registerForm?.get('lastName')?.hasError('required')">
 							Invalid last name!
+						</div>
+						<div *ngIf="!isValidLastName() && !registerForm?.get('lastName')?.hasError('required')">
+							Insert only letters please
 						</div>
 					</div>
 				</div>
 				<div class="inputbox date">
 					<div class="input-container">
 						<label for="dateOfBirth">Date of birth</label>
-						<input type="date" formControlName="dateOfBirth">
+						<input type="date" id="date" formControlName="dateOfBirth">
+						<div *ngIf="registerForm?.get('dateOfBirth')?.touched" class="alert">
+							<div *ngIf="registerForm.get('dateOfBirth')?.hasError('required')">
+								Missing date of birth!
+							</div>
+							<div *ngIf="!registerForm.get('dateOfBirth')?.hasError('underage') && !registerForm.get('dateOfBirth')?.hasError('required')">
+								You must be at least 18 to register!
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="input-container">
 						<input type="email" formControlName="email">
 						<label for="email">Email</label>
-						<div *ngIf="registerForm?.get('email')?.invalid && registerForm?.get('email')?.touched" class="alert">
-							<div *ngIf="registerForm?.get('email')?.hasError('required')">
-								Invalid email!
+						<div *ngIf="registerForm?.get('email')?.touched" class="alert">
+							<div *ngIf="registerForm?.get('email')?.hasError('required') || registerForm?.get('email')?.hasError('email')">
+								Invalid email!	
 							</div>
 						</div>
 					</div>
@@ -48,19 +59,33 @@
 				<div class="inputbox password">
 					<div class="input-container">
 						<div class="password-container">
-							<input type="{{ isPasswordVisible ? 'text' : 'password' }}" id="pwd" formControlName="password">
+							<input type="{{ isPasswordVisible ? 'text' : 'password' }}" id="password" formControlName="password">
 							<span class="bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></span>
 						</div>
-						<label for="pwd">Password</label>
+						<label for="password">Password</label>
+						<div *ngIf="registerForm.get('password')?.touched" class="alert">
+							<div *ngIf="registerForm.invalid">
+								Da sistemare
+							</div>
+							<div *ngIf="registerForm.get('password')?.hasError('required')" class="invalid-feedback">
+								Password is required.
+							</div>
+							<div *ngIf="registerForm.get('password')?.hasError('minlength')" class="invalid-feedback">
+								Password must be at least 8 characters long.
+							</div>
+							<div *ngIf="registerForm.get('password')?.hasError('invalidPassword')" class="invalid-feedback">
+								Password must contain at least one number and one special character.
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="inputbox confirm-password">
 					<div class="input-container">
 						<div class="password-container">
-							<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="pwd2" formControlName="confirmPassword">
+							<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="confirm-password" formControlName="confirmPassword">
 							<span class="bi" [ngClass]="{'bi-eye': !isPassword2Visible, 'bi-eye-slash': isPassword2Visible}" (click)="togglePasswordVisibility2()"></span>
 						</div>
-						<label for="pwd">Confirm password</label>
+						<label for="confirm-password">Confirm password</label>
 						<div *ngIf="registerForm?.get('confirmPassword')?.hasError('passwordMismatch')" class="alert">
 							Passwords do not match!
 						</div>

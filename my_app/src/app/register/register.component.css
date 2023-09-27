@@ -118,3 +118,6 @@ button{
     color: red;
     font-size: 0.8em;
 }
+.inputbox.password .alert {
+    top: -20px;
+}
