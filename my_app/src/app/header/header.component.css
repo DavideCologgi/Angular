@@ -1,5 +1,6 @@
 nav {
     font-size:  25px;
+    height: 8%;
 }
 
 .navbar-brand {
@@ -7,12 +8,13 @@ nav {
     color: rgb(188, 27, 27);
 }
 
-.bi.bi-fire {
+.bi.bi-people-fill {
     color: red;
 }
 
 .container-fluid {
-    text-align: center;
+    align-content: end;
+    text-align: right;
 }
 
 .nav-item {
@@ -22,4 +24,36 @@ nav {
 .btn {
     margin-right: 25px;
     font-size: 20px;
+}
+
+.navbar-toggler:focus {
+    background-color: grey;
+}
+
+.nav-login {
+    display: none;
+}
+
+.nav-register {
+    display: none;
+}
+
+.open-menu {
+    text-align: right;
+}
+
+.navbar-toggler:focus + .navbar-collapse .btn {
+    display: none;
+}
+
+.navbar-toggler:focus + .navbar-collapse i {
+    display: none;
+}
+
+.navbar-toggler:focus + .navbar-collapse .nav-login {
+    display: contents;
+}
+
+.navbar-toggler:focus + .navbar-collapse .nav-register {
+    display: contents;
 }

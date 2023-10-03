@@ -14,7 +14,23 @@ export class HeaderComponent {
   login() {
     this.router.navigateByUrl('/login');
   }
+
   register() {
     this.router.navigateByUrl('/register');
+  }
+
+  NavbarToggleListener() {
+    const navbarToggler: HTMLElement | null = document.querySelector(".navbar-toggler");
+    const navbarMenu: HTMLElement | null = document.querySelector(".navbar-collapse");
+
+    if (navbarToggler && navbarMenu) {
+      navbarToggler.addEventListener("click", function () {
+        navbarMenu.classList.toggle("open-menu");
+      });
+    }
+  }
+
+  ngOnInit() {
+    this.NavbarToggleListener();
   }
 }

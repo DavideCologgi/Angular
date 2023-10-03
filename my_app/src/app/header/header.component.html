@@ -1,10 +1,9 @@
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark" style="height: 100px;">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/home"><i class="bi bi-fire"></i>Bonfire</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" routerLink="/home"><i class="bi bi-people-fill"></i>Eventify</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarMenu">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/home"><i class="bi bi-house-door"></i> Home</a>
@@ -12,9 +11,14 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/events"><i class="bi bi-calendar-event"></i> Events</a>
           </li>
+          <li class="nav-login">
+            <a class="nav-link" routerLink="/login">Sign in</a>
+          </li>
+          <li class="nav-register">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
         </ul>
-        <button class="btn btn-outline-success" routerLink="/login" (click)="login()">Log in</button>
+        <button class="btn btn-outline-success" routerLink="/login" (click)="login()">Sign in</button>
         <button class="btn btn-outline-secondary" routerLink="/register" (click)="register()">Register</button>
       </div>
-    </div>
   </nav>

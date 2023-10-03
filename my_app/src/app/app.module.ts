@@ -28,7 +28,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', title: 'Home Page', component: HeaderComponent},
+      { path: '', title: 'Home Page', component: HomeComponent},
       { path: 'home', title: 'Home Page', component: HomeComponent },
       { path: 'login', title: 'Login Page', component: LoginComponent},
       { path: 'register', title: 'Register Page', component: RegisterComponent},
