@@ -2,7 +2,6 @@ import { Component, ElementRef } from '@angular/core';
 
 @Component({
 	selector: 'app-login',
-	template: 'Eventify/login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css'],
 })
