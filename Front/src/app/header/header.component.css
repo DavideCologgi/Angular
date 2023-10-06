@@ -1,0 +1,25 @@
+nav {
+    font-size:  25px;
+}
+
+.navbar-brand {
+    font-size: 40px;
+    color: rgb(188, 27, 27);
+}
+
+.bi.bi-fire {
+    color: red;
+}
+
+.container-fluid {
+    text-align: center;
+}
+
+.nav-item {
+    padding-left: 30px;
+}
+
+.btn {
+    margin-right: 25px;
+    font-size: 20px;
+}

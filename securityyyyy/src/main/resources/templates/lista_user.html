@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dettagli Utente</title>
+</head>
+<body>
+    <h1>Dettagli Utente</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Data di Nascita</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>URL</th>
+        </tr>
+        <tr th:each="app_user : ${app_user}">
+            <td th:text="${app_user.nome}"></td>
+            <td th:text="${app_user.cognome}"></td>
+            <td th:text="${#dates.format(app_user.data, 'dd/MM/yyyy HH:mm')}"></td>
+            <td th:text="${app_user.email}"></td>
+            <td th:text="${app_user.password}"></td>
+            <td th:text="${app_user.url}"></td>
+        </tr>
+    </table>
+</body>
+</html>
