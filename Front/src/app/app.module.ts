@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { EventComponent } from './event/event.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     HeaderComponent,
     HomeComponent,
     FooterComponent,
+    EventComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { RouterModule } from '@angular/router';
       { path: 'home', title: 'Home Page', component: HomeComponent },
       { path: 'login', title: 'Login Page', component: LoginComponent},
       { path: 'register', title: 'Register Page', component: RegisterComponent},
+      { path: 'event', title: 'Event Page', component: EventComponent},
     ])
   ],
   providers: [],

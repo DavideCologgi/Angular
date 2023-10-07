@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +25,6 @@ import com.eventify.app.service.PhotoService;
 import com.eventify.app.service.UserService;
 import com.eventify.app.validator.UserValidator;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -44,7 +42,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.validation.Errors;
 
 @RestController
 @AllArgsConstructor
@@ -101,16 +98,18 @@ public class UserController {
         Photo profilePicture = photoService.uploadPhoto(photo);
         photoService.create(profilePicture);
         user.setProfilePicture(profilePicture);
+        user.setPassword(confirmPassword);
         userService.update(user.getId(), user);
         return ResponseEntity.ok().body("Registered Succesfully");
     }
 
     @PostMapping("/api/auth/signin")
-    public ResponseEntity<AuthenticationResponse> signUp(@RequestBody CredentialsSignin credentialsSignin, HttpServletRequest request) throws Exception {
-        String accessToken = null;
+    public ResponseEntity<AuthenticationResponse> signIn(@RequestBody CredentialsSignin credentialsSignin, HttpServletRequest request) throws Exception {
+    String accessToken = null;
         String refreshToken = null;
         String csrfToken = null;
         String errorMessage = null;
+        System.out.println(credentialsSignin.email() + credentialsSignin.password() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         try {
             Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(credentialsSignin.email(), credentialsSignin.password()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -130,6 +129,14 @@ public class UserController {
             return ResponseEntity.ok(AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).csrfToken(csrfToken).build());
         }
     }
+
+    @PostMapping("/api/authenticate")
+    public ResponseEntity<String> authenticate() {
+        return ResponseEntity.ok("daje");
+    }
+
+
+
 
     @PostMapping("/api/auth/refresh-token")
     public ResponseEntity<AuthenticationResponse> refreshToken(HttpServletRequest request, HttpServletResponse response) {

@@ -1,7 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
 import { AxiosService } from '../axios.service';
-import { AxiosResponse } from 'axios';
 import { Router } from '@angular/router';
+import axios from 'axios';
 
 @Component({
 	selector: 'app-login',
@@ -41,7 +41,8 @@ export class LoginComponent {
 					this.showError = true;
 					this.errorMessage = response.data.error;
 				} else {
-					this.axiosService.setAuthToken(response.data.accessToken);
+					this.axiosService.setAuthToken(response.data.access_token);
+					console.log(response.data.access_token);
         			this.router.navigate(['/home']);
 				}
 			  })
