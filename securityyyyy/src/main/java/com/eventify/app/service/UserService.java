@@ -84,6 +84,7 @@ public class UserService implements IUserService {
 	public Optional<User> findByEmail(String email) {
         List<User> allUsers = userRepository.findAll();
 
+		System.out.println(email + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         for (User user : allUsers) {
             if (user.getEmail().equals(email)) {
                 return Optional.of(user);

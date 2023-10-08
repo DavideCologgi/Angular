@@ -135,9 +135,6 @@ public class UserController {
         return ResponseEntity.ok("daje");
     }
 
-
-
-
     @PostMapping("/api/auth/refresh-token")
     public ResponseEntity<AuthenticationResponse> refreshToken(HttpServletRequest request, HttpServletResponse response) {
         return authService.refreshToken(request, response);

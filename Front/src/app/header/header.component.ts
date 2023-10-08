@@ -20,7 +20,22 @@ export class HeaderComponent {
   register() {
     this.router.navigateByUrl('/register');
   }
-  
+
+  logout() {
+    this.axiosService.request(
+      "POST",
+      "api/auth/logout",
+      {
+      }
+    ).then(response => {
+          console.log("test");
+				})
+			  .catch(error => {
+          console.log("error");
+			  })
+    this.axiosService.setAuthToken(null);
+  }
+
   updateRedirection(newRedirection: string) {
     this.redirection = newRedirection;
   }
