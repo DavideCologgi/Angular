@@ -1,5 +1,7 @@
 package com.eventify.app.model.json;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +19,12 @@ public class AuthenticationResponse {
 
     @JsonProperty("refresh_token")
     private String refreshToken;
-    
+
+    @JsonProperty("expiration_date")
+    private Date expirationDate;
+
+    @JsonProperty("csrf_token")
     private String csrfToken;
+    
     private String error;
 }

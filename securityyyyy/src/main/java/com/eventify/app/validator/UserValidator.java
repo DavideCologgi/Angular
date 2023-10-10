@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.amazonaws.util.IOUtils;
 import com.eventify.app.model.User;
-import com.eventify.app.model.json.CredentialsSignup;
+import com.eventify.app.model.json.RegisterRequest;
 
 @Component
 // public class UserValidator implements Validator {
@@ -29,38 +29,39 @@ public class UserValidator {
     //     return User.class.equals(clazz);
     // }
 
-    public String isFormValid(CredentialsSignup credentialsSignup) {
-        if (credentialsSignup.getFirstname() == null || credentialsSignup.getFirstname().isEmpty() ||
-            credentialsSignup.getLastname() == null || credentialsSignup.getLastname().isEmpty() ||
-            credentialsSignup.getEmail() == null || credentialsSignup.getEmail().isEmpty() ||
-            credentialsSignup.getPassword() == null || credentialsSignup.getPassword().isEmpty() ||
-            credentialsSignup.getDob() == null || credentialsSignup.getProfilePicture() == null ||
-            credentialsSignup.getConfirmPassword() == null || credentialsSignup.getConfirmPassword().isEmpty()) {
+    public String isFormValid(RegisterRequest registerRequest) {
+        if (registerRequest.getFirstname() == null || registerRequest.getFirstname().isEmpty() ||
+            registerRequest.getLastname() == null || registerRequest.getLastname().isEmpty() ||
+            registerRequest.getEmail() == null || registerRequest.getEmail().isEmpty() ||
+            registerRequest.getPassword() == null || registerRequest.getPassword().isEmpty() ||
+            registerRequest.getConfirmPassword() == null || registerRequest.getConfirmPassword().isEmpty() ||
+            registerRequest.getDob() == null || registerRequest.getProfilePicture() == null || registerRequest.isCheckbox() == false
+            ) {
             return "All fields must be filled";
         }
-        Date dobDate = credentialsSignup.getDob();
+        Date dobDate = registerRequest.getDob();
         LocalDate dob = dobDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate today = LocalDate.now();
         Period age = Period.between(dob, today);
-        if (!isValidName(credentialsSignup.getFirstname()) || !isValidName(credentialsSignup.getLastname())) {
+        if (!isValidName(registerRequest.getFirstname()) || !isValidName(registerRequest.getLastname())) {
             return "Firstname and lastname must contain only alphabetic characters";
         }
-        if (!isImageFile(credentialsSignup.getProfilePicture())) {
+        if (!isImageFile(registerRequest.getProfilePicture())) {
             return "Invalid image file format. Only image files are allowed.";
         }
-        if (!isValidEmail(credentialsSignup.getEmail())) {
+        if (!isValidEmail(registerRequest.getEmail())) {
             return "Invalid email address";
         }
         if (age.getYears() < 18) {
             return "you must have at least 18 years old";
         }
-        if (!credentialsSignup.getPassword().equals(credentialsSignup.getConfirmPassword())) {
+        if (!registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
             return "Password are not equals";
         }
-        if (credentialsSignup.getPassword().length() < 8)  {
+        if (registerRequest.getPassword().length() < 8)  {
             return "Password is less than 8 characters";
         }
-        if (!isStrongPassword(credentialsSignup.getPassword())) {
+        if (!isStrongPassword(registerRequest.getPassword())) {
             return "Password must contain at least : an uppercase char, a special character and a number";
         }
 		return null;

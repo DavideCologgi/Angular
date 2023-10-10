@@ -57,9 +57,9 @@ public class UserService implements IUserService {
 		foundUser.get().setLastname(User.getLastname());
 		foundUser.get().setDob(User.getDob());
 		foundUser.get().setEmail(User.getEmail());
-		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
-		String EncryptedPwd = bcrypt.encode(User.getPassword());
-		foundUser.get().setPassword(EncryptedPwd);
+		// BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		// String EncryptedPwd = bcrypt.encode(User.getPassword());
+		// foundUser.get().setPassword(EncryptedPwd);
 		foundUser.get().setPassword(User.getPassword());
 		foundUser.get().setProfilePicture(User.getProfilePicture());
 		userRepository.save(foundUser.get());
@@ -84,7 +84,6 @@ public class UserService implements IUserService {
 	public Optional<User> findByEmail(String email) {
         List<User> allUsers = userRepository.findAll();
 
-		System.out.println(email + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         for (User user : allUsers) {
             if (user.getEmail().equals(email)) {
                 return Optional.of(user);

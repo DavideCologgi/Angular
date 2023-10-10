@@ -126,7 +126,7 @@ export class RegisterComponent implements OnInit{
 	// }
 
   onSubmitRegister(): void {
-    console.log(11)
+    console.log(11);
     const formData = new FormData();
     formData.append('firstName', this.registerForm?.get('firstName')?.value);
     formData.append('lastName', this.registerForm?.get('lastName')?.value);
@@ -135,38 +135,39 @@ export class RegisterComponent implements OnInit{
     formData.append('password', this.registerForm?.get('password')?.value);
     formData.append('confirmPassword', this.registerForm?.get('confirmPassword')?.value);
     formData.append('checkbox', this.registerForm?.get('privacy')?.value);
+
     if (this.fileInput.nativeElement.files[0]) {
       formData.append('photo', this.fileInput.nativeElement.files[0]);
     } else {
       const emptyBlob = new Blob([], { type: 'application/octet-stream' });
       formData.append('photo', emptyBlob, 'empty.jpg');
     }
+
     if (this.registerForm?.get('dateOfBirth')?.value) {
       formData.append('dateOfBirth', this.registerForm?.get('dateOfBirth')?.value);
     } else {
       formData.append('dateOfBirth', '0000-00-00');
     }
 
-    axios.post("/api/auth/signup", formData,  {
+    axios.post("/api/auth/signup", formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
-      }
+      },
+      withCredentials: true,
     })
     .then(response => {
-        // this.showError = true;
-        // this.errorMessage = response.data.error;
+      if (response.data === "Registered Successfully") {
         this.showError = false;
         this.errorMessage = '';
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
+      } else {
+        this.showError = true;
+        this.errorMessage = response.data;
+      }
     })
     .catch(error => {
       this.showError = true;
-      this.showError = true;
-      if (error.response && error.response.data) {
-        this.errorMessage = error.response.data;
-      } else {
-        this.errorMessage = 'An unknown error occurred';
-      }
+      this.errorMessage = 'An unknown error occurred';
     });
   }
 }

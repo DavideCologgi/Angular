@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,11 +29,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-          return http.csrf(AbstractHttpConfigurer::disable).
-            sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests((requests) -> requests.requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
-            .anyRequest().authenticated()).authenticationProvider(authenticationProvider)
+          return http.csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests((requests) -> requests
+            .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+            .anyRequest().authenticated())
+            .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .headers(headers -> headers
+            .addHeaderWriter(new StaticHeadersWriter("Content-Security-Policy", "script-src 'self';"))
+            .frameOptions(Customizer.withDefaults()))
             .logout(logout -> logout
             .logoutUrl("/api/auth/logout")
             .addLogoutHandler(logoutHandler)

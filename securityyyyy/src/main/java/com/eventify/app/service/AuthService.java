@@ -1,39 +1,140 @@
 package com.eventify.app.service;
 
-import org.apache.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
+import java.util.Date;
+import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.stereotype.Service;
+import org.springframework.web.util.WebUtils;
+
+import com.eventify.app.model.Photo;
+import com.eventify.app.model.User;
+import com.eventify.app.model.enums.Role;
 import com.eventify.app.model.json.AuthenticationResponse;
+import com.eventify.app.model.json.LoginRequest;
+import com.eventify.app.model.json.RegisterRequest;
+import com.eventify.app.validator.ObjectsValidator;
+import com.eventify.app.validator.UserValidator;
 
 import io.jsonwebtoken.io.IOException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class AuthService {
 
-	private final JwtService jwtService;
 	private final UserService userService;
+    private final UserValidator userValidator;
+    private final PhotoService photoService;
+    private final JwtService jwtService;
+    private final AuthenticationManager authManager;
+    private final ObjectsValidator<RegisterRequest> validator;
+
+    @Transactional
+    public String signUp(RegisterRequest request) throws Exception {
+        validator.validate(request);
+        if (request.isCheckbox() == false) {
+            return ("accept terms and conditions");
+        }
+
+        String errorMessage = null;
+        if ((errorMessage = userValidator.isFormValid(request)) != null) {
+            return (errorMessage);
+        }
+        User user = new User(request.getFirstname(), request.getLastname(), request.getDob(), request.getEmail(), request.getPassword(), null);
+        try {
+            user.setRole(Role.USER);
+            userService.create(user);
+        } catch (DataIntegrityViolationException e) {
+
+            return ("Email already registered");
+        }
+        Photo profilePicture = photoService.uploadPhoto(request.getProfilePicture());
+        photoService.create(profilePicture);
+        user.setProfilePicture(profilePicture);
+        userService.update(user.getId(), user);
+        return ("Registered Succesfully");
+    }
+
+    public AuthenticationResponse signIn(LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) {
+        String accessToken = null;
+        String refreshToken = null;
+        String csrfToken = null;
+        String errorMessage = null;
+		Date expirationDate = null;
+        try {
+            Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            Optional<User> user = userService.findByEmail(loginRequest.getEmail());
+            if (user.isEmpty()) {
+                errorMessage = "Email not registered";
+                return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).csrfToken(csrfToken).build();
+            }
+			accessToken = jwtService.generateToken(user.get());
+            refreshToken = jwtService.generateRefreshToken(user.get());
+            user.get().setRefreshToken(refreshToken);
+            userService.update(user.get().getId(), user.get());
+            CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+            if (csrf != null) {
+                csrfToken = csrf.getToken();
+            }
+            Cookie accessTokenCookie = new Cookie("access_token", accessToken);
+            accessTokenCookie.setHttpOnly(true);
+            accessTokenCookie.setPath("/");
+            // accessTokenCookie.setSecure(true); // Ensure it's sent only over HTTPS
+            response.addCookie(accessTokenCookie);
+
+            Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
+            refreshTokenCookie.setHttpOnly(true);
+            refreshTokenCookie.setPath("/");
+            // refreshTokenCookie.setSecure(true); // Ensure it's sent only over HTTPS
+            expirationDate = jwtService.extractExpiration(accessToken);
+            response.addCookie(refreshTokenCookie);
+            return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).expirationDate(expirationDate).csrfToken(csrfToken).build();
+        } catch (BadCredentialsException e) {
+            errorMessage = "Bad Credentials";
+            return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).csrfToken(csrfToken).build();
+        }
+    }
 
 	public ResponseEntity<AuthenticationResponse> refreshToken( HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		String refreshToken;
 		String userEmail;
 		String accessToken;
-		if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-        	return ResponseEntity.ok(AuthenticationResponse.builder().error("invalid Refresh-Token").refreshToken(null).accessToken(null).build());
-		}
-		refreshToken = authHeader.substring(7);
-		userEmail = jwtService.extractUsername(refreshToken);
+		Date expirationDate;
+        Cookie tokenCookie = WebUtils.getCookie(request, "refresh_token");
+
+        if (tokenCookie == null) {
+        	return ResponseEntity.ok(AuthenticationResponse.builder().error("invalid Refresh-token").refreshToken(null).accessToken(null).build());
+        }
+
+        refreshToken = tokenCookie.getValue();
+        userEmail = jwtService.extractUsername(refreshToken);
+
 		if (userEmail != null) {
 			var user = this.userService.findByEmail(userEmail)
-					.orElseThrow();
+					.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + userEmail));
 			if (refreshToken.equals(user.refreshToken)) {
 				accessToken = jwtService.generateToken(user);
-				return ResponseEntity.ok(AuthenticationResponse.builder().error(null).refreshToken(null).accessToken(accessToken).build());
+				Cookie accessTokenCookie = new Cookie("access_token", accessToken);
+				accessTokenCookie.setHttpOnly(true);
+				accessTokenCookie.setPath("/");
+				// accessTokenCookie.setSecure(true); // Ensure it's sent only over HTTPS
+				response.addCookie(accessTokenCookie);
+				expirationDate = jwtService.extractExpiration(accessToken);
+				return ResponseEntity.ok(AuthenticationResponse.builder().error(null).refreshToken(null).accessToken(accessToken).expirationDate(expirationDate).build());
 			}
 		}
         return ResponseEntity.ok(AuthenticationResponse.builder().error("invalid Refresh-token").refreshToken(null).accessToken(null).build());

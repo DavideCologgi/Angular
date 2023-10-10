@@ -11,7 +11,6 @@ import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EventComponent } from './event/event.component';
-import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { LogoutComponent } from './logout/logout.component';
     HomeComponent,
     FooterComponent,
     EventComponent,
-    LogoutComponent,
   ],
   imports: [
     BrowserModule,

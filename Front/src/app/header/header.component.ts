@@ -22,18 +22,14 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.axiosService.request(
-      "POST",
-      "api/auth/logout",
-      {
-      }
-    ).then(response => {
-          console.log("test");
-				})
-			  .catch(error => {
-          console.log("error");
-			  })
-    this.axiosService.setAuthToken(null);
+    this.axiosService
+      .request2("POST", "api/auth/logout", {})
+      .then((response) => {
+        this.router.navigate(['/login'])
+      })
+      .catch((error) => {
+        console.error("Error logging out:", error);
+      });
   }
 
   updateRedirection(newRedirection: string) {
@@ -48,7 +44,7 @@ export class HeaderComponent {
       }
     ).then(response => {
           console.log("test");
-          this.router.navigate([this.redirection]);
+            this.router.navigate([this.redirection]);
 				})
 			  .catch(error => {
           console.log("error");

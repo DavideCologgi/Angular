@@ -29,7 +29,7 @@ export class LoginComponent {
 
 	onSubmitLogin(): void {
 		console.log(10);
-		this.axiosService.request(
+		this.axiosService.request2(
 			"POST",
 			"/api/auth/signin",
 			{
@@ -41,8 +41,9 @@ export class LoginComponent {
 					this.showError = true;
 					this.errorMessage = response.data.error;
 				} else {
-					this.axiosService.setAuthToken(response.data.access_token);
 					console.log(response.data.access_token);
+					window.localStorage.setItem("expiration_date", response.data.expiration_date)
+					console.log(response.data.expiration_date);
         			this.router.navigate(['/home']);
 				}
 			  })
