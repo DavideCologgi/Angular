@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
@@ -24,11 +23,16 @@ import com.eventify.app.model.json.RegisterRequest;
 import com.eventify.app.validator.ObjectsValidator;
 import com.eventify.app.validator.UserValidator;
 
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+
 import io.jsonwebtoken.io.IOException;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -39,6 +43,7 @@ public class AuthService {
     private final UserValidator userValidator;
     private final PhotoService photoService;
     private final JwtService jwtService;
+    private final EmailService emailService;
     private final AuthenticationManager authManager;
     private final ObjectsValidator<RegisterRequest> validator;
 
@@ -48,7 +53,6 @@ public class AuthService {
         if (request.isCheckbox() == false) {
             return ("accept terms and conditions");
         }
-
         String errorMessage = null;
         if ((errorMessage = userValidator.isFormValid(request)) != null) {
             return (errorMessage);
@@ -71,7 +75,6 @@ public class AuthService {
     public AuthenticationResponse signIn(LoginRequest loginRequest, HttpServletRequest request, HttpServletResponse response) {
         String accessToken = null;
         String refreshToken = null;
-        String csrfToken = null;
         String errorMessage = null;
 		Date expirationDate = null;
         try {
@@ -80,36 +83,27 @@ public class AuthService {
             Optional<User> user = userService.findByEmail(loginRequest.getEmail());
             if (user.isEmpty()) {
                 errorMessage = "Email not registered";
-                return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).csrfToken(csrfToken).build();
+                return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).build();
             }
-			accessToken = jwtService.generateToken(user.get());
-            refreshToken = jwtService.generateRefreshToken(user.get());
-            user.get().setRefreshToken(refreshToken);
-            userService.update(user.get().getId(), user.get());
-            CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-            if (csrf != null) {
-                csrfToken = csrf.getToken();
-            }
-            Cookie accessTokenCookie = new Cookie("access_token", accessToken);
-            accessTokenCookie.setHttpOnly(true);
-            accessTokenCookie.setPath("/");
-            // accessTokenCookie.setSecure(true); // Ensure it's sent only over HTTPS
-            response.addCookie(accessTokenCookie);
 
-            Cookie refreshTokenCookie = new Cookie("refresh_token", refreshToken);
-            refreshTokenCookie.setHttpOnly(true);
-            refreshTokenCookie.setPath("/");
-            // refreshTokenCookie.setSecure(true); // Ensure it's sent only over HTTPS
-            expirationDate = jwtService.extractExpiration(accessToken);
-            response.addCookie(refreshTokenCookie);
-            return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).expirationDate(expirationDate).csrfToken(csrfToken).build();
+            try {
+                String secretKey = generateSecretKey();
+                int otp = generateOtp(secretKey);
+                emailService.sendSignInEmail(loginRequest.getEmail(), otp);
+                user.get().setOtp(otp);
+                userService.update(user.get().getId(), user.get());
+            } catch (MessagingException e) {
+                errorMessage = "Bad Credentials";
+                return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).build();
+            }
+            return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).expirationDate(expirationDate).email(user.get().getEmail()).build();
         } catch (BadCredentialsException e) {
             errorMessage = "Bad Credentials";
-            return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).csrfToken(csrfToken).build();
+            return AuthenticationResponse.builder().error(errorMessage).accessToken(accessToken).refreshToken(refreshToken).build();
         }
     }
 
-	public ResponseEntity<AuthenticationResponse> refreshToken( HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public ResponseEntity<AuthenticationResponse> refreshToken( HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String refreshToken;
 		String userEmail;
 		String accessToken;
@@ -131,7 +125,7 @@ public class AuthService {
 				Cookie accessTokenCookie = new Cookie("access_token", accessToken);
 				accessTokenCookie.setHttpOnly(true);
 				accessTokenCookie.setPath("/");
-				// accessTokenCookie.setSecure(true); // Ensure it's sent only over HTTPS
+				accessTokenCookie.setSecure(true);
 				response.addCookie(accessTokenCookie);
 				expirationDate = jwtService.extractExpiration(accessToken);
 				return ResponseEntity.ok(AuthenticationResponse.builder().error(null).refreshToken(null).accessToken(accessToken).expirationDate(expirationDate).build());
@@ -139,4 +133,15 @@ public class AuthService {
 		}
         return ResponseEntity.ok(AuthenticationResponse.builder().error("invalid Refresh-token").refreshToken(null).accessToken(null).build());
 	}
+
+    public Integer generateOtp(String secretKey) {
+        GoogleAuthenticator gAuth = new GoogleAuthenticator();
+        return gAuth.getTotpPassword(secretKey);
+    }
+
+    public String generateSecretKey() {
+        GoogleAuthenticator gAuth = new GoogleAuthenticator();
+        GoogleAuthenticatorKey key = gAuth.createCredentials();
+        return key.getKey();
+    }
 }

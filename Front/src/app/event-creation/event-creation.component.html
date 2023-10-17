@@ -1,0 +1,37 @@
+<section>
+	<mat-card>
+	  <mat-card-header>
+		<div>
+		  <h2>Crea un nuovo evento</h2>
+		</div>
+	  </mat-card-header>
+	  <form (submit)="onFormSubmit($event)">
+		<mat-form-field>
+		  <input type="text" placeholder="Titolo" #titleField/>
+		</mat-form-field>
+		<mat-form-field>
+		  <textarea id="descrizione" placeholder="Descrizione" #descriptionField></textarea>
+		</mat-form-field>
+		<mat-form-field>
+		  <input type="date" id="date" #dateTimeField/>
+		</mat-form-field>
+		<mat-form-field>
+		  <input type="text" id="luogo" placeholder="Luogo" #placeField/>
+		</mat-form-field>
+		<mat-form-field>
+		  <select class="custom-select" id="categoria" placeholder="Categoria" #categoryField>
+			<option value="" disabled selected hidden>Categoria evento</option>
+			<option value="social">Social</option>
+			<option value="pupone">Pupone</option>
+		  </select>
+		</mat-form-field>
+		<mat-card-footer class="actions">
+		  <div class="button-container">
+			<button mat-fab class="create-button" type="submit">
+			  <mat-icon>check</mat-icon>
+			</button>
+		  </div>
+		</mat-card-footer>
+	  </form>
+	</mat-card>
+  </section>

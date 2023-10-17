@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -32,6 +34,10 @@ public class Photo {
 	@Lob
 	@NotNull
 	private byte[] data;
+
+	@ManyToOne
+	@JoinColumn(name = "event_id")
+	private Event event;
 
 	public Photo(String photoType, String photoName, Boolean is_deleted, byte[] data) {
 		this.photoType = photoType;

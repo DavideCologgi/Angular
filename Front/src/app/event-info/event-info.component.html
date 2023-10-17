@@ -1,0 +1,50 @@
+<section>
+	<mat-card class="event-card">
+		<mat-card-header>
+			<mat-card-title class="title">Leonardo x 42RomaLuiss</mat-card-title>
+		</mat-card-header>
+		<swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
+			navigation="true" autoplay-delay="2500" autoplay-disable-on-interaction="false" slides-per-view='auto'>
+			<swiper-slide lazy="true">
+				<img loading="lazy" src="./assets/background6.jpg" />
+			</swiper-slide>
+			<swiper-slide lazy="true">
+				<img loading="lazy" src="./assets/background6.jpg" />
+			</swiper-slide>
+		</swiper-container>
+		<mat-card-content>
+			<p class="category">Social</p>
+			<p class="description">
+				Et dolorem possimus eum aperiam voluptatem et quidem praesentium. Et Quis asperiores et omnis voluptates
+				non dolorum harum ab voluptatem aspernatur sit quia beatae hic voluptatem alias. Ea esse itaque qui quas
+				ipsa est enim sunt eum quisquam eligendi.
+				Ut beatae perferendis ea iusto sadgrdgrrggragr.
+				sagweawgeearga.
+				dfgkggggggggggggggggggggggggggggggggggggg
+			</p>
+			<div class="address-container">
+				<p class="time">
+					10/10/2023 20:00
+				</p>
+				<p class="address">
+					Via Marsala 42 H3
+				</p>
+			</div>
+			<!-- link google maps -->
+		</mat-card-content>
+		<mat-card-footer class="actions">
+			<div class="button-container">
+				<button mat-fab class="join-button" [ngClass]="getButtonClass()" (click)="toggleRegistration()">
+					<mat-icon>{{ isRegistered ? 'clear' : 'done' }}</mat-icon>
+				</button>
+				<button mat-fab class="people-button" (click)="togglePeopleList()">
+					<mat-icon>people</mat-icon>
+				</button>
+				<button mat-fab class="delete-button" (click)="deleteEvent()">
+					<mat-icon>delete</mat-icon>
+				</button>
+				<div class="people-list" *ngIf="showPeopleList"></div>
+			</div>
+		</mat-card-footer>
+	</mat-card>
+</section>

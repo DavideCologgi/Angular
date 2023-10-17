@@ -21,11 +21,11 @@ public class JwtService {
 
 	private static final String SECRET_KEY = "3cf7ff7e1f14e47d43bab57653a80512459106b707946a88098975a07ac381fd";
 
-	// private static final long jwtExpiration = 86400000;
-	private static final long jwtExpiration = 20000;
+	private static final long jwtExpiration = 86400000;
+	// private static final long jwtExpiration = 20000;
 
-	// private static final long refreshExpiration = 604800000;
-	private static final long refreshExpiration = 30000;
+	private static final long refreshExpiration = 604800000;
+	// private static final long refreshExpiration = 30000;
 
 	public String extractUsername(String jwt) {
 		return extractClaim(jwt, Claims::getSubject);

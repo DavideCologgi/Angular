@@ -1,5 +1,32 @@
-.bi.bi-fire {
+footer {
     color: red;
     font-size: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+	background-color:#FAF9F9;
+	margin: 0!important;
+	height: 10%;
+	border: 1px solid black;
 }
 
+i {
+   margin: 3px;
+}
+
+.bi-instagram {
+    color: orange;
+}
+
+.bi-facebook {
+    color: rgb(30, 70, 217);
+}
+
+@media (max-width: 768px) {
+    footer, span, .bi {
+        font-size: 15px;
+        align-items: flex-start;
+    }
+}

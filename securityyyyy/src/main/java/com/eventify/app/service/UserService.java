@@ -21,11 +21,6 @@ public class UserService implements IUserService {
 
 	}
 
-	public void createResetPasswordToken(User user, String resetToken) {
-        user.setResetPasswordToken(resetToken);
-        update(user.getId(), user);
-    }
-
 	@Override
 	public Iterable<User> getAll() {
 		return userRepository.findAll();
@@ -92,11 +87,11 @@ public class UserService implements IUserService {
         return Optional.empty();
     }
 
-	public Optional<User> findByResetToken(String resetToken) {
+	public Optional<User> findByOtp(Integer otp) {
         List<User> allUsers = userRepository.findAll();
 
         for (User user : allUsers) {
-            if (user.getResetPasswordToken().equals(resetToken)) {
+            if (user.getOtp().intValue() == otp) {
                 return Optional.of(user);
             }
         }

@@ -1,0 +1,86 @@
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	min-height: 80vh;
+	background: white;
+	background-size: cover;
+	background-position: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.mat-mdc-card {
+	border-radius: var(--mdc-elevated-card-container-shape);
+	background-color: #000000ce;
+	border-width: 0;
+	border-style: solid;
+	border-color: var(--mdc-elevated-card-container-color);
+	box-shadow: var(--mdc-elevated-card-container-elevation);
+	--mdc-elevated-card-container-shape: 4px;
+	--mdc-outlined-card-container-shape: 4px;
+	--mdc-outlined-card-outline-width: 1px;
+}
+
+.mat-card {
+	color: white;
+	border-radius: 10px;
+	background: rgb(0, 0, 0);
+	/* Imposta l'opacità desiderata per la card */
+	backdrop-filter: blur(15px);
+	margin: 1em;
+}
+
+::placeholder {
+	color: rgb(255, 255, 255);
+	font-size: large;
+}
+
+h2 {
+	font-size: 2em;
+	color: #fff;
+	text-align: center;
+}
+
+.mat-card-content {
+	flex: 1;
+	overflow: auto;
+	flex-direction: column;
+}
+
+label {
+	color: #fff;
+}
+
+.button-container {
+	display: flex;
+	align-items: center;
+}
+
+.actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: auto;
+	margin-bottom: 1em;
+	padding: 1em;
+}
+
+
+
+input,
+select,
+textarea {
+	width: 100%;
+	padding: 10px 20px;
+	border: none;
+	border-bottom: 1px solid #caced1;
+	/* Aggiungi questo bordo inferiore a tutti gli input */
+	background: transparent;
+	color: #fff;
+	outline: none;
+	font-size: 18px;
+}
+
+

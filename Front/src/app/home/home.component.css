@@ -1,11 +1,64 @@
-section{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    
-    background: url('./background6.jpg')no-repeat;
-    background-position: center;
-    background-size: cover;
+section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80vh;
+	width: 100%;
+	background: url('/assets/back2hd.jpeg') no-repeat;
+	background-size: 100% 100%;
+	background-position: center;
+}
+
+.overlay-container {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+
+.overlay-block {
+	color: white;
+	padding: 2%;
+	border-radius: 2%;
+	text-align: center;
+	width: 30%;
+	max-width: 300px;
+	margin: 0 2%;
+}
+
+#block1, #block2, #block3 {
+	margin: 0 2%;
+}
+
+h3 {
+	font-weight: 800;
+	font-size: 1.5rem;
+	padding: 10px 0;
+}
+
+#block1 {
+	background-color: rgba(15, 74, 151, 0.784);
+}
+
+#block2 {
+	background-color: rgba(176, 23, 23, 0.78);
+}
+
+#block3 {
+	background-color: rgba(239, 180, 5, 0.786);
+}
+
+i {
+	font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+	.overlay-container {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.overlay-block {
+		width: 80%;
+	}
 }

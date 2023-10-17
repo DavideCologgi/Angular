@@ -11,25 +11,24 @@ import { AxiosService } from '../axios.service';
 export class HeaderComponent {
 
   redirection = '';
+  isLoggedIn: boolean = false;
 
   constructor(private router: Router, private axiosService: AxiosService) {}
-
-  login() {
-    this.router.navigateByUrl('/login');
-  }
-  register() {
-    this.router.navigateByUrl('/register');
-  }
 
   logout() {
     this.axiosService
       .request2("POST", "api/auth/logout", {})
       .then((response) => {
+        this.isLoggedIn = false
         this.router.navigate(['/login'])
       })
       .catch((error) => {
         console.error("Error logging out:", error);
       });
+  }
+
+  setIsLoggedIn(boolean: boolean) {
+    this.isLoggedIn = boolean;
   }
 
   updateRedirection(newRedirection: string) {

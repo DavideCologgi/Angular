@@ -8,7 +8,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 export class AxiosService {
 
   constructor(private router: Router) {
-    axios.defaults.baseURL = "http://localhost:8080";
+    axios.defaults.baseURL = "https://localhost:8443";
     axios.defaults.withCredentials = true; // Enable sending cookies with requests
     axios.defaults.headers.post["Content-Type"] = "application/json";
   }
@@ -79,8 +79,6 @@ export class AxiosService {
 
     return axios(config);
   }
-
-
 
   request2(method: string, url: string, data: any): Promise<any> {
 

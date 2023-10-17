@@ -19,7 +19,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import jakarta.persistence.Temporal;
@@ -74,7 +76,13 @@ public class User implements UserDetails {
 
     public String refreshToken;
 
-    public String resetPasswordToken;
+    public Integer otp;
+
+    @OneToMany(mappedBy = "creator")
+    private List<Event> createdEvents;
+
+    @ManyToMany(mappedBy = "participants")
+    private List<Event> events;
 
     public User(String firstname, String lastname, Date dob, String email, String password, Photo profilePicture) {
         this.firstname = firstname;
@@ -153,12 +161,12 @@ public class User implements UserDetails {
         this.refreshToken = refreshToken;
     }
 
-    public String getResetPasswordToken() {
-        return this.resetPasswordToken;
+    public Integer getOtp() {
+        return this.otp;
     }
 
-    public void setResetPasswordToken(String resetPasswordToken) {
-        this.resetPasswordToken = resetPasswordToken;
+    public void setOtp(Integer otp) {
+        this.otp = otp;
     }
 
     @Override
