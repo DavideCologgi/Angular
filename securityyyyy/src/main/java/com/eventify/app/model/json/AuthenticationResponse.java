@@ -23,6 +23,7 @@ public class AuthenticationResponse {
     @JsonProperty("expiration_date")
     private Date expirationDate;
 
+    private Long userId;
     // @JsonProperty("csrf_token")
     // private String csrfToken;
 

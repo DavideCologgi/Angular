@@ -50,7 +50,8 @@ public class Event {
     private String place;
 
     @OneToMany(mappedBy = "event")
-    private List<Photo> photos;
+    @Builder.Default
+    private List<Photo> photos = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -58,7 +59,8 @@ public class Event {
         joinColumns = @JoinColumn(name = "event_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> participants;
+    @Builder.Default
+    private List<User> participants = new ArrayList<>();;
 
     @ManyToOne
     @JoinColumn(name = "creator_id", referencedColumnName = "id")

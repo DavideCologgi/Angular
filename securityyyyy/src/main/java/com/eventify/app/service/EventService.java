@@ -1,15 +1,12 @@
 package com.eventify.app.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.eventify.app.model.Event;
-import com.eventify.app.model.Photo;
 import com.eventify.app.model.User;
 import com.eventify.app.model.enums.Categories;
 import com.eventify.app.model.json.EventForm;
@@ -37,20 +34,34 @@ public class EventService {
         if ((errorMessage = eventValidator.isFormValid(event)) != null) {
             return (errorMessage);
         }
-        Event newEvent = new Event(event.getTitle(), event.getDescription(), event.getDateTime(), event.getPlace(), null, null, null, event.getCategory());
-        eventRepository.save(newEvent);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
-        for (MultipartFile photo : event.getPhotos()) {
-            Photo pics = photoService.uploadPhoto(photo);
-            photoService.create(pics);
-
-            if (newEvent.getPhotos() == null) {
-                newEvent.setPhotos(new ArrayList<>());
-            }
-            newEvent.getPhotos().add(pics);
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(event.getDateTime(), formatter);
+            Event newEvent = Event.builder()
+                .category(event.getCategory())
+                .creator(userService.getById(userId).get())
+                .dateTime(dateTime)
+                .description(event.getDescription())
+                .place(event.getPlace())
+                .title(event.getTitle())
+                .build();
+            eventRepository.save(newEvent);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        newEvent.setCreator(userService.getById(userId).get());
-        updateEvent(newEvent);
+
+        // for (MultipartFile photo : event.getPhotos()) {
+        //     Photo pics = photoService.uploadPhoto(photo);
+        //     photoService.create(pics);
+
+        //     if (newEvent.getPhotos() == null) {
+        //         newEvent.setPhotos(new ArrayList<>());
+        //     }
+        //     newEvent.getPhotos().add(pics);
+        // }
+        // newEvent.setCreator(userService.getById(userId).get());
+        // updateEvent(newEvent);
         return ("Evento creato con successo");
     }
 

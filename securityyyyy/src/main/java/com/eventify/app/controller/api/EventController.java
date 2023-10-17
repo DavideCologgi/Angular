@@ -26,6 +26,7 @@ import com.eventify.app.service.EventService;
 import com.eventify.app.service.UserService;
 
 import jakarta.mail.MessagingException;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -40,30 +41,16 @@ public class EventController {
     @PostMapping("/api/create-event/{userId}")
     public ResponseEntity<String> createEvent(@PathVariable Long userId, @RequestBody EventForm eventRequest) {
         try {
-            try {
-                Optional<User> user = userService.getById(userId);
-                emailService.sendCreationEventConfirm(user.get().getEmail(), eventRequest.getTitle());
-            }  catch (MessagingException e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La mail non è stata inviata");
+            Optional<User> user = userService.getById(userId);
+            String response = eventService.createEvent(userId, eventRequest);
+            emailService.sendCreationEventConfirm(user.get().getEmail(), eventRequest.getTitle());
+            if (response.equals("Evento creato con successo")) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(response);
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
             }
-            return ResponseEntity.ok(eventService.createEvent(userId, eventRequest));
-        // try {
-        //     String response = eventService.createEvent(userId, eventRequest);
-        //     if (response.equals("Evento creato con successo")) {
-        //         Event event = new Event(
-        //             eventRequest.getTitle(),
-        //             eventRequest.getDescription(),
-        //             eventRequest.getDateTime(),
-        //             eventRequest.getPlace(),
-        //             null, // Considera come gestire le foto
-        //             null, // Considera come gestire i partecipanti
-        //             userService.getById(userId).get(),
-        //             eventRequest.getCategory()
-        //         );
-        //         eventService.updateEvent(event);
-        //     }
-        //     return ResponseEntity.status(HttpStatus.CREATED).body("Event created with ID: " + createdEvent.getId());
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating the event: " + e.getMessage());
         }
     }

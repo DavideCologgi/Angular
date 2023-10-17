@@ -122,7 +122,7 @@ public class AuthenticationController {  //GENERALIZZARE ERRORI, CONSIGLIO  OWAS
             refreshTokenCookie.setSecure(true);
             Date expirationDate = jwtService.extractExpiration(accessToken);
             response.addCookie(refreshTokenCookie);
-            return ResponseEntity.ok(AuthenticationResponse.builder().error(null).accessToken(accessToken).refreshToken(refreshToken).expirationDate(expirationDate).build());
+            return ResponseEntity.ok(AuthenticationResponse.builder().error(null).userId(user.get().getId()).accessToken(accessToken).refreshToken(refreshToken).expirationDate(expirationDate).build());
 
         } catch (NumberFormatException e) {
             System.err.println("Failed to convert the string to an integer: " + e.getMessage());

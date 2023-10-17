@@ -59,6 +59,7 @@ export class TwoFALoginComponent {
 						this.errorMessage = '';
 						console.log(response.data.access_token);
 						window.localStorage.setItem("expiration_date", response.data.expiration_date);
+						window.localStorage.setItem("userId", response.data.userId);
 						console.log(response.data.expiration_date);
 						// this.header.setIsLoggedIn(true);
 						this.router.navigate(['/home']);

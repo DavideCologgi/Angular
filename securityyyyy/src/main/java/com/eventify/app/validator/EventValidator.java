@@ -1,6 +1,7 @@
 package com.eventify.app.validator;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,21 +24,31 @@ public class EventValidator {
             event.getDescription() == null || event.getDescription().isEmpty() ||
             event.getPlace() == null || event.getPlace().isEmpty() ||
             event.getTitle().isEmpty() || event.getCategory() == null ||
-            event.getDateTime() == null || event.getPhotos() == null
-            ) {
+            event.getDateTime() == null)
+        {
             return "All fields must be filled";
         }
         LocalDateTime currentTime = LocalDateTime.now();
 
-        if (event.getDateTime().isBefore(currentTime.plus(24, ChronoUnit.HOURS))) {
-            return "Event date and time must be at least 24 hours from now";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
+
+        try {
+            System.out.println("\n\n\n\n" + event.getDateTime() + "\n\n\n\n");
+            LocalDateTime dateTime = LocalDateTime.parse(event.getDateTime(), formatter);
+            System.out.println("\n\n\n\n" + "yeii" + "\n\n\n\n");
+            if (dateTime.isBefore(currentTime.plus(24, ChronoUnit.HOURS))) {
+                return "Event date and time must be at least 24 hours from now";
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "invalid date";
         }
 
-        for (MultipartFile photo : event.getPhotos()) {
-            if (!isImageFile(photo)) {
-                return "Invalid image file format in event photos. Only image files are allowed.";
-            }
-        }
+        // for (MultipartFile photo : event.getPhotos()) {
+        //     if (!isImageFile(photo)) {
+        //         return "Invalid image file format in event photos. Only image files are allowed.";
+        //     }
+        // }
         return null;
 	}
 

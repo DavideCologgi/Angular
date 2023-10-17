@@ -13,7 +13,7 @@
 		  <textarea id="descrizione" placeholder="Descrizione" #descriptionField></textarea>
 		</mat-form-field>
 		<mat-form-field>
-		  <input type="date" id="date" #dateTimeField/>
+		  <input type="datetime-local" id="date" #dateTimeField/>
 		</mat-form-field>
 		<mat-form-field>
 		  <input type="text" id="luogo" placeholder="Luogo" #placeField/>
@@ -21,8 +21,20 @@
 		<mat-form-field>
 		  <select class="custom-select" id="categoria" placeholder="Categoria" #categoryField>
 			<option value="" disabled selected hidden>Categoria evento</option>
-			<option value="social">Social</option>
-			<option value="pupone">Pupone</option>
+			<option value="PARTY">Party</option>
+			<option value="GYM">Gym</option>
+			<option value="ROLEGAME">Rolegame</option>
+			<option value="SPORT">Sport</option>
+			<option value="MEETING">Meeting</option>
+			<option value="CONFERENCE">Conference</option>
+			<option value="NETWORKING">Networking</option>
+			<option value="HOBBY">Hobby</option>
+			<option value="MUSIC">Music</option>
+			<option value="BUSINESS">Business</option>
+			<option value="FOOD">Food</option>
+			<option value="NIGHTLIFE">Nightlife</option>
+			<option value="HEALTH">Health</option>
+			<option value="HOLIDAYS">Holidays</option>
 		  </select>
 		</mat-form-field>
 		<mat-card-footer class="actions">

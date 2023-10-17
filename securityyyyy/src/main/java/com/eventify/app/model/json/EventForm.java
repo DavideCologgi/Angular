@@ -1,6 +1,5 @@
 package com.eventify.app.model.json;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -31,14 +30,14 @@ public class EventForm {
 
     @NotNull(message = "date is mandatory")
     @NotBlank(message = "date is mandatory")
-    private LocalDateTime dateTime;
+    private String dateTime;
 
     @NotNull(message = "place is mandatory")
     @NotBlank(message = "place is mandatory")
     private String place;
 
-    @NotNull(message = "photos is mandatory")
-    @NotBlank(message = "photos is mandatory")
+    // @NotNull(message = "photos is mandatory")
+    // @NotBlank(message = "photos is mandatory")
     private List<MultipartFile> photos;
 
     private Categories category;
@@ -59,11 +58,11 @@ public class EventForm {
         this.description = description;
     }
 
-    public LocalDateTime getDateTime() {
+    public @NotNull(message = "date is mandatory") @NotBlank(message = "date is mandatory") String getDateTime() {
         return this.dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
+    public void setDateTime(@NotNull(message = "date is mandatory") @NotBlank(message = "date is mandatory") String dateTime) {
         this.dateTime = dateTime;
     }
 
