@@ -1,9 +1,9 @@
 package com.eventify.app.controller.api;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eventify.app.model.Event;
 import com.eventify.app.model.User;
 import com.eventify.app.model.enums.Categories;
-import com.eventify.app.model.json.EventRegistrationDto;
+import com.eventify.app.model.json.EventForm;
 import com.eventify.app.repository.IEventRepository;
+import com.eventify.app.service.EmailService;
 import com.eventify.app.service.EventService;
 import com.eventify.app.service.UserService;
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,23 +33,42 @@ import lombok.RequiredArgsConstructor;
 public class EventController {
 
     private final IEventRepository eventRepository;
+    private final EmailService emailService;
     private final EventService eventService;
     private final UserService userService;
 
-    @PostMapping("/api/create-event")
-    public ResponseEntity<String> createEvent(@RequestBody EventRegistrationDto eventRegistrationDto) {
+    @PostMapping("/api/create-event/{userId}")
+    public ResponseEntity<String> createEvent(@PathVariable Long userId, @RequestBody EventForm eventRequest) {
         try {
-            String dateString = eventRegistrationDto.dateTime();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            LocalDateTime localDateTime = LocalDateTime.parse(dateString, formatter);
-            Event createdEvent = Event.builder().place(eventRegistrationDto.place()).dateTime(localDateTime).build();
-            return ResponseEntity.status(HttpStatus.CREATED).body("Event created with ID: " + createdEvent.getId());
+            try {
+                Optional<User> user = userService.getById(userId);
+                emailService.sendCreationEventConfirm(user.get().getEmail(), eventRequest.getTitle());
+            }  catch (MessagingException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La mail non è stata inviata");
+            }
+            return ResponseEntity.ok(eventService.createEvent(userId, eventRequest));
+        // try {
+        //     String response = eventService.createEvent(userId, eventRequest);
+        //     if (response.equals("Evento creato con successo")) {
+        //         Event event = new Event(
+        //             eventRequest.getTitle(),
+        //             eventRequest.getDescription(),
+        //             eventRequest.getDateTime(),
+        //             eventRequest.getPlace(),
+        //             null, // Considera come gestire le foto
+        //             null, // Considera come gestire i partecipanti
+        //             userService.getById(userId).get(),
+        //             eventRequest.getCategory()
+        //         );
+        //         eventService.updateEvent(event);
+        //     }
+        //     return ResponseEntity.status(HttpStatus.CREATED).body("Event created with ID: " + createdEvent.getId());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating the event: " + e.getMessage());
         }
     }
 
-    @DeleteMapping("/api/event/delete/{eventId}")//@PathVariable serve a ottenere il valore dell'ID dell'evento direttamente dall'URL della richiesta.
+    @DeleteMapping("/api/event/delete/{eventId}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long eventId) {
         try {
             if (eventRepository.existsById(eventId)) {
@@ -114,6 +135,12 @@ public class EventController {
             participants.add(user);
             event.setParticipants(participants);
             eventService.updateEvent(event);
+
+            try {
+                emailService.sendRegisterEventConfirm(user.getEmail(), event.getTitle());
+            }  catch (MessagingException e) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La mail non è stata inviata");
+            }
             return ResponseEntity.status(HttpStatus.CREATED).body("L'utente è stato registrato per l'evento.");
         }
         return ResponseEntity.notFound().build();
@@ -122,9 +149,11 @@ public class EventController {
     @DeleteMapping("/api/event/{eventId}/unregister/{userId}")
     public ResponseEntity<String> unregisterFromEvent(@PathVariable Long eventId, @PathVariable Long userId) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
+        Optional<User> userOptional = userService.getById(userId);
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
+            User user = userOptional.get();
             List<User> participants = event.getParticipants();
 
             if (participants.size() == 0) {
@@ -133,6 +162,12 @@ public class EventController {
                 if (removed) {
                     event.setParticipants(participants);
                     eventService.updateEvent(event);
+
+                    try {
+                        emailService.sendUnregisterEventConfirm(user.getEmail(), event.getTitle());
+                    }  catch (MessagingException e) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La mail non è stata inviata");
+                    }
                     return ResponseEntity.ok("L'utente è stato cancellato dall'evento.");
                 }
             }
@@ -180,54 +215,141 @@ public class EventController {
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/api/event/{eventId}/change-title")
-    public ResponseEntity<String> changeEventTitle(@PathVariable Long eventId, @RequestParam String newTitle) {
+    @PutMapping("/api/event/{eventId}/change-title/{userId}")
+    public ResponseEntity<String> changeEventTitle(@PathVariable Long eventId, @PathVariable Long userId, @RequestParam String newTitle) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
+        Optional<User> userOptional = userService.getById(userId);
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
-            event.setTitle(newTitle);
-            eventService.updateEvent(event);
-            return ResponseEntity.ok("Titolo dell'evento modificato con successo.");
+            User user = userOptional.get();
+            if (event.getCreator().equals(user)) {
+                event.setTitle(newTitle);
+                eventService.updateEvent(event);
+
+                try {
+                    for (User participant : event.getParticipants()) {
+                        emailService.sendChangesAdviseAboutEvent(participant.getEmail(), event.getTitle());
+                    }
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'invio dell'email");
+                }
+                return ResponseEntity.ok("Titolo dell'evento modificato con successo.");
+            } else
+                return ResponseEntity.ok("Utente non riconosciuto come creator");
         }
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/api/event/{eventId}/change-description")
-    public ResponseEntity<String> changeEventDescription(@PathVariable Long eventId, @RequestParam String newDescription) {
+    @PutMapping("/api/event/{eventId}/change-description/{userId}")
+    public ResponseEntity<String> changeEventDescription(@PathVariable Long eventId, @PathVariable Long userId, @RequestParam String newDescription) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
+        Optional<User> userOptional = userService.getById(userId);
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
-            event.setDescription(newDescription);
-            eventService.updateEvent(event);
-            return ResponseEntity.ok("Descrizione dell'evento modificata con successo.");
+            User user = userOptional.get();
+            if (event.getCreator().equals(user)) {
+                event.setDescription(newDescription);
+                eventService.updateEvent(event);
+
+                try {
+                    for (User participant : event.getParticipants()) {
+                        emailService.sendChangesAdviseAboutEvent(participant.getEmail(), event.getTitle());
+                    }
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'invio dell'email");
+                }
+                return ResponseEntity.ok("Descrizione dell'evento modificata con successo.");
+            } else
+                return ResponseEntity.ok("Utente non riconosciuto come creator");
+
         }
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/api/event/{eventId}/change-date-time")
-    public ResponseEntity<String> changeEventDateTime(@PathVariable Long eventId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime newDateTime) {
+    @PutMapping("/api/event/{eventId}/change-date-time/{userId}")
+    public ResponseEntity<String> changeEventDateTime(@PathVariable Long eventId, @PathVariable Long userId, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime newDateTime) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
+        Optional<User> userOptional = userService.getById(userId);
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
-            event.setDateTime(newDateTime);
-            eventService.updateEvent(event);
-            return ResponseEntity.ok("Data e ora dell'evento modificate con successo.");
+            User user = userOptional.get();
+            if (event.getCreator().equals(user)) {
+                event.setDateTime(newDateTime);
+                eventService.updateEvent(event);
+
+                try {
+                    for (User participant : event.getParticipants()) {
+                        emailService.sendChangesAdviseAboutEvent(participant.getEmail(), event.getTitle());
+                    }
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'invio dell'email");
+                }
+                return ResponseEntity.ok("Data e ora dell'evento modificate con successo.");
+            } else
+                return ResponseEntity.ok("Utente non riconosciuto come creator");
+
         }
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/api/event/{eventId}/change-category")
-    public ResponseEntity<String> changeEventCategory(@PathVariable Long eventId, @RequestParam Categories newCategory) {
+    @PutMapping("/api/event/{eventId}/change-place/{userId}")
+    public ResponseEntity<String> changeEventPlace(@PathVariable Long eventId, @PathVariable Long userId, @RequestParam String place) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
+        Optional<User> userOptional = userService.getById(userId);
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
-            event.setCategory(newCategory);
-            eventService.updateEvent(event);
-            return ResponseEntity.ok("Categoria dell'evento modificata con successo.");
+            User user = userOptional.get();
+            if (event.getCreator().equals(user)) {
+                event.setPlace(place);
+                eventService.updateEvent(event);
+
+                try {
+                    for (User participant : event.getParticipants()) {
+                        emailService.sendChangesAdviseAboutEvent(participant.getEmail(), event.getTitle());
+                    }
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'invio dell'email");
+                }
+                return ResponseEntity.ok("Nuovo luogo dell'evento aggiornato con successo.");
+            } else
+                return ResponseEntity.ok("Utente non riconosciuto come creator");
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/api/event/{eventId}/change-category/{userId}")
+    public ResponseEntity<String> changeEventCategory(@PathVariable Long eventId, @PathVariable Long userId, @RequestParam Categories newCategory) {
+        Optional<Event> eventOptional = eventService.getEventById(eventId);
+        Optional<User> userOptional = userService.getById(userId);
+
+        if (eventOptional.isPresent()) {
+            Event event = eventOptional.get();
+            User user = userOptional.get();
+            if (event.getCreator().equals(user)) {
+                event.setCategory(newCategory);
+                eventService.updateEvent(event);
+
+                try {
+                    for (User participant : event.getParticipants()) {
+                        emailService.sendChangesAdviseAboutEvent(participant.getEmail(), event.getTitle());
+                    }
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore nell'invio dell'email");
+                }
+                return ResponseEntity.ok("Categoria dell'evento modificata con successo.");
+            } else
+                return ResponseEntity.ok("Utente non riconosciuto come creator");
+
         }
         return ResponseEntity.notFound().build();
     }

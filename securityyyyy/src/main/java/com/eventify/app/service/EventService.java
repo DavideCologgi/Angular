@@ -1,24 +1,57 @@
 package com.eventify.app.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventify.app.model.Event;
+import com.eventify.app.model.Photo;
 import com.eventify.app.model.User;
 import com.eventify.app.model.enums.Categories;
+import com.eventify.app.model.json.EventForm;
 import com.eventify.app.repository.IEventRepository;
+import com.eventify.app.validator.EventValidator;
+import com.eventify.app.validator.ObjectsValidator;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class EventService {
-    @Autowired
-    private IEventRepository eventRepository;
 
-    public Event createEvent(Event event) {
-        return eventRepository.save(event);
+    private final IEventRepository eventRepository;
+    private final UserService userService;
+    private final PhotoService photoService;
+    private final EventValidator eventValidator;
+    private final ObjectsValidator<EventForm> validator;
+
+    @Transactional
+    public String createEvent(Long userId, EventForm event) throws Exception {
+        validator.validate(event);
+
+        String errorMessage = null;
+        if ((errorMessage = eventValidator.isFormValid(event)) != null) {
+            return (errorMessage);
+        }
+        Event newEvent = new Event(event.getTitle(), event.getDescription(), event.getDateTime(), event.getPlace(), null, null, null, event.getCategory());
+        eventRepository.save(newEvent);
+
+        for (MultipartFile photo : event.getPhotos()) {
+            Photo pics = photoService.uploadPhoto(photo);
+            photoService.create(pics);
+
+            if (newEvent.getPhotos() == null) {
+                newEvent.setPhotos(new ArrayList<>());
+            }
+            newEvent.getPhotos().add(pics);
+        }
+        newEvent.setCreator(userService.getById(userId).get());
+        updateEvent(newEvent);
+        return ("Evento creato con successo");
     }
 
     public Optional<Event> getEventById(Long id) {
@@ -70,5 +103,5 @@ public class EventService {
 
     public List<Event> getEventsRegisteredByUser(User user) {
         return eventRepository.findByParticipantsContaining(user);
-    }    
+    }
 }

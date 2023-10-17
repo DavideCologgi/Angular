@@ -67,6 +67,17 @@ public class Event {
     @NotNull
     private Categories category;
 
+    public Event(String title, String description, LocalDateTime dateTime, String place, List<Photo> photos, List<User> participants, User creator, Categories category) {
+        this.title = title;
+        this.description = description;
+        this.dateTime = dateTime;
+        this.place = place;
+        this.photos = photos;
+        this.participants = participants;
+        this.creator = creator;
+        this.category = category;
+    }
+
     public Long getId() {
         return id;
     }

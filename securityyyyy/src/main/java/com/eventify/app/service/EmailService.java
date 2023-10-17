@@ -71,4 +71,68 @@ public class EmailService {
         messageHelper.setText("Utilizza il seguente codice OTP per resettare la tua password: \n\n" + otp);
         mailSender.send(mimeMessage);
     }
+
+    public void sendCreationEventConfirm(String email, String title) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        String dateStr = dateFormat.format(new Date());
+        String timeStr = timeFormat.format(new Date());
+
+        messageHelper.setTo(email);
+        messageHelper.setSubject("Registration Confirm");
+        messageHelper.setText("Hai creato con successo l'evento " + title + " il " + dateStr + " alle " + timeStr + ", buonafortuna\n");
+        mailSender.send(mimeMessage);
+    }
+
+    public void sendRegisterEventConfirm(String email, String title) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        String dateStr = dateFormat.format(new Date());
+        String timeStr = timeFormat.format(new Date());
+
+        messageHelper.setTo(email);
+        messageHelper.setSubject("Registration Confirm");
+        messageHelper.setText("Hai effettuato con successo la registrazione all evento " + title + " il " + dateStr + " alle " + timeStr + ", ti terremo aggiornato con un promemoria o per qualsiasi cambiamento a riguardo\n");
+        mailSender.send(mimeMessage);
+    }
+
+    public void sendUnregisterEventConfirm(String email, String title) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        String dateStr = dateFormat.format(new Date());
+        String timeStr = timeFormat.format(new Date());
+
+        messageHelper.setTo(email);
+        messageHelper.setSubject("Registration Confirm");
+        messageHelper.setText("Hai effettuato con successo la tua unregistrazione all evento " + title + " il " + dateStr + " alle " + timeStr + ", ti terremo aggiornato con un promemoria o per qualsiasi cambiamento a riguardo\n");
+        mailSender.send(mimeMessage);
+    }
+
+    public void sendChangesAdviseAboutEvent(String email, String title) throws MessagingException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        String dateStr = dateFormat.format(new Date());
+        String timeStr = timeFormat.format(new Date());
+
+        messageHelper.setTo(email);
+        messageHelper.setSubject("Registration Confirm");
+        messageHelper.setText("L'evento  " + title + " a cui eri registrato il " + dateStr + " alle " + timeStr + " ha apportato delle modifiche, vai sulla pagina per controllare\n");
+        mailSender.send(mimeMessage);
+    }
 }
