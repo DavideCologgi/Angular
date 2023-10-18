@@ -50,7 +50,7 @@
 	height: fit-content;
 }
 
-.bi-person-circle {
+.bi-person {
 	color: rgb(30, 70, 217);
 	margin-left: auto;
 }
@@ -65,3 +65,13 @@
 .logged {
 	display: none;
 }
+
+.bi-bell{
+	color: rgb(255, 0, 0);
+	margin-left: auto;
+}
+
+
+::ng-deep .custom-list {
+	overflow-y: auto;
+  }

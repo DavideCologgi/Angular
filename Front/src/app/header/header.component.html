@@ -8,8 +8,73 @@
 	  <a class="home" routerLink="/home"> Home </a>
 	  <a class="events" routerLink="/event-board"> Events </a>
 	</div>
-	<button mat-button [matMenuTriggerFor]="menu" class="user">
-		<i class="bi bi-person-circle"></i>
+	<button mat-button [matMenuTriggerFor]="notifiche" class="user">
+		<i class="bi-bell"></i>
+		</button>
+		<mat-menu #notifiche="matMenu">
+			<mat-list class="custom-list">
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 1</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+			  <!-- Aggiungi altri elementi dinamici qui -->
+			</mat-list>
+		  </mat-menu>
+
+<button mat-button [matMenuTriggerFor]="menu" class="user">
+	<i class="bi bi-person"></i>
 	</button>
 	<mat-menu class="menu" #menu="matMenu">
 		<a mat-menu-item routerLink="/home">Home</a>
