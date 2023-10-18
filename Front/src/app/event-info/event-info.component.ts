@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatListModule} from '@angular/material/list';
+import { Input } from '@angular/core';
 
 @Component({
 	selector: 'app-event-info',
@@ -16,6 +17,21 @@ import {MatListModule} from '@angular/material/list';
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
   })
   export class EventInfoComponent {
+
+	@Input() event: any;
+
+  ngOnInit() {
+    if (!this.event) {
+      // Se l'evento non è stato fornito, crea un evento di esempio
+      this.event = {
+        title: 'Evento di esempio',
+        category: 'Esempio',
+        description: 'Questo è un evento di esempio.',
+        address: 'Indirizzo di esempio',
+        date: new Date().toISOString()
+      };
+    }
+  }
 
 	registrationButtonLabel: string = 'Register';
 	isRegistered: boolean = false;

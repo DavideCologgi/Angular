@@ -16,8 +16,8 @@ section {
   }
 
   swiper-slide {
-	width: 425px !important;
-	height: 700px !important;
+	width: auto; /* 33.33% della larghezza del contenitore */
+	height: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
