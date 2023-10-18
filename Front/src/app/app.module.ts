@@ -1,37 +1,40 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { IonicModule } from '@ionic/angular';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { EventBoardComponent } from './event-board/event-board.component';
 import { EventCardComponent } from './event-card/event-card.component';
 import { EventCreationComponent } from './event-creation/event-creation.component';
-import { MatCardModule } from '@angular/material/card';
 import { EventInfoComponent } from './event-info/event-info.component';
-import { MatIconModule } from '@angular/material/icon';
-import { register } from 'swiper/element/bundle';
 import { EventBlankComponent } from './event-blank/event-blank.component';
 import { TwoFALoginComponent } from './two-fa-login/two-fa-login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EventPersonalComponent } from './event-personal/event-personal.component';
+
+
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ProfileComponent } from './profile/profile.component';
-import { EventPersonalComponent } from './event-personal/event-personal.component';
+
+import { IonicModule } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { register } from 'swiper/element/bundle';
 register();
 
 @NgModule({
@@ -47,13 +50,13 @@ register();
 		EventBoardComponent,
 		EventCardComponent,
 		EventCreationComponent,
-		EventInfoComponent,
 		EventBlankComponent,
 		TwoFALoginComponent,
 		ProfileComponent,
 		EventPersonalComponent,
 	],
 	imports: [
+		EventInfoComponent,
 		BrowserModule,
 		AppRoutingModule,
 		IonicModule,

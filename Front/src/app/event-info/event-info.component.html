@@ -37,9 +37,9 @@
 				<button mat-fab class="join-button" [ngClass]="getButtonClass()" (click)="toggleRegistration()">
 					<mat-icon>{{ isRegistered ? 'clear' : 'done' }}</mat-icon>
 				</button>
-				<button mat-fab class="people-button" (click)="togglePeopleList()">
+				<button mat-fab class="people-button" (click)="openDialog()">
 					<mat-icon>people</mat-icon>
-				</button>
+				  </button>
 				<button mat-fab class="delete-button" (click)="deleteEvent()">
 					<mat-icon>delete</mat-icon>
 				</button>
