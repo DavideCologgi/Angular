@@ -11,16 +11,17 @@
 	<button mat-button [matMenuTriggerFor]="notifiche" class="user">
 		<i class="bi-bell"></i>
 		</button>
+		<div style="max-height: 300px; overflow-y: scroll;">
 		<mat-menu #notifiche="matMenu">
 			<mat-list class="custom-list">
-			  <button mat-menu-item [disabled]="true">Elemento 1</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
-			  <button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 1</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
+					<button mat-menu-item [disabled]="true">Elemento 2</button>
 			  <button mat-menu-item [disabled]="true">Elemento 1</button>
 			  <button mat-menu-item [disabled]="true">Elemento 2</button>
 			  <button mat-menu-item [disabled]="true">Elemento 2</button>
@@ -71,14 +72,15 @@
 			  <button mat-menu-item [disabled]="true">Elemento 2</button>
 			  <!-- Aggiungi altri elementi dinamici qui -->
 			</mat-list>
-		  </mat-menu>
+		</mat-menu>
+	</div>
 
-<button mat-button [matMenuTriggerFor]="menu" class="user">
-	<i class="bi bi-person"></i>
-	</button>
-	<mat-menu class="menu" #menu="matMenu">
-		<a mat-menu-item routerLink="/home">Home</a>
-		<a mat-menu-item routerLink="/event-board" (click)="updateRedirection('/event'); authenticate()">Board</a>
+		<button mat-button [matMenuTriggerFor]="menu" class="user">
+			<i class="bi bi-person"></i>
+		</button>
+		<mat-menu #menu="matMenu">
+			<a mat-menu-item routerLink="/home">Home</a>
+			<a mat-menu-item routerLink="/event-board" (click)="updateRedirection('/event'); authenticate()">Board</a>
 		<a mat-menu-item routerLink="/my-events">My Events</a>
 		<a class="not-logged" mat-menu-item routerLink="/login">Sign in</a>
 		<a class="not-logged" mat-menu-item routerLink="/register">Register</a>

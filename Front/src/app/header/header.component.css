@@ -72,6 +72,11 @@
 }
 
 
-::ng-deep .custom-list {
+.custom-list {
+	height: 200px;
 	overflow-y: auto;
+  }
+
+  .mat-mdc-menu-panel{
+	height: 20px !important;
   }
