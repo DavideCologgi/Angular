@@ -37,7 +37,12 @@
 .category {
 	font-size: 15px;
 	color: rgb(38, 0, 255);
-	margin-left: 5px;
+	position: absolute; /* Posizionamento assoluto */
+	top: 10px; /* Distanza dalla parte superiore */
+	right: 10px; /* Distanza dalla parte destra */
+	background: rgba(255, 255, 255, 0.7); /* Sfondo opaco */
+	border-radius: 5px;
+	padding: 5px 10px;
 }
 
 .description {

@@ -25,23 +25,14 @@ export class EventBoardComponent {
         address: 'Indirizzo 1',
         date: '2023-10-20T20:00:00'
       },
-      {
+	  {
         id: 2,
         title: 'Evento 2',
-        category: 'Sport',
+        category: 'Social',
         description: 'Descrizione dell\'evento 2',
         address: 'Indirizzo 2',
-        date: '2023-10-22T18:30:00'
+        date: '2023-10-20T20:00:00'
       },
-	  {
-        id: 3,
-        title: 'Evento 3',
-        category: 'Sport',
-        description: 'Descrizione dell\'evento 2',
-        address: 'Indirizzo 2',
-        date: '2023-10-22T18:30:00'
-      }
-      // Aggiungi altri eventi qui
     ];
   }
 }

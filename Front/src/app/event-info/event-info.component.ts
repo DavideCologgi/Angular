@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import {CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {MatListModule} from '@angular/material/list';
 
 @Component({
 	selector: 'app-event-info',
@@ -28,7 +29,7 @@ import { CommonModule } from '@angular/common';
   	getButtonClass() {
 		return this.isRegistered ? 'red-button' : 'join-button';
 	}
-	
+
 	deleteEvent() {
 		// logica cancellazione evento
 	}
@@ -48,7 +49,7 @@ import { CommonModule } from '@angular/common';
 	selector: 'dialog-content-example-dialog',
 	templateUrl: './people-list.html',
 	standalone: true,
-	imports: [MatDialogModule, MatButtonModule],
+	imports: [MatDialogModule, MatButtonModule,MatListModule],
   })
   export class PeopleList {
 
