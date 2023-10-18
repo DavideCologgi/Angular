@@ -13,7 +13,7 @@ section {
 
 .mat-mdc-card {
 	border-radius: var(--mdc-elevated-card-container-shape);
-	background-color: #000000ce;
+	background-color: #002f4985;
 	border-width: 0;
 	border-style: solid;
 	border-color: var(--mdc-elevated-card-container-color);
@@ -26,7 +26,7 @@ section {
 .mat-card {
 	color: white;
 	border-radius: 10px;
-	background: rgb(0, 0, 0);
+	background: rgba(65, 28, 4, 0.562);
 	/* Imposta l'opacità desiderata per la card */
 	backdrop-filter: blur(15px);
 	margin: 1em;
@@ -41,12 +41,6 @@ h2 {
 	font-size: 2em;
 	color: #fff;
 	text-align: center;
-}
-
-.mat-card-content {
-	flex: 1;
-	overflow: auto;
-	flex-direction: column;
 }
 
 label {
@@ -82,5 +76,29 @@ textarea {
 	outline: none;
 	font-size: 18px;
 }
+
+
+.mat-form-field {
+	width: 100%;
+	margin-bottom: 1em; /* Aggiungi spazio tra i campi */
+  }
+
+  /* Stile comune per input, textarea e select */
+  input, textarea, select {
+	width: 100%;
+	padding: 10px 20px;
+	border: none;
+	border-bottom: 1px solid #caced1;
+	background: transparent;
+	color: #fff;
+	outline: none;
+	font-size: 18px;
+  }
+
+  /* Stile per i placeholder */
+  ::placeholder {
+	color: rgb(255, 255, 255);
+	font-size: large;
+  }
 
 

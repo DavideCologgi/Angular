@@ -1,49 +1,23 @@
 <section>
-	<mat-card>
-	  <mat-card-header>
-		<div>
-		  <h2>Crea un nuovo evento</h2>
-		</div>
-	  </mat-card-header>
-	  <form (submit)="onFormSubmit($event)">
-		<mat-form-field>
-		  <input type="text" placeholder="Titolo" #titleField/>
-		</mat-form-field>
-		<mat-form-field>
-		  <textarea id="descrizione" placeholder="Descrizione" #descriptionField></textarea>
-		</mat-form-field>
-		<mat-form-field>
-		  <input type="datetime-local" id="date" #dateTimeField/>
-		</mat-form-field>
-		<mat-form-field>
-		  <input type="text" id="luogo" placeholder="Luogo" #placeField/>
-		</mat-form-field>
-		<mat-form-field>
-		  <select class="custom-select" id="categoria" placeholder="Categoria" #categoryField>
-			<option value="" disabled selected hidden>Categoria evento</option>
-			<option value="PARTY">Party</option>
-			<option value="GYM">Gym</option>
-			<option value="ROLEGAME">Rolegame</option>
-			<option value="SPORT">Sport</option>
-			<option value="MEETING">Meeting</option>
-			<option value="CONFERENCE">Conference</option>
-			<option value="NETWORKING">Networking</option>
-			<option value="HOBBY">Hobby</option>
-			<option value="MUSIC">Music</option>
-			<option value="BUSINESS">Business</option>
-			<option value="FOOD">Food</option>
-			<option value="NIGHTLIFE">Nightlife</option>
-			<option value="HEALTH">Health</option>
-			<option value="HOLIDAYS">Holidays</option>
-		  </select>
-		</mat-form-field>
-		<mat-card-footer class="actions">
+<mat-card>
+	<mat-card-header>
+	  <div>
+		<h2>Crea un nuovo evento</h2>
+	  </div>
+	</mat-card-header>
+	<mat-card-content>
+	  <form (ngSubmit)="onSubmit()">
+			<input matInput type="text" placeholder="Nome evento" [(ngModel)]="newEvent.name" name="name">
+			<textarea matInput placeholder="Descrizione" [(ngModel)]="newEvent.description" name="description"></textarea>
+			<input matInput type="text" placeholder="Luogo" [(ngModel)]="newEvent.location" name="location">
+		  <input type="datetime-local" id="dateTime" name="dateTime" [(ngModel)]="newEvent.dateTime">
+			<input type="file" name="image" accept="image/*" multiple>
+		<div class="actions">
 		  <div class="button-container">
-			<button mat-fab class="create-button" type="submit">
-			  <mat-icon>check</mat-icon>
-			</button>
+			<button mat-raised-button type="submit" (click)="onSubmit()">Crea</button>
 		  </div>
-		</mat-card-footer>
+		</div>
 	  </form>
-	</mat-card>
-  </section>
+	</mat-card-content>
+  </mat-card>
+</section>

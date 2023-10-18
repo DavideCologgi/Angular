@@ -5,20 +5,20 @@
 				<h2>Create a new profile</h2>
 				<div class="inputbox">
 					<div class="input-container">
-					  <input type="text" id="firstName" formControlName="firstName">
-					  <label for="firstName">First name</label>
-					</div>
-					<div class="alert" *ngIf="registerForm.get('firstName')?.hasError('pattern')">
-						Invalid first name!
+						<label for="firstName">First name</label>
+						<input type="text" id="firstName" formControlName="firstName">
+						<div class="alert" *ngIf="registerForm.get('firstName')?.hasError('pattern')">
+							Invalid first name!
+						</div>
 					</div>
 				</div>
 				<div class="inputbox">
 					<div class="input-container">
-						<input type="text" id="lastName" formControlName="lastName">
 						<label for="lastName">Last name</label>
-					</div>
-					<div class="alert" *ngIf="registerForm.get('lastName')?.hasError('pattern')">
-						Invalid last name!
+						<input type="text" id="lastName" formControlName="lastName">
+						<div class="alert" *ngIf="registerForm.get('lastName')?.hasError('pattern')">
+							Invalid last name!
+						</div>
 					</div>
 				</div>
 				<div class="inputbox date">
@@ -32,8 +32,8 @@
 				</div>
 				<div class="inputbox">
 					<div class="input-container">
-						<input type="email" formControlName="email">
 						<label for="email">Email</label>
+						<input type="email" formControlName="email">
 						<div class="alert" *ngIf="registerForm.get('email')?.hasError('pattern')">
 							Invalid email!
 						</div>
@@ -42,12 +42,13 @@
 				<div class="inputbox password">
 					<div class="input-container">
 						<div class="password-container">
+							<label for="password">Password</label>
 							<input type="{{ isPasswordVisible ? 'text' : 'password' }}" id="password" formControlName="password">
-							<span class="bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></span>
+							<i class="bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></i>
 						</div>
-						<label for="password">Password</label>
 						<div class="alert" *ngIf="(registerForm.get('password')?.hasError('pattern')) || (registerForm.get('password')?.hasError('minlength'))">
-							Password must be long at least 8 characters. <p>
+							Password must contain at least one capital letter. <br>
+							Password must be long at least 8 characters. <br>
 							Password must contain at least one number and one special character.
 						</div>
 					</div>
@@ -55,10 +56,10 @@
 				<div class="inputbox confirm-password">
 					<div class="input-container">
 						<div class="password-container">
+							<label for="confirm-password">Confirm password</label>
 							<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="confirmPassword" formControlName="confirmPassword">
 							<span class="bi" [ngClass]="{'bi-eye': !isPassword2Visible, 'bi-eye-slash': isPassword2Visible}" (click)="togglePasswordVisibility2()"></span>
 						</div>
-						<label for="confirm-password">Confirm password</label>
 						<div class="alert" *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
 							Password does not match
 						</div>
@@ -66,15 +67,15 @@
 				</div>
 				<div class="inputbox upload">
 					<div class="input-container">
+						<label for="fileInput" class="custom-upload">Upload photo</label>
 						<input type="file" #fileInput id="file" formControlName="photo">
-						<label for="fileInput" class="custom-upload">Upload profile photo</label>
 						<span id="fileName" class="file-name"></span>
 					</div>
 				</div>
 				<div class="inputbox privacy">
 					<div class="input-container">
-						<input type="checkbox" class="checkbox" formControlName="privacy">
 						<label for="privacy">Accept terms and conditions</label>
+						<input type="checkbox" class="checkbox" formControlName="privacy">
 					</div>
 				</div>
 				<button type="submit" [disabled]="!registerForm.valid">Register</button>

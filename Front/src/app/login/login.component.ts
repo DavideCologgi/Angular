@@ -1,11 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AxiosService } from '../axios.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
 	selector: 'app-login',
-	template: 'Bonfire/login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css'],
 })

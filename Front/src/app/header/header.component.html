@@ -1,22 +1,23 @@
-  <nav class="navbar">
-    <div class="logo">
-      <a href="#">
-      <img src="assets/Eventify.jpg" alt="Eventify Logo">
-      </a>
-    </div>
-    <div class="nav-links">
-      <a class="home" routerLink="/home"> Home </a>
-      <a class="events" routerLink="/event-board" (click)="updateRedirection('/event'); authenticate()"> Events </a>
-    </div>
-    <button mat-button [matMenuTriggerFor]="menu" class="user">
-      <i class="bi bi-person-circle"></i>
-    </button>
-    <mat-menu class="menu" #menu="matMenu">
-      <a mat-menu-item routerLink="/home">Home</a>
-      <a mat-menu-item routerLink="/event-board" (click)="updateRedirection('/event'); authenticate()">Events</a>
-      <a [ngClass]="{'not-logged': !isLoggedIn, 'logged': isLoggedIn}" mat-menu-item routerLink="/login">Sign in</a>
-      <a [ngClass]="{'not-logged': !isLoggedIn, 'logged': isLoggedIn}" mat-menu-item routerLink="/register">Register</a>
-      <a [ngClass]="{'not-logged': !isLoggedIn, 'logged': isLoggedIn}" mat-menu-item routerLink="/profile" *ngIf="isLoggedIn">Profile</a>
-      <a [ngClass]="{'not-logged': !isLoggedIn, 'logged': isLoggedIn}" mat-menu-item routerLink="/home" (click)="logout()">Log out</a>
-    </mat-menu>
-    </nav>
+<nav class="navbar">
+	<div class="logo">
+	  <a href="#">
+		<img src="assets/Eventify.png" alt="Eventify Logo">
+	  </a>
+	</div>
+	<div class="nav-links">
+	  <a class="home" routerLink="/home"> Home </a>
+	  <a class="events" routerLink="/event-board"> Events </a>
+	</div>
+	<button mat-button [matMenuTriggerFor]="menu" class="user">
+		<i class="bi bi-person-circle"></i>
+	</button>
+	<mat-menu class="menu" #menu="matMenu">
+		<a mat-menu-item routerLink="/home">Home</a>
+		<a mat-menu-item routerLink="/event-board" (click)="updateRedirection('/event'); authenticate()">Board</a>
+		<a mat-menu-item routerLink="/my-events">My Events</a>
+		<a class="not-logged" mat-menu-item routerLink="/login">Sign in</a>
+		<a class="not-logged" mat-menu-item routerLink="/register">Register</a>
+		<a mat-menu-item routerLink="/profile">Profile</a>
+		<a class="not-logged" mat-menu-item (click)="logout()">Log out</a>
+	</mat-menu>
+  </nav>

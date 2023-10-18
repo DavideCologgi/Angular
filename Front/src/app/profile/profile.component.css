@@ -1,0 +1,24 @@
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	width: 100%;
+	min-height: 80vh;
+	background-image: white;
+	background-size: cover;
+	background-position: center;
+}
+
+  .example-card {
+	width: 30%;
+	margin-bottom: 8px;
+	color: rgb(255, 255, 255);
+	border-radius: 10px;
+	background: transparent;
+	background-color: rgba(0, 0, 0, 0.342);
+	backdrop-filter: blur(15px);
+	display: flex;
+	flex-direction: column;
+	position: relative;
+  }
+

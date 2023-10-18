@@ -2,9 +2,10 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	background-color: #fff;
+	background-color:#FAF9F9;
 	height: 10%;
 	flex-wrap: wrap;
+	border-bottom: 1px solid black;
 }
 
 .logo {
@@ -33,7 +34,8 @@
 
 .home,
 .events {
-	font-size: 40px;
+	font-size: 50px;
+	font: bold;
 	flex: 1;
 	text-align: center;
 	text-decoration: none;

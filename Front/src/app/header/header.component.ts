@@ -20,6 +20,7 @@ export class HeaderComponent {
       .request2("POST", "api/auth/logout", {})
       .then((response) => {
         this.isLoggedIn = false
+        //not logged
         this.router.navigate(['/login'])
       })
       .catch((error) => {

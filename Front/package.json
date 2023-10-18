@@ -25,8 +25,10 @@
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.1",
     "jquery": "^3.7.1",
+    "material": "^0.5.3",
     "ngx-bootstrap": "^11.0.2",
     "rxjs": "~7.8.0",
+    "service": "^0.1.4",
     "swiper": "^10.3.1",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

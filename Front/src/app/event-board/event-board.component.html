@@ -1,16 +1,8 @@
 <section>
-	<swiper-container class="custom-swiper" navigation="true" pagination="true" pagination-clickable="true" slides-per-view="3" free-mode="true" space-between= "-200">
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-card></app-event-card></swiper-slide>
-		<swiper-slide class="slide-content"><app-event-blank></app-event-blank></swiper-slide>
+	<swiper-container class="custom-swiper" navigation="true" pagination="true" pagination-clickable="true" slides-per-view="1" free-mode="true" space-between="-200">
+	  <swiper-slide *ngFor="let event of events" class="slide-content">
+		<app-event-card [event]="event"></app-event-card>
+	</swiper-slide>
+	  <swiper-slide class="slide-content"><app-event-blank></app-event-blank></swiper-slide>
 	</swiper-container>
-</section>
+  </section>

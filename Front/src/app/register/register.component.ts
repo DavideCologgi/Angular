@@ -1,5 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AxiosService } from '../axios.service';
 import { Router } from '@angular/router';
 import axios from 'axios';
@@ -9,7 +9,6 @@ import axios from 'axios';
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.css'],
 })
-
 export class RegisterComponent {
 	showError = false;
 	errorMessage = '';
@@ -54,7 +53,7 @@ export class RegisterComponent {
 				[
 					Validators.required,
 					Validators.minLength(8),
-					Validators.pattern(/^(?=.*[!@#$%^&*()_+[\]{}|~`<>?,.:;'"\\])(?=.*\d).*$/)
+					Validators.pattern(/^(?=.*[!@#$%^&*()_+[\]{}|~`<>?,.:;'"\\])(?=.*\d)(?=.*[A-Z]).*$/)
 				]
 			],
 			confirmPassword: [
@@ -150,67 +149,4 @@ export class RegisterComponent {
 			// Dati inseriti errati
 		}
 	}
-
-	// onSubmitRegister(): void {
-	// 	console.log(11)
-	// 	this.axiosService.request(
-	// 		"POST",
-	// 		"/api/auth/signup",
-	// 		{
-	// 		firstName: this.registerForm?.get('firstName')?.value,
-	// 		lastName: this.registerForm?.get('lastName')?.value,
-  //     dateOfBirth: this.registerForm?.get('dateOfBirth')?.value,
-	// 		email: this.registerForm?.get('email')?.value,
-	// 		password: this.registerForm?.get('password')?.value,
-	// 		confirmPassword: this.registerForm?.get('confirmPassword')?.value,
-	// 		fileName: this.registerForm?.get('fileName')?.value
-	// 		}
-	// 	);
-	// }
-
-  // onSubmitRegister(): void {
-  //   console.log(11);
-  //   const formData = new FormData();
-  //   formData.append('firstName', this.registerForm?.get('firstName')?.value);
-  //   formData.append('lastName', this.registerForm?.get('lastName')?.value);
-  //   formData.append('dateOfBirth', this.registerForm?.get('dateOfBirth')?.value);
-  //   formData.append('email', this.registerForm?.get('email')?.value);
-  //   formData.append('password', this.registerForm?.get('password')?.value);
-  //   formData.append('confirmPassword', this.registerForm?.get('confirmPassword')?.value);
-  //   formData.append('checkbox', this.registerForm?.get('privacy')?.value);
-
-  //   if (this.fileInput.nativeElement.files[0]) {
-  //     formData.append('photo', this.fileInput.nativeElement.files[0]);
-  //   } else {
-  //     const emptyBlob = new Blob([], { type: 'application/octet-stream' });
-  //     formData.append('photo', emptyBlob, 'empty.jpg');
-  //   }
-
-  //   if (this.registerForm?.get('dateOfBirth')?.value) {
-  //     formData.append('dateOfBirth', this.registerForm?.get('dateOfBirth')?.value);
-  //   } else {
-  //     formData.append('dateOfBirth', '0000-00-00');
-  //   }
-
-  //   axios.post("/api/auth/signup", formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     },
-  //     withCredentials: true,
-  //   })
-  //   .then(response => {
-  //     if (response.data === "Registered Succesfully") {
-  //       this.showError = false;
-  //       this.errorMessage = '';
-  //       this.router.navigate(['/login']);
-  //     } else {
-  //       this.showError = true;
-  //       this.errorMessage = response.data;
-  //     }
-  //   })
-  //   .catch(error => {
-  //     this.showError = true;
-  //     this.errorMessage = 'An unknown error occurred';
-  //   });
-  // }
 }

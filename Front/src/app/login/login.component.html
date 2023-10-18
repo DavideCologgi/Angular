@@ -1,37 +1,3 @@
-<!-- <main>
-    <section>
-        <div class="form-box">
-            <div class="form-value">
-                <form (ngSubmit)="onSubmitLogin()" #LoginForm="ngForm" >
-                    <h2>Login</h2>
-                        <div class="inputbox">
-                            <span class="bi"><i class="bi bi-envelope"></i></span>
-                            <input type="email" required placeholder="" [(ngModel)]="email" name="email">
-                            <label for="">Email</label>
-                        </div>
-                    <div class="inputbox">
-                        <span class="bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></span>
-                        <input type="{{ isPasswordVisible ? 'text' : 'password' }}" required placeholder="" [(ngModel)]="password" name="password">
-                        <label for="">Password</label>
-                    </div>
-                    <div class="forget">
-                        <label for=""><input type="checkbox">Remember Me  <a href="#">Forget Password?</a></label>
-                    </div>
-                    <button>Log in</button>
-                    <div class="inputbox error">
-                        <div class="error-message" *ngIf="showError">
-                            {{ errorMessage }}
-                        </div>
-                    </div>
-                    <div class="register">
-                        <p>Don't have an account? <a href="#" routerLink="/register">Register here</a></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-</main> -->
-
 <section>
     <div class="form-box">
         <div class="form-value">
