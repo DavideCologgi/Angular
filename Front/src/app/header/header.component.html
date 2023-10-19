@@ -9,7 +9,7 @@
 	<button mat-icon-button routerLink="/event-board">
 		<mat-icon class="icon-color">calendar_today</mat-icon>
 	</button>
-	<button mat-icon-button [matMenuTriggerFor]="notifiche">
+	<button mat-icon-button [matMenuTriggerFor]="notifiche" (menuOpened)="resetNumeroNotifiche()">
 		<mat-icon [matBadge]="numeroNotifiche" matBadgeSize="small" [matBadgeHidden]="numeroNotifiche == 0" matBadgeColor="warn">alarm</mat-icon>
 	  </button>
 

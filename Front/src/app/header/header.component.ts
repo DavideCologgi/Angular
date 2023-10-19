@@ -53,4 +53,8 @@ export class HeaderComponent {
         	this.router.navigate(['/login']);
 			  })
   }
+
+  resetNumeroNotifiche() {
+	this.numeroNotifiche = 0;
+  }
 }
