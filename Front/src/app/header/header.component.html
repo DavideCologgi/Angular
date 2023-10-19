@@ -1,15 +1,17 @@
 <nav class="navbar">
-	<div class="logo">
-		<a href="#">
-			<img src="assets/Eventify.png" alt="Eventify Logo">
-		</a>
-	</div>
-		<mat-icon routerLink="/home">home</mat-icon>
+	<p class="title">Eventify</p>
+	<button mat-icon-button routerLink="/home">
+		<mat-icon class = "icon-color">home</mat-icon>
+	</button>
 	<!-- <button mat-button class="events" (click)="updateRedirection('/event-board'); authenticate()">
 		<i class="bi-calendar-date"></i>
 	</button> -->
-		<mat-icon routerLink="/event-board">calendar_today</mat-icon>
-		<mat-icon [matMenuTriggerFor]="notifiche">alarm</mat-icon>
+	<button mat-icon-button routerLink="/event-board">
+		<mat-icon class = "icon-color">calendar_today</mat-icon>
+	</button>
+	<button mat-icon-button [matMenuTriggerFor]="notifiche" matBadge="0" matBadgeColor="warn">
+		<mat-icon class = "icon-color">alarm</mat-icon>
+	</button>
 	<div style="max-height: 300px; overflow-y: scroll;">
 		<mat-menu #notifiche="matMenu">
 			<mat-list class="custom-list">
@@ -74,8 +76,8 @@
 		</mat-menu>
 	</div>
 
-	<button mat-button [matMenuTriggerFor]="menu" class="user">
-		<i class="bi bi-person"></i>
+	<button mat-icon-button [matMenuTriggerFor]="menu">
+		<mat-icon class="icon-color">person</mat-icon>
 	</button>
 	<mat-menu class="menu" #menu="matMenu">
 		<a mat-menu-item routerLink="/home">Home</a>
