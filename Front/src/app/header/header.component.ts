@@ -12,8 +12,10 @@ export class HeaderComponent {
 
   redirection = '';
   isLoggedIn: boolean = false;
-
-  constructor(private router: Router, private axiosService: AxiosService) {}
+  numeroNotifiche: any;
+  constructor(private router: Router, private axiosService: AxiosService) {
+	this.numeroNotifiche = 5;
+  }
 
   logout() {
     this.axiosService
