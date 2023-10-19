@@ -4,8 +4,8 @@
 			<form [formGroup]="registerForm" action="" (ngSubmit)="onSubmit()">
 				<h2>Create a new profile</h2>
 				<div class="inputbox">
+					<label for="firstName">First name</label>
 					<div class="input-container">
-						<label for="firstName">First name</label>
 						<input type="text" id="firstName" formControlName="firstName">
 						<div class="alert" *ngIf="registerForm.get('firstName')?.hasError('pattern')">
 							Invalid first name!
@@ -13,8 +13,8 @@
 					</div>
 				</div>
 				<div class="inputbox">
+					<label for="lastName">Last name</label>
 					<div class="input-container">
-						<label for="lastName">Last name</label>
 						<input type="text" id="lastName" formControlName="lastName">
 						<div class="alert" *ngIf="registerForm.get('lastName')?.hasError('pattern')">
 							Invalid last name!
@@ -22,8 +22,8 @@
 					</div>
 				</div>
 				<div class="inputbox date">
+					<label for="dateOfBirth">Date of birth</label>
 					<div class="input-container">
-						<label for="dateOfBirth">Date of birth</label>
 						<input type="date" id="date" formControlName="dateOfBirth">
 						<div class="alert" *ngIf="registerForm.get('dateOfBirth')?.hasError('minAge') && !registerForm.get('dateOfBirth')?.hasError('required')">
 							You must be at least 18 to register!
@@ -31,8 +31,8 @@
 					</div>
 				</div>
 				<div class="inputbox">
+					<label for="email">Email</label>
 					<div class="input-container">
-						<label for="email">Email</label>
 						<input type="email" formControlName="email">
 						<div class="alert" *ngIf="registerForm.get('email')?.hasError('pattern')">
 							Invalid email!
@@ -40,9 +40,9 @@
 					</div>
 				</div>
 				<div class="inputbox password">
+					<label for="password">Password</label>
 					<div class="input-container">
 						<div class="password-container">
-							<label for="password">Password</label>
 							<input type="{{ isPasswordVisible ? 'text' : 'password' }}" id="password" formControlName="password">
 							<i class="bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></i>
 						</div>
@@ -54,9 +54,9 @@
 					</div>
 				</div>
 				<div class="inputbox confirm-password">
+					<label for="confirm-password">Confirm password</label>
 					<div class="input-container">
 						<div class="password-container">
-							<label for="confirm-password">Confirm password</label>
 							<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="confirmPassword" formControlName="confirmPassword">
 							<span class="bi" [ngClass]="{'bi-eye': !isPassword2Visible, 'bi-eye-slash': isPassword2Visible}" (click)="togglePasswordVisibility2()"></span>
 						</div>
@@ -66,15 +66,15 @@
 					</div>
 				</div>
 				<div class="inputbox upload">
+					<label for="fileInput" class="upload-label">Upload photo</label>
 					<div class="input-container">
-						<label for="fileInput" class="custom-upload">Upload photo</label>
 						<input type="file" #fileInput id="file" formControlName="photo">
 						<span id="fileName" class="file-name"></span>
 					</div>
 				</div>
 				<div class="inputbox privacy">
+					<label for="privacy" class="privacy-label">Accept terms and conditions</label>
 					<div class="input-container">
-						<label for="privacy">Accept terms and conditions</label>
 						<input type="checkbox" class="checkbox" formControlName="privacy">
 					</div>
 				</div>
