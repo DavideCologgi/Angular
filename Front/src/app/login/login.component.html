@@ -16,7 +16,7 @@
                 <div class="forget">
                     <label for=""><input type="checkbox">Remember Me  <a routerLink="/forgot-password">Forgot Password?</a></label>
                 </div>
-                <button type="submit" [disabled]="loginForm.invalid">Log in</button>
+                <button type="submit">Log in</button>
                 <div class="inputbox error">
                     <div class="error-message" *ngIf="showError">
                         {{ errorMessage }}

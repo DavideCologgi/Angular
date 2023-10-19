@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -68,9 +69,7 @@ export class AxiosService {
         }
       }
     }
-
     console.log("nice");
-
     const config: AxiosRequestConfig = {
       method: method,
       url: url,
@@ -89,6 +88,58 @@ export class AxiosService {
     };
 
     return axios(config);
+  }
+
+  async requestMultipart(method: string, url: string, data: any): Promise<any> {
+    const expirationDate = window.localStorage.getItem("expiration_date");
+
+    if (expirationDate !== null) {
+      const expirationTimestamp = parseInt(expirationDate, 10);
+
+      if (expirationTimestamp) {
+        const currentDate = Date.now();
+
+        if (currentDate > expirationTimestamp) {
+          console.log("loading new access token...");
+          try {
+            const response = await this.request2("POST", "/api/auth/refreshToken", {});
+            console.log("got new access token!");
+            window.localStorage.setItem("expiration_date", response.data.expiration_date);
+            console.log("loaded new access token");
+          } catch (error) {
+            this.logout();
+          }
+        }
+      }
+    }
+    console.log("nice");
+    const config: AxiosRequestConfig = {
+      method: method,
+      url: url,
+      data: data,
+      headers:  { 'Content-Type': 'multipart/form-data' }
+    };
+
+    return axios(config);
+  }
+
+  customGet(url: string): Observable<AxiosResponse> {
+    const config: AxiosRequestConfig = {
+      method: 'GET',
+      url: url,
+      responseType: 'blob', // Set the responseType to blob for binary data
+    };
+
+    return new Observable<AxiosResponse>((observer) => {
+      axios(config)
+        .then((response: AxiosResponse) => {
+          observer.next(response);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 
   logout() {

@@ -7,6 +7,7 @@ import com.eventify.app.model.enums.Categories;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -49,9 +50,8 @@ public class Event {
     @Column(nullable = false)
     private String place;
 
-    @OneToMany(mappedBy = "event")
-    @Builder.Default
-    private List<Photo> photos = new ArrayList<>();
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
+    private List<Photo> photos;
 
     @ManyToMany
     @JoinTable(
@@ -69,6 +69,9 @@ public class Event {
     @NotNull
     private Categories category;
 
+    @NotNull
+    private boolean isExpired;
+
     public Event(String title, String description, LocalDateTime dateTime, String place, List<Photo> photos, List<User> participants, User creator, Categories category) {
         this.title = title;
         this.description = description;
@@ -82,6 +85,14 @@ public class Event {
 
     public Long getId() {
         return id;
+    }
+
+    public boolean getIsExpired() {
+        return this.isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.isExpired = expired;
     }
 
     public void setId(Long id) {

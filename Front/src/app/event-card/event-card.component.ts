@@ -1,4 +1,6 @@
 import { Component, ElementRef, AfterViewInit, Renderer2, Input, OnInit } from '@angular/core';
+import { AxiosService } from '../axios.service';
+import { AxiosResponse } from 'axios';
 
 @Component({
   selector: 'app-event-card',
@@ -8,7 +10,9 @@ import { Component, ElementRef, AfterViewInit, Renderer2, Input, OnInit } from '
 export class EventCardComponent implements AfterViewInit, OnInit {
   @Input() event: any;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+  constructor(private elementRef: ElementRef, private renderer: Renderer2, private axiosService: AxiosService) {}
+
+
 
   ngOnInit() {
     if (!this.event) {
@@ -18,7 +22,8 @@ export class EventCardComponent implements AfterViewInit, OnInit {
         category: 'Esempio',
         description: 'Questo è un evento di esempio.',
         address: 'Indirizzo di esempio',
-        date: new Date().toISOString()
+        date: new Date().toISOString(),
+        // image:
       };
     }
   }

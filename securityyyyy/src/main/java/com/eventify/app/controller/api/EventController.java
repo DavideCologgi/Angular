@@ -1,6 +1,8 @@
 package com.eventify.app.controller.api;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,14 +14,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eventify.app.model.Event;
 import com.eventify.app.model.User;
 import com.eventify.app.model.enums.Categories;
 import com.eventify.app.model.json.EventForm;
+import com.eventify.app.model.json.ResponseGetEvents;
 import com.eventify.app.repository.IEventRepository;
 import com.eventify.app.service.EmailService;
 import com.eventify.app.service.EventService;
@@ -39,7 +42,23 @@ public class EventController {
     private final UserService userService;
 
     @PostMapping("/api/create-event/{userId}")
-    public ResponseEntity<String> createEvent(@PathVariable Long userId, @RequestBody EventForm eventRequest) {
+    public ResponseEntity<String> createEvent(@PathVariable Long userId,
+        @RequestParam("title") String title,
+        @RequestParam("description") String description,
+        @RequestParam("dateTime") String dateTime,
+        @RequestParam("place") String place,
+        @RequestParam("category") Categories category,
+        @RequestParam("photos") List<MultipartFile> photos) {
+
+        EventForm eventRequest = EventForm.builder()
+        .category(category)
+        .dateTime(dateTime)
+        .description(description)
+        .place(place)
+        .title(title)
+        .photos(photos)
+        .build();
+
         try {
             Optional<User> user = userService.getById(userId);
             String response = eventService.createEvent(userId, eventRequest);
@@ -53,6 +72,37 @@ public class EventController {
             System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating the event: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/api/user/all-events")
+    public ResponseEntity<List<ResponseGetEvents>> getCreatedEvents() {
+
+            List<ResponseGetEvents> responseGetEvents = new ArrayList<>();
+            List<Event> events = eventService.getAllEvents();
+
+            events.sort(Comparator.comparing(Event::getDateTime));
+            List<Event> validEvents = new ArrayList<>();
+
+            LocalDateTime currentDateTime = LocalDateTime.now();
+
+            for (Event event : events) {
+                if (!event.getDateTime().isBefore(currentDateTime)) {
+                    validEvents.add(event);
+                } else {
+                    //set the event as expired
+                    event.setExpired(true);
+                    eventService.updateEvent(event);
+                }
+            }
+            for (Event event : validEvents) {
+                    System.out.println("\n\n\n" + event +  ",    " + event.getPhotos().size() + "\n\n\n");
+                    responseGetEvents.add(new ResponseGetEvents(event.getId(), event.getTitle(),
+                    event.getCategory().name(), event.getDescription(),
+                    event.getPlace(), event.getDateTime().toString()
+                    , "/api/download/" + event.getPhotos().get(0).getId()));
+                }
+
+            return ResponseEntity.ok(responseGetEvents);
     }
 
     @DeleteMapping("/api/event/delete/{eventId}")

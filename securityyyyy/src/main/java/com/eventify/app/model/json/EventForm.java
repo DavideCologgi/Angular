@@ -36,8 +36,6 @@ public class EventForm {
     @NotBlank(message = "place is mandatory")
     private String place;
 
-    // @NotNull(message = "photos is mandatory")
-    // @NotBlank(message = "photos is mandatory")
     private List<MultipartFile> photos;
 
     private Categories category;
