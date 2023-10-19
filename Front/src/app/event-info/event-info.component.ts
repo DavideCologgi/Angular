@@ -3,7 +3,6 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import { Input } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router'; // Importa ActivatedRoute per ottenere il parametro ID
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -27,7 +26,6 @@ export class EventInfoComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute, // Inietta ActivatedRoute
-    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -56,9 +54,6 @@ export class EventInfoComponent implements OnInit {
     this.registrationButtonLabel = this.isRegistered ? 'Unregister' : 'Register';
 
     const message = this.isRegistered ? 'Registered for the event.' : 'Unregistered from the event.';
-    this.snackBar.open(message, 'Close', {
-      duration: 2000
-    });
   }
 
   getButtonClass() {
