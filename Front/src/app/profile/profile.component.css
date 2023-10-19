@@ -4,7 +4,7 @@ section {
     align-items: center;
 	width: 100%;
 	min-height: 80vh;
-	background-image: white;
+	background: url('/assets/back2hd.jpeg')no-repeat;
 	background-size: cover;
 	background-position: center;
 }
@@ -15,7 +15,7 @@ section {
 	color: rgb(255, 255, 255);
 	border-radius: 10px;
 	background: transparent;
-	background-color: rgba(0, 0, 0, 0.342);
+	background-color: rgba(92, 80, 80, 0.707);
 	backdrop-filter: blur(15px);
 	display: flex;
 	flex-direction: column;

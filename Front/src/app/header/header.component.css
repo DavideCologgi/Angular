@@ -1,7 +1,7 @@
 .navbar {
-	display: flex;
-	justify-content: space-between; /* Spazio tra gli elementi */
+	justify-content: space-between;
 	align-items: center;
+	display: flex;
 	background-color: white;
 	height: 10%;
 	border-bottom: 1px solid black;
@@ -11,17 +11,31 @@
 	font-size: 50px;
 	font-family: 'Poppins', sans-serif;
 	color: #FF6700;
-}
-mat-icon-button{
-	font:50px;
+	margin-left: 10px;
+	margin-bottom: 0;
 }
 
 .mat-icon {
 	transform: scale(2);
- }
+}
 
- .icon-color{
+.icon-color {
+	font-size: 20px;
 	color: #004E98;
- }
+	justify-content: center;
+	align-items: center;
+	padding: 0;
+}
 
+@media (max-width: 768px) {
+	.icon-color {
+		font-size: 28px;
+		justify-content: center;
+		display: inline;
+	}
+
+	.title {
+		font-size: 30px;
+	}
+}
 
