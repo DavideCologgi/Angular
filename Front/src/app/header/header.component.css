@@ -79,8 +79,3 @@
 	color: black;
 }
 
-@media (max-width: 768px) {
-	i {
-		font-size: 20px;
-	}
-}
