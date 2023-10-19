@@ -37,6 +37,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
+import { EventRegisteredComponent } from './event-registered/event-registered.component';
 
 
 register();
@@ -58,6 +59,7 @@ register();
 		TwoFALoginComponent,
 		ProfileComponent,
 		EventPersonalComponent,
+  EventRegisteredComponent,
 	],
 	imports: [
 		MatExpansionModule,
@@ -86,7 +88,8 @@ register();
 			{ path: 'event-creation', title: 'Eventify/Event-creation', component: EventCreationComponent },
 			{ path: '2FA-login', title: 'Eventify/2FA-login', component: TwoFALoginComponent },
 			{ path: 'my-events', title: 'Eventify/my-events', component: EventPersonalComponent },
-			{ path: 'event-info/:id', component: EventInfoComponent }
+			{ path: 'event-info/:id', component: EventInfoComponent },
+			{ path: 'registered-events', title: 'Eventify/registered-events', component: EventRegisteredComponent },
 		]),
 		BrowserAnimationsModule,
 		MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,

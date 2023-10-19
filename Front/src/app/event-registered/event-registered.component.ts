@@ -2,14 +2,13 @@ import { Component } from '@angular/core';
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
 
-
 @Component({
-  selector: 'app-event-board',
-  templateUrl: './event-board.component.html',
-  styleUrls: ['./event-board.component.css']
+  selector: 'app-event-registered',
+  templateUrl: './event-registered.component.html',
+  styleUrls: ['./event-registered.component.css']
 })
-export class EventBoardComponent {
-  constructor(private axiosService: AxiosService) {}
+export class EventRegisteredComponent {
+	constructor(private axiosService: AxiosService) {}
 
   events: any[] = [];
 
