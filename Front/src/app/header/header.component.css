@@ -24,21 +24,14 @@
 	text-align: center;
 }
 
-.home {
-	color: red;
-}
-
-.events {
-	color: orange;
-}
-
 .home,
 .events {
-	font-size: 50px;
-	font: bold;
+	font-size: 40px;
 	flex: 1;
 	text-align: center;
 	text-decoration: none;
+	width: fit-content;
+	height: fit-content;
 }
 
 .user {
@@ -55,13 +48,6 @@
 	margin-left: auto;
 }
 
-@media (max-width: 768px) {
-	.home, .events, .bi-person-circle {
-		font-size: 18px;
-		padding-top: 5px;
-	}
-}
-
 .logged {
 	display: none;
 }
@@ -71,18 +57,30 @@
 	margin-left: auto;
 }
 
-
 .custom-list {
 	height: 200px;
 	overflow-y: auto;
-  }
+}
 
 .mat-mdc-menu-panel{
 	height: 20px !important;
 }
 
+.bi-house{
+	color: red;
+}
+
+.bi-calendar-date{
+	color: orange
+}
+
+.mat-icon{
+	font-size: 40px;
+	color: black;
+}
+
 @media (max-width: 768px) {
-    i {
-        font-size: 20px;
+	i {
+		font-size: 20px;
 	}
 }

@@ -1,23 +1,42 @@
 <section>
-<mat-card>
-	<mat-card-header>
-	  <div>
-		<h2>Crea un nuovo evento</h2>
-	  </div>
-	</mat-card-header>
-	<mat-card-content>
-	  <form (ngSubmit)="onSubmit()">
-			<input matInput type="text" placeholder="Nome evento" [(ngModel)]="newEvent.name" name="name">
-			<textarea matInput placeholder="Descrizione" [(ngModel)]="newEvent.description" name="description"></textarea>
-			<input matInput type="text" placeholder="Luogo" [(ngModel)]="newEvent.location" name="location">
-		  <input type="datetime-local" id="dateTime" name="dateTime" [(ngModel)]="newEvent.dateTime">
-			<input type="file" name="image" accept="image/*" multiple>
-		<div class="actions">
-		  <div class="button-container">
-			<button mat-raised-button type="submit" (click)="onSubmit()">Crea</button>
-		  </div>
+	<mat-card>
+	  <mat-card-header>
+		<div>
+		  <h2>Crea un nuovo evento</h2>
 		</div>
-	  </form>
-	</mat-card-content>
-  </mat-card>
-</section>
+	  </mat-card-header>
+	  <mat-card-content>
+		<form (ngSubmit)="onSubmit()">
+		  <input matInput type="text" placeholder="Nome evento" [(ngModel)]="newEvent.name" name="name">
+		  <textarea matInput placeholder="Descrizione" [(ngModel)]="newEvent.description" name="description"></textarea>
+		  <input matInput type="text" placeholder="Luogo" [(ngModel)]="newEvent.location" name="location">
+		  <input type="datetime-local" id="dateTime" name="dateTime" [(ngModel)]="newEvent.dateTime">
+
+		  <label for="category">Categoria:</label>
+		  <select name="category" [(ngModel)]="newEvent.category">
+			<option value="PARTY">Party</option>
+			<option value="GYM">Gym</option>
+			<option value="ROLEGAME">Role Game</option>
+			<option value="SPORT">Sport</option>
+			<option value="MEETING">Meeting</option>
+			<option value="CONFERENCE">Conference</option>
+			<option value="NETWORKING">Networking</option>
+			<option value="HOBBY">Hobby</option>
+			<option value="MUSIC">Music</option>
+			<option value="BUSINESS">Business</option>
+			<option value="FOOD">Food</option>
+			<option value="NIGHTLIFE">Nightlife</option>
+			<option value="HEALTH">Health</option>
+			<option value="HOLIDAYS">Holidays</option>
+		  </select>
+
+		  <input type="file" name="images" accept="image/*" (change)="onFileChange($event)" multiple>
+		  <div class="actions">
+			<div class="button-container">
+			  <button mat-raised-button type="submit">Crea</button>
+			</div>
+		  </div>
+		</form>
+	  </mat-card-content>
+	</mat-card>
+  </section>

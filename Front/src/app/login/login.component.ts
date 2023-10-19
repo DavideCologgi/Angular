@@ -63,6 +63,8 @@ export class LoginComponent {
 					}
 				  })
 				  .catch(error => {
+					this.showError = true;
+					this.errorMessage = 'An error occurred during login:', error;
 					console.error('An error occurred during login:', error);
 				  })
 

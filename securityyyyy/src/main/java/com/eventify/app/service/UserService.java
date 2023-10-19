@@ -91,7 +91,7 @@ public class UserService implements IUserService {
         List<User> allUsers = userRepository.findAll();
 
         for (User user : allUsers) {
-            if (user.getOtp().intValue() == otp) {
+            if (user.getOtp() != null && user.getOtp().intValue() == otp) {
                 return Optional.of(user);
             }
         }

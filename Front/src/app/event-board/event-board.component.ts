@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AxiosService } from '../axios.service';
+import { AxiosResponse } from 'axios';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-event-board',
@@ -6,33 +9,50 @@ import { Component } from '@angular/core';
   styleUrls: ['./event-board.component.css']
 })
 export class EventBoardComponent {
-  events: any[] = []; // Inizializza l'array degli eventi
+  constructor(private axiosService: AxiosService) {}
 
-  constructor() {
-    // Esempio di caricamento dei dati degli eventi da una sorgente (puoi farlo in un metodo separato)
-    this.loadEvents();
+  events: any[] = [];
+
+  ngOnInit() {
+    console.log("Requesting events...");
+    this.axiosService.request("GET", "/api/user/all-events", {})
+      .then(response => {
+        console.log("OK");
+        this.events = response.data;
+
+        const imageLoadingPromises = this.events.map(event => this.loadURL(event.imageURL));
+
+        Promise.all(imageLoadingPromises)
+          .then(imageURLs => {
+            imageURLs.forEach((imageURL, index) => {
+              this.events[index].imageURL = imageURL;
+            });
+
+            console.log(this.events);
+          })
+          .catch(error => {
+            console.error('Error loading images:', error);
+          });
+      })
+      .catch(error => {
+        console.log("Error");
+      });
+    console.log('Retrieved all events');
   }
 
-  loadEvents() {
-    // Simulazione di caricamento dati da un servizio o sorgente dati
-    // Esempio: sostituisci con la logica per ottenere gli eventi dal tuo servizio
-    this.events = [
-      {
-        id: 1,
-        title: 'Evento 1',
-        category: 'Social',
-        description: 'Descrizione dell\'evento 1',
-        address: 'Indirizzo 1',
-        date: '2023-10-20T20:00:00'
-      },
-	  {
-        id: 2,
-        title: 'Evento 2',
-        category: 'Social',
-        description: 'Descrizione dell\'evento 2',
-        address: 'Indirizzo 2',
-        date: '2023-10-20T20:00:00'
-      },
-    ];
+  loadURL(endpoint: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      this.axiosService.customGet(endpoint)
+        .subscribe((response: AxiosResponse) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            resolve(reader.result as string);
+          };
+          reader.readAsDataURL(response.data);
+        }, (error) => {
+          console.error('Error retrieving the image:', error);
+          reject(error);
+        });
+    });
   }
 }
