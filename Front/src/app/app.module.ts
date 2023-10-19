@@ -28,7 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatBadgeModule} from '@angular/material/badge';
 
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +37,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
+
+
 register();
 
 @NgModule({
@@ -70,6 +72,7 @@ register();
 		MatMenuModule,
 		MatCardModule,
 		MatIconModule,
+		MatBadgeModule,
 		RouterModule.forRoot([
 			{ path: '', title: 'Eventify/Home', component: HomeComponent },
 			{ path: 'home', title: 'Eventify/Home', component: HomeComponent },
@@ -81,9 +84,9 @@ register();
 			{ path: 'event-board', title: 'Eventify/Event-board', component: EventBoardComponent },
 			{ path: 'event-card', title: 'Eventify/Event-info', component: EventCardComponent },
 			{ path: 'event-creation', title: 'Eventify/Event-creation', component: EventCreationComponent },
-			{ path: 'event-info', title: 'Eventify/Event-info', component: EventInfoComponent },
 			{ path: '2FA-login', title: 'Eventify/2FA-login', component: TwoFALoginComponent },
-			{ path: 'my-events', title: 'Eventify/my-events', component: EventPersonalComponent }
+			{ path: 'my-events', title: 'Eventify/my-events', component: EventPersonalComponent },
+			{ path: 'event-info/:id', component: EventInfoComponent }
 		]),
 		BrowserAnimationsModule,
 		MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,

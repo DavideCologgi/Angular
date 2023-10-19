@@ -18,6 +18,7 @@ export class EventCardComponent implements AfterViewInit, OnInit {
     if (!this.event) {
       // Se l'evento non è stato fornito, crea un evento di esempio
       this.event = {
+		id: '0',
         title: 'Evento di esempio',
         category: 'Esempio',
         description: 'Questo è un evento di esempio.',

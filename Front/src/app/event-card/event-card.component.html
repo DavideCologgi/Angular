@@ -1,4 +1,4 @@
-<a routerLink="/event-info">
+<a [routerLink]="['/event-info', event.id]">
 	<mat-card class="event-card" [style.background-image]="'url(' + event.imageURL + ')'">
 		<mat-card-header>
 			<mat-card-title class="title">{{ event.title }}</mat-card-title>
