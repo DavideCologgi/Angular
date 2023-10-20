@@ -22,6 +22,8 @@ import com.eventify.app.model.Event;
 import com.eventify.app.model.User;
 import com.eventify.app.model.enums.Categories;
 import com.eventify.app.model.json.EventForm;
+import com.eventify.app.model.json.ParticipantsResponse;
+import com.eventify.app.model.json.ResponseGetEvent;
 import com.eventify.app.model.json.ResponseGetEvents;
 import com.eventify.app.repository.IEventRepository;
 import com.eventify.app.service.EmailService;
@@ -74,6 +76,46 @@ public class EventController {
         }
     }
 
+    @GetMapping("/api/event/findById/{eventId}")
+    public ResponseEntity<ResponseGetEvent> findEventbyId(@PathVariable Long eventId) {
+
+        Optional<Event> event = eventRepository.findById(eventId);
+
+        if (event.isEmpty()) {
+            return ResponseEntity.ok(null);
+        }
+
+        List<String> images = new ArrayList<>();
+
+        for (int i = 0; i < event.get().getPhotos().size(); i++) {
+            images.add("/api/download/" + event.get().getPhotos().get(i).getId());
+        }
+
+        List<ParticipantsResponse> participants = new ArrayList<>();
+
+        System.out.println("\n\n\nLoading participants...\n\n\n");
+        List<User> participant = event.get().getParticipants();
+        System.out.println("\n\n\nparticipants Loaded...\n\n\n");
+
+        for (int i = 0; i < participant.size(); i++) {
+            participants.add(ParticipantsResponse.builder()
+            .name(participant.get(i).getFirstname() + " " + participant.get(i).getLastname())
+            .id(participant.get(i).getId())
+            .build());
+        }
+
+        ResponseGetEvent responseGetEvent = ResponseGetEvent.builder()
+        .address(event.get().getPlace())
+        .category(event.get().getCategory().name())
+        .date(event.get().getDateTime().toString())
+        .description(event.get().getDescription())
+        .imageURL(images)
+        .participants(participants)
+        .build();
+
+        return ResponseEntity.ok(responseGetEvent);
+    }
+
     @GetMapping("/api/user/all-events")
     public ResponseEntity<List<ResponseGetEvents>> getCreatedEvents() {
 
@@ -86,7 +128,7 @@ public class EventController {
             LocalDateTime currentDateTime = LocalDateTime.now();
 
             for (Event event : events) {
-                if (!event.getDateTime().isBefore(currentDateTime)) {
+                if (!event.getIsExpired() && !event.getDateTime().isBefore(currentDateTime)) {
                     validEvents.add(event);
                 } else {
                     //set the event as expired
@@ -109,6 +151,7 @@ public class EventController {
     public ResponseEntity<String> deleteEvent(@PathVariable Long eventId) {
         try {
             if (eventRepository.existsById(eventId)) {
+                eventService.deletePhotosByEvent(eventService.getEventById(eventId).get());
                 eventRepository.deleteById(eventId);
                 return ResponseEntity.ok("Event deleted with ID: " + eventId);
             } else {
@@ -149,6 +192,7 @@ public class EventController {
         }
     }
 
+
     @GetMapping("/api/event/findBy-category")
     public ResponseEntity<List<Event>> findEventsByCategory(@RequestParam Categories category) {
         List<Event> events = eventService.findEventsByCategory(category);
@@ -159,7 +203,7 @@ public class EventController {
         }
     }
 
-    @PostMapping("/api/event/{eventId}/register")
+    @PostMapping("/api/event/{eventId}/register/{userId}")
     public ResponseEntity<String> registerForEvent(@PathVariable Long eventId, @PathVariable Long userId) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
         Optional<User> userOptional = userService.getById(userId);
@@ -193,7 +237,7 @@ public class EventController {
             User user = userOptional.get();
             List<User> participants = event.getParticipants();
 
-            if (participants.size() == 0) {
+            if (participants.size() != 0) {
                 boolean removed = participants.removeIf(participant -> participant.getId().equals(userId));
 
                 if (removed) {
@@ -213,18 +257,40 @@ public class EventController {
         return ResponseEntity.notFound().build();
     }
 
+    // @GetMapping("/api/event/{eventId}/participants")
+    // public ResponseEntity<List<User>> getEventParticipants(@PathVariable Long eventId) {
+    //     Optional<Event> eventOptional = eventService.getEventById(eventId);
+
+    //     if (eventOptional.isPresent()) {
+    //         Event event = eventOptional.get();
+    //         List<User> participants = event.getParticipants();
+    //         if (participants.size() == 0) {
+    //             return ResponseEntity.ok(participants);
+    //         }
+    //     }
+    //     return ResponseEntity.notFound().build();
+    // }
+
     @GetMapping("/api/event/{eventId}/participants")
-    public ResponseEntity<List<User>> getEventParticipants(@PathVariable Long eventId) {
+    public ResponseEntity<List<ParticipantsResponse>> getEventParticipants(@PathVariable Long eventId) {
         Optional<Event> eventOptional = eventService.getEventById(eventId);
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
             List<User> participants = event.getParticipants();
             if (participants.size() == 0) {
-                return ResponseEntity.ok(participants);
+                return ResponseEntity.ok(null);
             }
+            List<ParticipantsResponse> names = new ArrayList<>();
+            for (User user: participants) {
+                names.add(ParticipantsResponse.builder()
+                .name(user.getFirstname() + " " + user.getLastname())
+                .id(user.getId())
+                .build());
+            }
+            return ResponseEntity.ok(names);
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(null);
     }
 
     @GetMapping("/api/user/{userId}/created-events")

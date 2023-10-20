@@ -4,14 +4,13 @@
 			<mat-card-title class="title">{{ event.title }}</mat-card-title>
 		</mat-card-header>
 		<swiper-container style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="mySwiper"
-			navigation="true" autoplay-delay="2500" autoplay-disable-on-interaction="false" slides-per-view='auto'>
-			<swiper-slide lazy="true">
-				<img loading="lazy" src="./assets/background6.jpg" />
-			</swiper-slide>
-			<swiper-slide lazy="true">
-				<img loading="lazy" src="./assets/background6.jpg" />
-			</swiper-slide>
-		</swiper-container>
+		navigation="true" autoplay-delay="2500" autoplay-disable-on-interaction="false" slides-per-view='auto'>
+		<ng-container *ngIf="event.imageURL">
+		  <swiper-slide lazy="true" *ngFor="let imageURL of event.imageURL">
+			<img loading="lazy" [src]="imageURL">
+		  </swiper-slide>
+		</ng-container>
+	  </swiper-container>
 		<mat-card-content>
 			<p class="category">{{ event.category }}</p>
 			<p class="description">{{ event.description }}</p>

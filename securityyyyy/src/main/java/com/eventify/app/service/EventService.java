@@ -135,4 +135,17 @@ public class EventService {
     public List<Event> getEventsRegisteredByUser(User user) {
         return eventRepository.findByParticipantsContaining(user);
     }
+
+    public boolean deletePhotosByEvent(Event event) {
+
+        List<Photo> photosToBeEliminated = event.getPhotos();
+
+        for (Photo photo : photosToBeEliminated) {
+            if (!photoService.delete(photo.getId())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

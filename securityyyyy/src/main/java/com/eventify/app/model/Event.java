@@ -53,7 +53,7 @@ public class Event {
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private List<Photo> photos;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "event_participants",
         joinColumns = @JoinColumn(name = "event_id"),

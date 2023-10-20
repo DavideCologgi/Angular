@@ -36,9 +36,9 @@ public class EventValidator {
             System.out.println("\n\n\n\n" + event.getDateTime() + "\n\n\n\n");
             LocalDateTime dateTime = LocalDateTime.parse(event.getDateTime(), formatter);
             System.out.println("\n\n\n\n" + "yeii" + "\n\n\n\n");
-            // if (dateTime.isBefore(currentTime.plus(24, ChronoUnit.HOURS))) {
-            //     return "Event date and time must be at least 24 hours from now";
-            // }
+            if (dateTime.isBefore(currentTime.plus(24, ChronoUnit.HOURS))) {
+                return "Event date and time must be at least 24 hours from now";
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "invalid date";

@@ -3,10 +3,10 @@
 	<button mat-icon-button routerLink="/home">
 		<mat-icon class="icon-color">home</mat-icon>
 	</button>
-	<!-- <button mat-button class="events" (click)="updateRedirection('/event-board'); authenticate()">
-		<i class="bi-calendar-date"></i>
+	<!-- <button mat-icon-button routerLink="/event-board">
+		<mat-icon class="icon-color">event</mat-icon>
 	</button> -->
-	<button mat-icon-button routerLink="/event-board">
+	<button mat-icon-button (click)="updateRedirection('/event-board'); authenticate()">
 		<mat-icon class="icon-color">event</mat-icon>
 	</button>
 	<button mat-icon-button [matMenuTriggerFor]="notifiche" (menuOpened)="resetNumeroNotifiche()">
@@ -35,12 +35,12 @@
 	</button>
 	<mat-menu class="menu" #menu="matMenu">
 		<a mat-menu-item routerLink="/home">Home</a>
-		<!-- <a mat-menu-item (click)="updateRedirection('/event-board'); authenticate()">Board</a>
-		<a mat-menu-item (click)="updateRedirection('/my-event'); authenticate()">My Events</a>
-		<a mat-menu-item (click)="updateRedirection('/my-event'); authenticate()">Registered Event</a> -->
-		<a mat-menu-item routerLink="/event-board">Board</a>
+		<a mat-menu-item (click)="updateRedirection('/event-board'); authenticate()">Board</a>
+		<a mat-menu-item (click)="updateRedirection('/my-events'); authenticate()">My Events</a>
+		<a mat-menu-item (click)="updateRedirection('/registered-events'); authenticate()">Registered Event</a>
+		<!-- <a mat-menu-item routerLink="/event-board">Board</a>
 		<a mat-menu-item routerLink="/my-events-">My Events</a>
-		<a mat-menu-item routerLink="/registered-events">Registered Event</a>
+		<a mat-menu-item routerLink="/registered-events">Registered Event</a> -->
 		<a class="not-logged" mat-menu-item routerLink="/login">Sign in</a>
 		<a class="not-logged" mat-menu-item routerLink="/register">Register</a>
 		<a mat-menu-item routerLink="/profile">Profile</a>

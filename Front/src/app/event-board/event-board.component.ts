@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-event-board',
