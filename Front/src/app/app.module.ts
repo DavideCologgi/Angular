@@ -29,6 +29,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
 
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -63,6 +64,7 @@ register();
 	],
 	imports: [
 		MatExpansionModule,
+		MatChipsModule,
 		EventInfoComponent,
 		BrowserModule,
 		AppRoutingModule,
