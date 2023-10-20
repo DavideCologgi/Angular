@@ -1,16 +1,40 @@
 <section>
-	<mat-card class="example-card">
+	<mat-card class="profile">
 		<mat-card-header>
-		  <mat-card-title-group>
-			<mat-card-title>Alessio Buonomo</mat-card-title>
-			<mat-card-subtitle>Vivaerpupo@gmail.com</mat-card-subtitle>
-			<mat-card-subtitle>26/07/1999</mat-card-subtitle>
-			<img mat-card-md-image src="../../assets/profile.jpg" >
-		  </mat-card-title-group>
+			<mat-card-title-group>
+				<mat-card-title class="title">Profile info:</mat-card-title>
+				<img mat-card-md-image class="photo" [src]="profilePhoto">
+			</mat-card-title-group>
 		</mat-card-header>
-		<mat-card-content>
-
+		<mat-card-content class="info">
+			<form [formGroup]="profileForm" action="" (ngSubmit)="SaveChanges()">
+				<input type="text" id="firstname" value="{{firstname}}" [(ngModel)]="firstname" [readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="firstname">
+				<div class="alert" *ngIf="profileForm.get('firstname')?.hasError('pattern')">
+					Invalid first name!
+				</div><br>
+				<input type="text" id="lastname" value="{{lastname}}" [(ngModel)]="lastname" [readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="lastname">
+				<div class="alert" *ngIf="profileForm.get('lastname')?.hasError('pattern')">
+					Invalid last name!
+				</div><br>
+				<input type="email" id="email" value="{{email}}" [(ngModel)]="email" [readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="email">
+				<div class="alert" *ngIf="profileForm.get('email')?.hasError('pattern')">
+					Invalid email!
+				</div><br>
+				<input type="text" id="date" value="19/07/1999" readonly>
+				<input type="file" #fileInput [hidden]="!modifyPermit" (change)="UploadNewPhoto($event)">
+			</form>
 		</mat-card-content>
-	  </mat-card>
+		<div class="button">
+			<button mat-fab class="modify-button" (click)="ModifyProfile()" [style.display]="showButton ? 'flex' : 'none'">
+				<mat-icon>edit</mat-icon>
+			</button>
+			<button type="submit" [disabled]="!profileForm.valid" mat-fab class="confirm-button" [style.display]="!showButton ? 'flex' : 'none'">
+				<mat-icon>done</mat-icon>
+			</button>
+			<button mat-fab class="delete-button" (click)="ReloadPage()" [style.display]="!showButton ? 'flex' : 'none'">
+				<mat-icon>clear</mat-icon>
+			</button>
+		</div>
+	</mat-card>
 </section>
 
