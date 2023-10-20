@@ -39,7 +39,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
 import { EventRegisteredComponent } from './event-registered/event-registered.component';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 register();
 
@@ -63,6 +63,7 @@ register();
   EventRegisteredComponent,
 	],
 	imports: [
+		MatDialogModule,
 		MatExpansionModule,
 		MatChipsModule,
 		EventInfoComponent,

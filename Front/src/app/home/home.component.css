@@ -4,7 +4,7 @@ section {
 	align-items: center;
 	height: 80vh;
 	width: 100%;
-	background: url('assets/alessio2.jpg');
+	background: url('/assets/alessio2.jpg');
 	background-size: cover;
 	background-position: center;
 }
