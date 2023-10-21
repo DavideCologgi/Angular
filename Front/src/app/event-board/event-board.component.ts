@@ -1,21 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-event-board',
   templateUrl: './event-board.component.html',
   styleUrls: ['./event-board.component.css'],
 })
-export class EventBoardComponent {
-  constructor(private axiosService: AxiosService,public dialog: MatDialog) {}
-
+export class EventBoardComponent implements OnInit {
+  constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute) {}
+  showFilterForm = false;
   events: any[] = [];
+
+  @Input() filtro: any;
 
   ngOnInit() {
     console.log("Requesting events...");
-    this.axiosService.request("GET", "/api/user/all-events", {})
+
+    const filters = {
+      Titolo: this.filtro.Titolo,
+      Luogo: this.filtro.Luogo,
+      startDate: this.filtro.startDate,
+      endDate: this.filtro.endDate,
+      category: this.filtro.category,
+    };
+
+    this.axiosService.request("GET", "/api/user/all-events", { params: filters })
       .then(response => {
         console.log("OK");
         this.events = response.data;
@@ -37,6 +49,7 @@ export class EventBoardComponent {
       .catch(error => {
         console.log("Error");
       });
+
     console.log('Retrieved all events');
   }
 
@@ -56,5 +69,7 @@ export class EventBoardComponent {
     });
   }
 
-
+  toggleFilterForm() {
+    this.showFilterForm = !this.showFilterForm;
+  }
 }
