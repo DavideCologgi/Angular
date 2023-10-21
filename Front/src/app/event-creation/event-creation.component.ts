@@ -17,7 +17,7 @@ export class EventCreationComponent {
   fieldFocused3: boolean = false;
   fieldTouched3: boolean = false;
   eventForm: FormGroup;
-  commaPattern = /,/;
+  customPattern = /.*?,.*?,.*\d.*\d.*\d.*\d.*\d./;
 
 constructor(private axiosService: AxiosService, private formBuilder: FormBuilder) {
     this.eventForm = this.formBuilder.group({
@@ -37,8 +37,7 @@ constructor(private axiosService: AxiosService, private formBuilder: FormBuilder
         '',
         [
           Validators.required,
-          Validators.pattern(this.commaPattern),
-          Validators.pattern(/.*\d.*/)
+          Validators.pattern(this.customPattern)
         ]
       ],
       dateTime: [

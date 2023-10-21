@@ -7,13 +7,12 @@
 	border-bottom: 1px solid black;
 }
 
-.title{
+.title {
 	font-size: 50px;
 	font-family: 'Poppins', sans-serif;
 	color: #FF6700;
 	margin-left: 10px;
 	margin-bottom: 0;
-	visibility: hidden;
 }
 
 .mat-icon {
@@ -22,10 +21,11 @@
 
 .icon-color {
 	font-size: 20px;
-	color: #FF6700;
+	color: #004E98;
 	justify-content: center;
 	align-items: center;
 	padding: 0;
+	padding-top: 3px;
 }
 
 @media (max-width: 768px) {

@@ -20,7 +20,7 @@
 					Address missing!
 				</div>
 				<div class="alert" *ngIf="eventForm.get('place')?.hasError('pattern')">
-					Please specify civic number and city! ex. "Via Marsala, 29H, 00185, Rome RM"
+					Please specify civic, CAP and city! (Via Marsala, 29H, 00185 Rome RM)
 				</div>
 			</div>
 			<div class="inputbox">
@@ -53,10 +53,10 @@
 				</div>
 			</div>
 			<div class="photo-alert">
-				Add up to 3 photo to present your event:
+				Add at least one photo to present your event:
 			</div>
 			<div class="inputbox">
-				<input type="file" name="images" accept="image/*" (change)="onFileChange($event)" multiple formControlName="photo">
+				<input class="photo" type="file" name="images" accept="image/*" (change)="onFileChange($event)" multiple formControlName="photo">
 			</div>
 			<div class="actions">
 				<button type="submit" [disabled]="!eventForm.valid">Create</button>

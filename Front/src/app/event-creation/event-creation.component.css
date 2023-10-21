@@ -15,7 +15,7 @@ section {
 	display: block;
 	color: white;
 	border-radius: 20px;
-	background: #ff6600d7;
+	background: #fe6d0dca;
 	backdrop-filter: blur(15px);
 	align-items: center;
 	padding: 20px;
@@ -23,8 +23,9 @@ section {
 
 h2 {
 	font-size: 2em;
-	color: #fff;
+	color: #004E98;
 	text-align: center;
+	font-weight: 800;
 }
 
 .inputbox {
@@ -32,14 +33,39 @@ h2 {
 	margin-bottom: 20px;
 }
 
-input,
-.description {
+input {
 	width: 50%;
+	background-color: #C0C0C0;
+	border: 1px solid white;
+	border-radius: 10px;
+	padding-left: 10px;
+	color: white;
+}
+
+.description {
+	width: 100%;
+	height: 100px;
+	background-color: #C0C0C0;
+	border: 1px solid white;
+	border-radius: 10px;
+	padding-left: 10px;
+	color: white;
 }
 
 .category,
 .date-time {
 	width: 30%;
+	background-color: #C0C0C0;
+	border: 1px solid white;
+	border-radius: 10px;
+	padding-left: 10px;
+	color: white;
+}
+
+.photo {
+	background: transparent;
+	border: none;
+	padding-left: 5px;
 }
 
 .actions {
@@ -50,11 +76,12 @@ input,
 
 button {
 	height: 40px;
-	width: 50%;
+	width: 30%;
 	border-radius: 20px;
 	cursor: pointer;
 	background-color: #fff;
-	color: black;
+	color: #004E98;
+	font-size: 18px;
 	font-weight: 800;
 }
 
@@ -76,4 +103,18 @@ button:hover {
 	text-align: center;
 	color: #004E98;
 	font-weight: 500;
+}
+
+@media (max-width: 768px) {
+
+	.event {
+		width: 90%;
+	}
+
+	input,
+	.category,
+	.date-time,
+	.photo {
+		width: 100%;
+	}
 }
