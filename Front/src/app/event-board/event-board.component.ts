@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
 import { Observable } from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-event-board',
@@ -9,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./event-board.component.css']
 })
 export class EventBoardComponent {
-  constructor(private axiosService: AxiosService) {}
+  constructor(private axiosService: AxiosService,public dialog: MatDialog) {}
 
   events: any[] = [];
 
@@ -55,4 +58,23 @@ export class EventBoardComponent {
         });
     });
   }
+
+
+
+  openDialog() {
+    const dialogRef = this.dialog.open(FilterForm);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
 }
+
+@Component({
+	selector: 'dialog-content-example-dialog',
+	templateUrl: 'filter-form.html',
+	standalone: true,
+	imports: [MatDialogModule, MatButtonModule],
+  })
+  export class FilterForm {}

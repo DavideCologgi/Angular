@@ -29,6 +29,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatChipsModule} from '@angular/material/chips';
 
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +39,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
 import { EventRegisteredComponent } from './event-registered/event-registered.component';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 register();
 
@@ -62,7 +63,9 @@ register();
   EventRegisteredComponent,
 	],
 	imports: [
+		MatDialogModule,
 		MatExpansionModule,
+		MatChipsModule,
 		EventInfoComponent,
 		BrowserModule,
 		AppRoutingModule,
