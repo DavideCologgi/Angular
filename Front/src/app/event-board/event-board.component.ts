@@ -1,17 +1,7 @@
 import { Component } from '@angular/core';
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
-import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import { MatDatepickerModule} from '@angular/material/datepicker';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgFor} from '@angular/common';
-import {MatSelectModule} from '@angular/material/select';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-event-board',
@@ -67,34 +57,4 @@ export class EventBoardComponent {
   }
 
 
-
-  openDialog() {
-    const dialogRef = this.dialog.open(FilterForm);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
 }
-
-@Component({
-	selector: 'app-filter-form',
-	templateUrl: 'filter-form.html',
-	standalone: true,
-	imports: [MatDialogModule,
-		MatButtonModule,
-		MatFormFieldModule,
-		MatIconModule,
-		MatDatepickerModule,
-		FormsModule,
-		ReactiveFormsModule,
-		MatSelectModule,
-		NgFor,
-		CommonModule],
-  })
-  export class FilterForm {
-	toppings = new FormControl('');
-	toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-	value = 'Clear me';
-  }

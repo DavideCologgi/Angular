@@ -38,6 +38,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
 import { EventRegisteredComponent } from './event-registered/event-registered.component';
+import { FilterFormComponent } from './filter-form/filter-form.component';
 
 
 register();
@@ -60,6 +61,7 @@ register();
 		ProfileComponent,
 		EventPersonalComponent,
   EventRegisteredComponent,
+  FilterFormComponent,
 	],
 	imports: [
 		MatExpansionModule,
@@ -90,6 +92,7 @@ register();
 			{ path: 'my-events', title: 'Eventify/my-events', component: EventPersonalComponent },
 			{ path: 'event-info/:id', component: EventInfoComponent },
 			{ path: 'registered-events', title: 'Eventify/registered-events', component: EventRegisteredComponent },
+			{path:  'event-board-filters', title: 'Eventify/event-board-filter', component: FilterFormComponent },
 		]),
 		BrowserAnimationsModule,
 		MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,
