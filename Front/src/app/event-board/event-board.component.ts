@@ -5,11 +5,18 @@ import { Observable } from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgFor} from '@angular/common';
+import {MatSelectModule} from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-event-board',
   templateUrl: './event-board.component.html',
-  styleUrls: ['./event-board.component.css']
+  styleUrls: ['./event-board.component.css'],
 })
 export class EventBoardComponent {
   constructor(private axiosService: AxiosService,public dialog: MatDialog) {}
@@ -72,9 +79,22 @@ export class EventBoardComponent {
 }
 
 @Component({
-	selector: 'dialog-content-example-dialog',
+	selector: 'app-filter-form',
 	templateUrl: 'filter-form.html',
 	standalone: true,
-	imports: [MatDialogModule, MatButtonModule],
+	imports: [MatDialogModule,
+		MatButtonModule,
+		MatFormFieldModule,
+		MatIconModule,
+		MatDatepickerModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatSelectModule,
+		NgFor,
+		CommonModule],
   })
-  export class FilterForm {}
+  export class FilterForm {
+	toppings = new FormControl('');
+	toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+	value = 'Clear me';
+  }
