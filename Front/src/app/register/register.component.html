@@ -1,8 +1,7 @@
 <section>
 	<div class="form-box">
-		<div class="form-value">
 			<form [formGroup]="registerForm" action="" (ngSubmit)="onSubmit()">
-				<h2>Create a new profile</h2>
+				<h2>Create a new profile:</h2>
 				<div class="inputbox">
 					<label for="firstName">First name</label>
 					<div class="input-container">
@@ -49,7 +48,7 @@
 						<div class="alert" *ngIf="(registerForm.get('password')?.hasError('pattern')) || (registerForm.get('password')?.hasError('minlength'))">
 							Password must contain at least one capital letter. <br>
 							Password must be long at least 8 characters. <br>
-							Password must contain at least one number and one special character.
+							Password must contain at least one number <br> and one special character.
 						</div>
 					</div>
 				</div>
@@ -59,9 +58,9 @@
 						<div class="password-container">
 							<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="confirmPassword" formControlName="confirmPassword">
 							<span class="bi" [ngClass]="{'bi-eye': !isPassword2Visible, 'bi-eye-slash': isPassword2Visible}" (click)="togglePasswordVisibility2()"></span>
-						</div>
-						<div class="alert" *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
-							Password does not match
+							<div class="alert" *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
+								Password does not match
+							</div>
 						</div>
 					</div>
 				</div>
@@ -86,5 +85,4 @@
 				</div>
 			</form>
 		</div>
-	</div>
 </section>

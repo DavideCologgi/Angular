@@ -25,25 +25,43 @@ section {
 	margin-bottom: 5%;
 }
 
+h2 {
+	margin-top: 20px;
+	padding: 20px;
+	font-size: 2em;
+	font-weight: 800;
+	color: #fff;
+	text-align: center;
+}
+
 .inputbox {
-	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
 	width: 100%;
 	margin-top: 5%;
 }
 
-.input-container {
-	position: relative;
-}
+	.input-container {
+		display: flex;
+		width: 100%;
+		align-items: center;
+	}
 
-.input-container input {
-	width: 100%;
-	height: 50px;
-	background: transparent;
-	border: none;
-	outline: none;
-	font-size: 1em;
+	.input-container input {
+		width: 100%;
+		height: 50px;
+		background: transparent;
+		border: none;
+		outline: none;
+		font-size: 1em;
+		color: #fff;
+		border-bottom: 2px solid #fff;
+	}
+
+label {
 	color: #fff;
-	border-bottom: 2px solid #fff;
+	text-align: left;
 }
 
 button {
@@ -64,87 +82,60 @@ button {
 	color: #fff;
 }
 
-.date input {
-	padding-right: 0;
-	border: none;
-	text-align: center;
-}
+	.date input {
+		text-align: center;
+		border-bottom: none;
+	}
 
 .password-container {
 	display: flex;
+	width: 100%;
 	align-items: center;
 	color: #fff;
 }
 
-.password-container input[type="password"] {
-	flex: 1;
-}
-
-.password-container .bi-eye,
-.password-container .bi-eye-slash {
-	position: absolute;
-	cursor: pointer;
-	right: 5%;
-}
+	.password-container .bi-eye,
+	.password-container .bi-eye-slash {
+		cursor: pointer;
+	}
 
 .upload{
 	border-bottom: none;
 }
 
-.upload label {
-	top: 30%;
-	margin-right: 5px;
+	.upload label {
+		margin-right: 10px;
+		margin-bottom: 10px;
+	}
+
+	.upload input {
+		color:#fff;
+		border: none;
+		padding-top: 5px;
+	}
+
+.inputbox.privacy {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	margin-bottom: 20px;
 }
 
-.upload input {
-	color:#fff;
-	border: none;
-}
-
-.privacy {
-	border-bottom: none;
-}
-
-.privacy input {
-	height: 0%;
-	margin-bottom: 10px;
+.inputbox.privacy .input-container .checkbox {
+	margin: 0;
+	transform: scale(0.3);
 }
 
 .alert {
-	flex: 1;
-	position: absolute;
-	top: 30%;
 	width: 80%;
-	left: 310px;
 	color: red;
+	align-items: center;
+	text-align: center;
 	font-size: 0.8rem;
 	font-weight: 400;
+	margin-left: 20px;
+	margin-bottom: 0;
 	padding: 0;
-}
-
-.inputbox.password .alert {
-	top: -20px;
-}
-
-.inputbox.confirm-password .alert {
-	margin: 0;
-}
-
-h2 {
-	margin-top: 5%;
-	font-size: 2em;
-	font-weight: 800;
-	color: #fff;
-	text-align: center;
-}
-
-.upload-label,
-.privacy-label {
-	margin-bottom: 10px;
-}
-
-label {
-	color: #fff;
 }
 
 @media screen and (max-width: 768px) {
@@ -157,9 +148,5 @@ label {
 
 	.inputbox {
 		width: 100%;
-	}
-
-	.alert {
-		display: none;
 	}
 }
