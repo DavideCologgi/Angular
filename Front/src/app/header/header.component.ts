@@ -1,7 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AxiosService } from '../axios.service';
-
+import { RedirectService } from '../redirect.service';
 @Injectable()
 @Component({
   selector: 'app-header',
@@ -13,7 +13,7 @@ export class HeaderComponent {
   redirection = '';
   isLoggedIn: boolean = false;
   numeroNotifiche: any;
-  constructor(private router: Router, private axiosService: AxiosService) {
+  constructor(private router: Router, private axiosService: AxiosService,private redirectService: RedirectService) {
 	this.numeroNotifiche = 5;
   }
 
@@ -56,5 +56,22 @@ export class HeaderComponent {
 
   resetNumeroNotifiche() {
 	this.numeroNotifiche = 0;
+  }
+
+  navigateTo(route: string){
+	this.redirectService.setRedirect(route);
+	this.router.navigate([route]);
+  }
+
+  navigateToMyEvents(){
+	this.redirectService.setRedirect("/my-events");
+	console.log(this.redirectService.getRedirect());
+	this.router.navigate(["/event-board"]);
+  }
+
+  navigateToRegisteredEvents(){
+	this.redirectService.setRedirect("/registered-events");
+	console.log(this.redirectService.getRedirect());
+	this.router.navigate(["/event-board"]);
   }
 }

@@ -14,7 +14,7 @@ import { EventInfoComponent } from './event-info/event-info.component';
 import { EventBlankComponent } from './event-blank/event-blank.component';
 import { TwoFALoginComponent } from './two-fa-login/two-fa-login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { EventPersonalComponent } from './event-personal/event-personal.component';
+
 
 
 import { MatMenuModule } from '@angular/material/menu';
@@ -37,7 +37,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
-import { EventRegisteredComponent } from './event-registered/event-registered.component';
 import { FilterFormComponent } from './filter-form/filter-form.component';
 
 
@@ -59,9 +58,7 @@ register();
 		EventBlankComponent,
 		TwoFALoginComponent,
 		ProfileComponent,
-		EventPersonalComponent,
-  EventRegisteredComponent,
-  FilterFormComponent,
+  		FilterFormComponent,
 	],
 	imports: [
 		MatExpansionModule,
@@ -89,9 +86,9 @@ register();
 			{ path: 'event-card', title: 'Eventify/Event-info', component: EventCardComponent },
 			{ path: 'event-creation', title: 'Eventify/Event-creation', component: EventCreationComponent },
 			{ path: '2FA-login', title: 'Eventify/2FA-login', component: TwoFALoginComponent },
-			{ path: 'my-events', title: 'Eventify/my-events', component: EventPersonalComponent },
+			{ path: 'event-board', title: 'Eventify/my-events', component: EventBoardComponent },
 			{ path: 'event-info/:id', component: EventInfoComponent },
-			{ path: 'registered-events', title: 'Eventify/registered-events', component: EventRegisteredComponent },
+			{ path: 'event-board', title: 'Eventify/registered-events', component: EventBoardComponent },
 			{path:  'event-board-filters', title: 'Eventify/event-board-filter', component: FilterFormComponent },
 		]),
 		BrowserAnimationsModule,
