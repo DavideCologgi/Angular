@@ -13,44 +13,54 @@ export class EventBoardComponent implements OnInit {
   constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute) {}
   showFilterForm = false;
   events: any[] = [];
-
-  @Input() filtro: any;
+  filtro: any;
 
   ngOnInit() {
     console.log("Requesting events...");
 
-    const filters = {
-      Titolo: this.filtro.Titolo,
-      Luogo: this.filtro.Luogo,
-      startDate: this.filtro.startDate,
-      endDate: this.filtro.endDate,
-      category: this.filtro.category,
-    };
+    this.route.queryParams.subscribe((params) => {
+      if (params['filtro']) {
+        this.filtro = JSON.parse(params['filtro']);
+        console.log(this.filtro);
+        this.loadDataBasedOnFiltro();
+		console.log(this.filtro.Titolo);
+      }
+    });
+  }
 
-    this.axiosService.request("GET", "/api/user/all-events", { params: filters })
-      .then(response => {
-        console.log("OK");
-        this.events = response.data;
+  loadDataBasedOnFiltro() {
+    if (this.filtro) {
+      const filters = {
+        Titolo: this.filtro.Titolo || '',
+        Luogo: this.filtro.Luogo || '',
+        startDate: this.filtro.startDate || '',
+        endDate: this.filtro.endDate || '',
+        category: this.filtro.Categoria || [],
+      };
 
-        const imageLoadingPromises = this.events.map(event => this.loadURL(event.imageURL));
+      this.axiosService.request("GET", "/api/user/all-events", { params: filters })
+        .then(response => {
+          console.log("OK");
+          this.events = response.data;
 
-        Promise.all(imageLoadingPromises)
-          .then(imageURLs => {
-            imageURLs.forEach((imageURL, index) => {
-              this.events[index].imageURL = imageURL;
+          const imageLoadingPromises = this.events.map(event => this.loadURL(event.imageURL));
+
+          Promise.all(imageLoadingPromises)
+            .then(imageURLs => {
+              imageURLs.forEach((imageURL, index) => {
+                this.events[index].imageURL = imageURL;
+              });
+
+              console.log(this.events);
+            })
+            .catch(error => {
+              console.error('Error loading images:', error);
             });
-
-            console.log(this.events);
-          })
-          .catch(error => {
-            console.error('Error loading images:', error);
-          });
-      })
-      .catch(error => {
-        console.log("Error");
-      });
-
-    console.log('Retrieved all events');
+        })
+        .catch(error => {
+          console.log("Error");
+        });
+    }
   }
 
   loadURL(endpoint: string): Promise<string> {
