@@ -28,8 +28,6 @@ export class LoginComponent {
 				'',
 				[
 					Validators.required,
-					Validators.minLength(8),
-					Validators.pattern(/^(?=.*[!@#$%^&*()_+[\]{}|~`<>?,.:;'"\\])(?=.*\d).*$/)
 				]
 			],
 		})

@@ -1,54 +1,33 @@
-
-  swiper-container {
+swiper-container {
 	width: 100%;
-	height: 100%;
-  }
+}
 
-  swiper-slide {
-	width: auto; /* 33.33% della larghezza del contenitore */
-	height: auto;
+swiper-slide {
 	display: flex;
+	width: auto;
+	height: auto;
 	flex-direction: column;
 	justify-content: space-between;
 	position: relative;
 	margin: 20px;
 	font-weight: 900;
-  }
+}
 
-
-  section {
+section {
 	display: flex;
-	flex-direction: column; /* Cambia la direzione in verticale */
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 80vh;
 	width: 100%;
 	backdrop-filter: blur(30px);
 	background: white;
-	background-size: 100% 100%;
-	background-position: center;
-	padding-top: 5px;
-  }
+}
 
-  .mat-chip-listbox {
-	align-self: flex-start; /* Posiziona i chips all'inizio della colonna */
-  }
+.mat-chip-listbox {
+	align-self: flex-start;
+}
 
-/* Stili per il componente filter-form in overlay */
-.filter-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 0.9); /* Colore e trasparenza del fondo del componente */
-	z-index: 2; /* Posiziona sopra gli altri elementi */
-	display: none; /* Inizia nascosto */
-	overflow: auto; /* Aggiungi uno scrolling se necessario */
-	padding: 20px; /* Aggiungi spazio attorno al componente */
-  }
-
-  /* Mostra il componente filter-form in overlay solo quando è visibile */
-  .filter-overlay.ng-enter-active {
-	display: block;
-  }
+@media screen and (max-width: 768px) {
+	
+}

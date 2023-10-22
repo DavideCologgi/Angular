@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ProfileComponent {
 	profileForm: FormGroup;
 
-	constructor(private formBuilder: FormBuilder) {
+	constructor(private formBuilder: FormBuilder, private router: Router) {
 		this.profileForm = this.formBuilder.group({
 			firstname: [
 				'',
@@ -37,7 +38,8 @@ export class ProfileComponent {
 	
 	firstname: string = 'Alessio';
 	lastname: string = 'Buonomo';
-	email: string = 'ciccio.gamer89@gmail.com';
+	oldEmail: string = 'ciccio.gamer89@gmail.com';
+	newEmail: string = 'ciccio.gamer89@gmail.com';
 	date: string = '17/09/1999';
 	profilePhoto: string = '/assets/profile.jpg';
 	
@@ -49,21 +51,18 @@ export class ProfileComponent {
 		this.showButton = false;
 	}
 
-	ageValidator(minAge: number) {
-		return (control: FormGroup): { [key: string]: boolean } | null => {
-		  const birthDate = new Date(control.value);
-		  const today = new Date();
-		  const age = today.getFullYear() - birthDate.getFullYear();
-
-		  if (age < minAge) {
-			return { 'minAge': true };
-		  }
-		  return null;
-		};
-	};
+	EmailChange(tmp: string) {
+		this.newEmail = tmp;
+	}
 
 	SaveChanges() {
-		//logica per il salvataggio dei nuovi dati dell'utente
+		if (this.newEmail != this.oldEmail) {
+			this.router.navigate(['/2FA-login']);
+		}
+		else {
+			// salva firstname e lastname nel database
+			window.location.reload();
+		}
 	}
 
 	ReloadPage() {
