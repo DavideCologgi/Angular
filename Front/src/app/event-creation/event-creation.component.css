@@ -92,14 +92,14 @@ h2 {
 		width: 30%;
 		border-radius: 20px;
 		cursor: pointer;
-		background-color: #fff;
-		color: #494848;
+		background-color: #FF6700;
+		color: #ffffff;
 		font-size: 18px;
 		font-weight: 800;
 	}
 
 	button:hover {
-		background-color: #C0C0C0;
+		background-color: #fb9653;
 	}
 
 .alert {

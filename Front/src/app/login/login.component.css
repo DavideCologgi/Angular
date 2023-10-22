@@ -34,47 +34,29 @@ h2 {
     border-bottom: 2px solid #fff;
 }
 
-.inputbox label {
-    position: absolute;
-    left: 5px;
-    transform: translateY(-50%);
-    color: #fff;
-    font-size: 1em;
-    pointer-events: none;
-}
-
-.inputbox input {
+input {
     width: 100%;
     height: 50px;
     background: transparent;
     border: none;
     outline: none;
     font-size: 1em;
-    padding:0 35px 0 5px;
+    padding: 0 35px 0 5px;
     color: #fff;
 }
 
 .forget {
     margin: -15px 0 15px;
+	margin-top: px;
     font-size: .9em;
     color: #fff;
     display: flex;
     justify-content: space-between;
 }
 
-.forget label input {
-    margin-right: 3px;
-}
-
-.forget label a {
-    padding-left: 80px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.forget label a:hover {
+.forget:hover {
     text-decoration: underline;
-    color: rgb(118, 10, 19);
+    color: #FF6700;
 }
 
 button {
@@ -104,22 +86,15 @@ button {
 
 .register p a:hover {
     text-decoration: underline;
-    color: rgb(118, 10, 19);
+    color: #FF6700;
 }
 
-.bi-eye, .bi-eye-slash {
+.icon {
     position: absolute;
     right: 5px;
     bottom: 11px;
     color: #fff;
     cursor: pointer;
-}
-
-.bi-envelope {
-    position: absolute;
-    right: 5px;
-    bottom: 12px;
-    color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -137,7 +112,7 @@ button {
 }
 
 .error-message {
-    color:red;
+    color: red;
     text-align: center;
     border: none;
 }
