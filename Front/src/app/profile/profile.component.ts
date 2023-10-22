@@ -31,23 +31,16 @@ export class ProfileComponent {
 					Validators.required,
 					Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 				],
-			],
-			date: [
-				'',
-				[
-					Validators.required,
-					this.ageValidator(18)
-				]
 			]
 		});
 	}
-
+	
 	firstname: string = 'Alessio';
 	lastname: string = 'Buonomo';
 	email: string = 'ciccio.gamer89@gmail.com';
 	date: string = '17/09/1999';
 	profilePhoto: string = '/assets/profile.jpg';
-
+	
 	modifyPermit: boolean = false;
 	showButton: boolean = true;
 
