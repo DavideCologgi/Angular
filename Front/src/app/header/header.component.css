@@ -5,38 +5,41 @@
 	background-color: white;
 	height: 10%;
 	border-bottom: 1px solid black;
-}
+  }
 
-.title {
-	font-size: 50px;
-	font-family: 'Poppins', sans-serif;
-	color: #FF6700;
+  .title {
 	margin-left: 10px;
 	margin-bottom: 0;
-}
+  }
 
-.mat-icon {
+  .title img {
+	width: 300px; /* Imposta la larghezza desiderata */
+	height: 10%; /* Imposta l'altezza desiderata */
+	src: url('/assets/title.png');
+  }
+
+  .mat-icon {
 	transform: scale(2);
-}
+  }
 
-.icon-color {
+  .icon-color {
 	font-size: 20px;
 	color: #004E98;
 	justify-content: center;
 	align-items: center;
 	padding: 0;
 	padding-top: 3px;
-}
+  }
 
-@media (max-width: 768px) {
+  @media (max-width: 768px) {
 	.icon-color {
-		font-size: 28px;
-		justify-content: center;
-		display: inline;
+	  font-size: 28px;
+	  justify-content: center;
+	  display: inline;
 	}
 
-	.title {
-		font-size: 30px;
+	.title img {
+	  width: 50px; /* Imposta la nuova larghezza desiderata */
+	  height: 50px; /* Imposta la nuova altezza desiderata o lascia "auto" per mantenere le proporzioni */
 	}
-}
-
+  }
