@@ -26,6 +26,7 @@ export class EventBoardComponent implements OnInit {
 		console.log(this.filtro.Titolo);
       }
     });
+	console.log(this.filtro);
   }
 
   loadDataBasedOnFiltro() {

@@ -9,7 +9,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class FilterFormComponent {
   toppings = new FormControl([]);
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  toppingList: string[] = ['Party',
+    'Gym',
+    'Rolegame',
+    'Sport',
+    'Meeting',
+    'Conference',
+    'Networking',
+    'Hobby',
+    'Music',
+    'Business',
+    'Food',
+    'Nightlife',
+    'Health',
+    'Holidays'];
   filtro: any = {
     Titolo: '',
     Luogo: '',
