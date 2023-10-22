@@ -19,7 +19,7 @@ export class ResetPasswordComponent {
 				'',
 				[
 					Validators.required,
-					Validators.pattern(/^\d{6}$/)
+					Validators.pattern(/^\d{5,6}$/)
 				]
 			],
 			newPassword: [
@@ -27,7 +27,7 @@ export class ResetPasswordComponent {
 				[
 					Validators.required,
 					Validators.minLength(8),
-					Validators.pattern(/^(?=.*[!@#$%^&*()_+[\]{}|~`<>?,.:;'"\\])(?=.*\d).*$/)
+					Validators.pattern(/^(?=.*[!@#$%^&*()_+[\]{}|~`<>?,.:;'"\\])(?=.*\d)(?=.*[A-Z]).*$/)
 				]
 			],
 			confirmPassword: ['', Validators.required]

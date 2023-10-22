@@ -31,6 +31,13 @@ export class ProfileComponent {
 					Validators.required,
 					Validators.pattern(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
 				],
+			],
+			date: [
+				'',
+				[
+					Validators.required,
+					this.ageValidator(18)
+				]
 			]
 		});
 	}
@@ -38,6 +45,7 @@ export class ProfileComponent {
 	firstname: string = 'Alessio';
 	lastname: string = 'Buonomo';
 	email: string = 'ciccio.gamer89@gmail.com';
+	date: string = '17/09/1999';
 	profilePhoto: string = '/assets/profile.jpg';
 
 	modifyPermit: boolean = false;
@@ -47,6 +55,19 @@ export class ProfileComponent {
 		this.modifyPermit = true;
 		this.showButton = false;
 	}
+
+	ageValidator(minAge: number) {
+		return (control: FormGroup): { [key: string]: boolean } | null => {
+		  const birthDate = new Date(control.value);
+		  const today = new Date();
+		  const age = today.getFullYear() - birthDate.getFullYear();
+
+		  if (age < minAge) {
+			return { 'minAge': true };
+		  }
+		  return null;
+		};
+	};
 
 	SaveChanges() {
 		//logica per il salvataggio dei nuovi dati dell'utente

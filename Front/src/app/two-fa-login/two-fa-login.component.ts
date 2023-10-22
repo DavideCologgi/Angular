@@ -20,7 +20,7 @@ export class TwoFALoginComponent {
 				'',
 				[
 					Validators.required,
-					Validators.pattern(/^\d{6}$/)
+					Validators.pattern(/^\d{5,6}$/)
 				]
 			]
 		});

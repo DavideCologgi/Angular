@@ -21,10 +21,14 @@ section {
 	position: relative;
 }
 
+.mat-mdc-card-title-group {
+	align-items: center;
+	padding: 20px;
+}
+
 .title {
 	font-size: 40px;
-	margin-top: 18%;
-	color: #FF6700;
+	color: #fff;
 	font-weight: 800;
 }
 
@@ -37,6 +41,8 @@ input {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	padding: 5px;
+	padding-left: 20px;
+	font-size: 20px;
 }
 
 .input-modify {
@@ -110,7 +116,7 @@ input {
 		width: 80%;
 	}
 
-	.title {
-		margin-top: 12%;
+	input {
+		font-size: 15px;
 	}
 }

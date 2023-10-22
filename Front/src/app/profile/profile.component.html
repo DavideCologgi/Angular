@@ -1,6 +1,6 @@
 <section>
 	<mat-card class="profile">
-		<mat-card-header>
+		<mat-card-header class="header">
 			<mat-card-title-group>
 				<mat-card-title class="title">Profile info:</mat-card-title>
 				<img mat-card-md-image class="photo" [src]="profilePhoto">
@@ -8,19 +8,26 @@
 		</mat-card-header>
 		<mat-card-content class="info">
 			<form [formGroup]="profileForm" action="" (ngSubmit)="SaveChanges()">
-				<input type="text" id="firstname" value="{{firstname}}" [(ngModel)]="firstname" [readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="firstname">
+				<input type="text" id="firstname" value="{{firstname}}" [(ngModel)]="firstname"
+				[disabled]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="firstname">
 				<div class="alert" *ngIf="profileForm.get('firstname')?.hasError('pattern')">
 					Invalid first name!
 				</div><br>
-				<input type="text" id="lastname" value="{{lastname}}" [(ngModel)]="lastname" [readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="lastname">
+				<input type="text" id="lastname" value="{{lastname}}" [(ngModel)]="lastname"
+				[readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="lastname">
 				<div class="alert" *ngIf="profileForm.get('lastname')?.hasError('pattern')">
 					Invalid last name!
 				</div><br>
-				<input type="email" id="email" value="{{email}}" [(ngModel)]="email" [readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="email">
+				<input type="email" id="email" value="{{email}}" [(ngModel)]="email"
+				[readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="email">
 				<div class="alert" *ngIf="profileForm.get('email')?.hasError('pattern')">
 					Invalid email!
 				</div><br>
-				<input type="text" id="date" value="19/07/1999" readonly>
+				<input type="text" id="date" value="{{date}}" [(ngModel)]="date"
+				[readonly]="!modifyPermit" [ngClass]="{'input-modify': modifyPermit}" formControlName="date">
+				<div class="alert" *ngIf="profileForm.get('date')?.hasError('minAge') && !profileForm.get('date')?.hasError('required')">
+					You must be at least 18!
+				</div><br>
 				<input type="file" #fileInput [hidden]="!modifyPermit" (change)="UploadNewPhoto($event)">
 			</form>
 		</mat-card-content>

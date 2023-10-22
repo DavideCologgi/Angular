@@ -5,7 +5,7 @@
 			<input type="text" id="otp" name="otp" required placeholder="" formControlName="otp">
 			<label for="otp">OTP code</label>
 			<div class="alert" *ngIf="twoFAForm.get('otp')?.hasError('pattern')">
-				OTP must be a 6-digit number
+				Invalid OTP
 			</div>
 			<div class="inputbox error">
 				<div class="error-message" *ngIf="showError">
