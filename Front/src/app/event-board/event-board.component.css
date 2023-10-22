@@ -1,11 +1,12 @@
 swiper-container {
 	width: 100%;
+	height: 100%;
 }
 
 swiper-slide {
-	display: flex;
-	width: auto;
+	width: auto; /* 33.33% della larghezza del contenitore */
 	height: auto;
+	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	position: relative;
@@ -13,17 +14,21 @@ swiper-slide {
 	font-weight: 900;
 }
 
+
 section {
 	display: flex;
-	flex-direction: column;
+	flex-direction: column; /* Cambia la direzione in verticale */
 	justify-content: center;
 	align-items: center;
 	height: 80vh;
 	width: 100%;
 	backdrop-filter: blur(30px);
 	background: white;
+	background-size: 100% 100%;
+	background-position: center;
+	padding-top: 5px;
 }
 
-@media screen and (max-width: 768px) {
-	
+.mat-chip-listbox {
+	align-self: flex-start;
 }

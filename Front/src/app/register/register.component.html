@@ -1,88 +1,97 @@
 <section>
 	<div class="form-box">
-			<form [formGroup]="registerForm" action="" (ngSubmit)="onSubmit()">
-				<h2>Create a new profile:</h2>
-				<div class="inputbox">
-					<label for="firstName">First name</label>
-					<div class="input-container">
-						<input type="text" id="firstName" formControlName="firstName">
-						<div class="alert" *ngIf="registerForm.get('firstName')?.hasError('pattern')">
-							Invalid first name!
-						</div>
+		<form [formGroup]="registerForm" action="" (ngSubmit)="onSubmit()">
+			<h2>Create a new profile:</h2>
+			<div class="inputbox">
+				<label for="firstName">First name</label>
+				<div class="input-container">
+					<input type="text" id="firstName" formControlName="firstName">
+					<div class="alert" *ngIf="registerForm.get('firstName')?.hasError('pattern')">
+						Invalid first name!
 					</div>
 				</div>
-				<div class="inputbox">
-					<label for="lastName">Last name</label>
-					<div class="input-container">
-						<input type="text" id="lastName" formControlName="lastName">
-						<div class="alert" *ngIf="registerForm.get('lastName')?.hasError('pattern')">
-							Invalid last name!
-						</div>
+			</div>
+			<div class="inputbox">
+				<label for="lastName">Last name</label>
+				<div class="input-container">
+					<input type="text" id="lastName" formControlName="lastName">
+					<div class="alert" *ngIf="registerForm.get('lastName')?.hasError('pattern')">
+						Invalid last name!
 					</div>
 				</div>
-				<div class="inputbox date">
-					<label for="dateOfBirth">Date of birth</label>
-					<div class="input-container">
-						<input type="date" id="date" formControlName="dateOfBirth">
-						<div class="alert" *ngIf="registerForm.get('dateOfBirth')?.hasError('minAge') && !registerForm.get('dateOfBirth')?.hasError('required')">
-							You must be at least 18 to register!
-						</div>
+			</div>
+			<div class="inputbox date">
+				<label for="dateOfBirth">Date of birth</label>
+				<div class="input-container">
+					<input type="date" id="date" formControlName="dateOfBirth">
+					<div class="alert"
+						*ngIf="registerForm.get('dateOfBirth')?.hasError('minAge') && !registerForm.get('dateOfBirth')?.hasError('required')">
+						You must be at least 18 to register!
 					</div>
 				</div>
-				<div class="inputbox">
-					<label for="email">Email</label>
-					<div class="input-container">
-						<input type="email" formControlName="email">
-						<div class="alert" *ngIf="registerForm.get('email')?.hasError('pattern')">
-							Invalid email!
-						</div>
+			</div>
+			<div class="inputbox">
+				<label for="email">Email</label>
+				<div class="input-container">
+					<input type="email" formControlName="email">
+					<div class="alert" *ngIf="registerForm.get('email')?.hasError('pattern')">
+						Invalid email!
 					</div>
 				</div>
-				<div class="inputbox password">
-					<label for="password">Password</label>
-					<div class="input-container">
-						<div class="password-container">
-							<input type="{{ isPasswordVisible ? 'text' : 'password' }}" id="password" formControlName="password">
-							<i class="bi" [ngClass]="{'bi-eye': !isPasswordVisible, 'bi-eye-slash': isPasswordVisible}" (click)="togglePasswordVisibility()"></i>
-						</div>
-						<div class="alert" *ngIf="(registerForm.get('password')?.hasError('pattern')) || (registerForm.get('password')?.hasError('minlength'))">
-							Password must contain at least one capital letter. <br>
-							Password must be long at least 8 characters. <br>
-							Password must contain at least one number <br> and one special character.
+			</div>
+					<div class="inputbox password">
+						<label for="password">Password</label>
+						<div class="input-container">
+							<div class="password-container">
+								<input type="{{ isPasswordVisible ? 'text' : 'password' }}" id="password"
+									formControlName="password">
+								<mat-icon class="bi" (click)="togglePasswordVisibility()">
+									{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+								</mat-icon>
+							</div>
+							<div class="alert"
+								*ngIf="(registerForm.get('password')?.hasError('pattern')) || (registerForm.get('password')?.hasError('minlength'))">
+								Password must contain at least one capital letter. <br>
+								Password must be at least 8 characters long. <br>
+								Password must contain at least one number and one special character.
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="inputbox confirm-password">
-					<label for="confirm-password">Confirm password</label>
-					<div class="input-container">
-						<div class="password-container">
-							<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="confirmPassword" formControlName="confirmPassword">
-							<span class="bi" [ngClass]="{'bi-eye': !isPassword2Visible, 'bi-eye-slash': isPassword2Visible}" (click)="togglePasswordVisibility2()"></span>
-							<div class="alert" *ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
+					<div class="inputbox password confirm-password">
+						<label for="confirm-password">Confirm password</label>
+						<div class="input-container">
+							<div class="password-container">
+								<input type="{{ isPassword2Visible ? 'text' : 'password' }}" id="confirmPassword"
+									formControlName="confirmPassword">
+								<mat-icon class="bi" (click)="togglePasswordVisibility2()">
+									{{ isPassword2Visible ? 'visibility' : 'visibility_off' }}
+								</mat-icon>
+							</div>
+							<div class="alert"
+								*ngIf="registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value">
 								Password does not match
 							</div>
 						</div>
 					</div>
+			<div class="inputbox upload">
+				<label for="fileInput" class="upload-label">Upload photo</label>
+				<div class="input-container">
+					<input type="file" #fileInput id="file" formControlName="photo">
+					<span id="fileName" class="file-name"></span>
 				</div>
-				<div class="inputbox upload">
-					<label for="fileInput" class="upload-label">Upload photo</label>
-					<div class="input-container">
-						<input type="file" #fileInput id="file" formControlName="photo">
-						<span id="fileName" class="file-name"></span>
-					</div>
+			</div>
+			<div class="inputbox privacy">
+				<label for="privacy" class="privacy-label">Accept terms and conditions</label>
+				<div class="input-container">
+					<input class="checkbox" type="checkbox" formControlName="privacy">
 				</div>
-				<div class="inputbox privacy">
-					<label for="privacy" class="privacy-label">Accept terms and conditions</label>
-					<div class="input-container">
-						<input type="checkbox" class="checkbox" formControlName="privacy">
-					</div>
+			</div>
+			<button type="submit" [disabled]="!registerForm.valid">Register</button>
+			<div class="inputbox error">
+				<div class="error-message" *ngIf="showError">
+					{{ errorMessage }}
 				</div>
-				<button type="submit" [disabled]="!registerForm.valid">Register</button>
-				<div class="inputbox error">
-					<div class="error-message" *ngIf="showError">
-						{{ errorMessage }}
-					</div>
-				</div>
-			</form>
-		</div>
+			</div>
+		</form>
+	</div>
 </section>
