@@ -5,20 +5,23 @@
 				<h2>Login</h2>
 				<div class="inputbox">
 					<mat-icon class="icon">email</mat-icon>
-					<input type="email" formControlName="email" required placeholder="Email">
+					<input type="email" formControlName="email" required placeholder="">
+					<label for="email">Email</label>
 				</div>
 				<div class="inputbox">
 					<mat-icon class="icon" (click)="togglePasswordVisibility()">
-						{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+						{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
 					</mat-icon>
 					<input type="{{ isPasswordVisible ? 'text' : 'password' }}" formControlName="password" required
-						placeholder="Password">
+						placeholder="">
+					<label for="password">Password</label>
 				</div>
 				<div class="forget">
-					<a class="forget" routerLink="/forgot-password">Forgot
-							Password?</a>
+					<label for=""><a routerLink="/forgot-password">
+						Forgot Password?
+					</a></label>
 				</div>
-				<button type="submit">Log in</button>
+				<button type="submit" [disabled]="!loginForm.valid">Log in</button>
 				<div class="inputbox error">
 					<div class="error-message" *ngIf="showError">
 						{{ errorMessage }}

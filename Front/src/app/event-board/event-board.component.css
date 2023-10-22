@@ -1,11 +1,10 @@
-
-  swiper-container {
+swiper-container {
 	width: 100%;
 	height: 100%;
-  }
+}
 
-  swiper-slide {
-	width: auto; /* 33.33% della larghezza del contenitore */
+swiper-slide {
+	width: auto;
 	height: auto;
 	display: flex;
 	flex-direction: column;
@@ -13,12 +12,12 @@
 	position: relative;
 	margin: 20px;
 	font-weight: 900;
-  }
+}
 
 
-  section {
+section {
 	display: flex;
-	flex-direction: column; /* Cambia la direzione in verticale */
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 80vh;
@@ -28,8 +27,8 @@
 	background-size: 100% 100%;
 	background-position: center;
 	padding-top: 5px;
-  }
+}
 
-  .mat-chip-listbox {
-	align-self: flex-start; /* Posiziona i chips all'inizio della colonna */
-  }
+.mat-chip-listbox {
+	align-self: flex-start;
+}
