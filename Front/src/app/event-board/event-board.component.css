@@ -4,7 +4,7 @@ swiper-container {
 }
 
 swiper-slide {
-	width: auto; /* 33.33% della larghezza del contenitore */
+	width: auto;
 	height: auto;
 	display: flex;
 	flex-direction: column;
@@ -17,7 +17,7 @@ swiper-slide {
 
 section {
 	display: flex;
-	flex-direction: column; /* Cambia la direzione in verticale */
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	height: 80vh;
