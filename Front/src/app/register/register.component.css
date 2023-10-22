@@ -4,7 +4,7 @@ section {
 	align-items: center;
 	min-height: 80vh;
 	width: 100%;
-	background: url('/assets/back2hd.jpeg');
+	background: url('/assets/background.jpeg');
 	background-position: center;
 	background-size: cover;
 	overflow-y: auto;

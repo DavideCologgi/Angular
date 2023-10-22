@@ -4,7 +4,7 @@ section {
     align-items: center;
 	width: 100%;
 	min-height: 80vh;
-	background: url('/assets/back2hd.jpeg')no-repeat;
+	background: url('/assets/background.jpeg')no-repeat;
 	background-size: cover;
 	background-position: center;
 }

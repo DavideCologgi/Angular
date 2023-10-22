@@ -8,7 +8,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	backdrop-filter: blur(5px);
-	background-image: url('/assets/back2hd.jpeg');
+	background-image: url('/assets/background.jpeg');
 	background-size: cover;
 	position: relative;
 	margin: 20px;
