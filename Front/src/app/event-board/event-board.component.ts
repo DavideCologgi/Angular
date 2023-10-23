@@ -12,75 +12,114 @@ import { ActivatedRoute } from '@angular/router';
 export class EventBoardComponent implements OnInit {
   constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute) {}
   showFilterForm = false;
-  events: any[] = [];
+  events: any[] = [{
+	title: 'Evento di esempio',
+	category: 'Esempio',
+	description: 'Questo è un evento di esempio.',
+	address: 'Indirizzo di esempio',
+	date: new Date().toISOString(),
+	imageURL: '/assets/background6.jpg'
+  },
+  {
+	title: 'Evento di esempio',
+	category: 'Esempio',
+	description: 'Questo è un evento di esempio.',
+	address: 'Indirizzo di esempio',
+	date: new Date().toISOString(),
+	imageURL: '/assets/background.jpeg'
+  },
+  {
+	title: 'Evento di esempio',
+	category: 'Esempio',
+	description: 'Questo è un evento di esempio.',
+	address: 'Indirizzo di esempio',
+	date: new Date().toISOString(),
+	imageURL: '/assets/profile.jpg'
+  },
+  {
+	title: 'Evento di esempio',
+	category: 'Esempio',
+	description: 'Questo è un evento di esempio.',
+	address: 'Indirizzo di esempio',
+	date: new Date().toISOString(),
+	imageURL: '/assets/background6.jpg'
+  },
+  {
+	title: 'Evento di esempio',
+	category: 'Esempio',
+	description: 'Questo è un evento di esempio.',
+	address: 'Indirizzo di esempio',
+	date: new Date().toISOString(),
+	imageURL: '/assets/background.jpeg'
+  }];
   filtro: any;
 
   ngOnInit() {
-    console.log("Requesting events...");
+	console.log("Requesting events...");
 
-    this.route.queryParams.subscribe((params) => {
-      if (params['filtro']) {
-        this.filtro = JSON.parse(params['filtro']);
-        console.log(this.filtro);
-        this.loadDataBasedOnFiltro();
+	this.route.queryParams.subscribe((params) => {
+	  if (params['filtro']) {
+		this.filtro = JSON.parse(params['filtro']);
+		console.log(this.filtro);
+		this.loadDataBasedOnFiltro();
 		console.log(this.filtro.Titolo);
-      }
-    });
+	  }
+	});
 	console.log(this.filtro);
   }
 
   loadDataBasedOnFiltro() {
-    if (this.filtro) {
-      const filters = {
-        Titolo: this.filtro.Titolo || '',
-        Luogo: this.filtro.Luogo || '',
-        startDate: this.filtro.startDate || '',
-        endDate: this.filtro.endDate || '',
-        category: this.filtro.Categoria || [],
-      };
+	if (this.filtro) {
+	  const filters = {
+		Titolo: this.filtro.Titolo || '',
+		Luogo: this.filtro.Luogo || '',
+		startDate: this.filtro.startDate || '',
+		endDate: this.filtro.endDate || '',
+		category: this.filtro.Categoria || [],
+	  };
 
-      this.axiosService.request("GET", "/api/user/all-events", { params: filters })
-        .then(response => {
-          console.log("OK");
-          this.events = response.data;
+	  this.axiosService.request("GET", "/api/user/all-events", { params: filters })
+		.then(response => {
+		  console.log("OK");
+		  this.events = response.data;
 
-          const imageLoadingPromises = this.events.map(event => this.loadURL(event.imageURL));
+		  const imageLoadingPromises = this.events.map(event => this.loadURL(event.imageURL));
 
-          Promise.all(imageLoadingPromises)
-            .then(imageURLs => {
-              imageURLs.forEach((imageURL, index) => {
-                this.events[index].imageURL = imageURL;
-              });
+		  Promise.all(imageLoadingPromises)
+			.then(imageURLs => {
+			  imageURLs.forEach((imageURL, index) => {
+				this.events[index].imageURL = imageURL;
+			  });
 
-              console.log(this.events);
-            })
-            .catch(error => {
-              console.error('Error loading images:', error);
-            });
-        })
-        .catch(error => {
-          console.log("Error");
-        });
-    }
+			  console.log(this.events);
+			})
+			.catch(error => {
+			  console.error('Error loading images:', error);
+			});
+		})
+		.catch(error => {
+		  console.log("Error");
+		});
+	}
   }
 
   loadURL(endpoint: string): Promise<string> {
-    return new Promise((resolve, reject) => {
-      this.axiosService.customGet(endpoint)
-        .subscribe((response: AxiosResponse) => {
-          const reader = new FileReader();
-          reader.onload = () => {
-            resolve(reader.result as string);
-          };
-          reader.readAsDataURL(response.data);
-        }, (error) => {
-          console.error('Error retrieving the image:', error);
-          reject(error);
-        });
-    });
+	return new Promise((resolve, reject) => {
+	  this.axiosService.customGet(endpoint)
+		.subscribe((response: AxiosResponse) => {
+		  const reader = new FileReader();
+		  reader.onload = () => {
+			resolve(reader.result as string);
+		  };
+		  reader.readAsDataURL(response.data);
+		}, (error) => {
+		  console.error('Error retrieving the image:', error);
+		  reject(error);
+		});
+	});
   }
 
   toggleFilterForm() {
-    this.showFilterForm = !this.showFilterForm;
+	this.showFilterForm = !this.showFilterForm;
   }
 }
