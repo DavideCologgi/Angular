@@ -63,19 +63,23 @@ constructor(private axiosService: AxiosService, private formBuilder: FormBuilder
   }
 
 DateRangeValidator(): Validators {
-    return (control: AbstractControl): { [key: string]: boolean } | null => {
-      if (control.value) {
-        const selectedDate = new Date(control.value);
-        const currentDate = new Date();
-        const maxDate = new Date();
-        maxDate.setFullYear(maxDate.getFullYear() + 1);
+  return (control: AbstractControl): { [key: string]: boolean } | null => {
+    if (control.value) {
+      const selectedDate = new Date(control.value);
+      const currentDate = new Date();
+      const minDate = new Date(currentDate);
+      minDate.setDate(currentDate.getDate() + 1);
+      const maxDate = new Date(currentDate);
+      maxDate.setFullYear(currentDate.getFullYear() + 1);
 
-        if (selectedDate < currentDate || selectedDate > maxDate) {
-          return { dateRange: true };
-        }
+      if (selectedDate >= minDate && selectedDate <= maxDate) {
+        return null;
+      } else {
+        return { dateRange: true };
       }
-      return null;
-    };
+    }
+    return null;
+  };
 }
 
 onSubmit(): void {

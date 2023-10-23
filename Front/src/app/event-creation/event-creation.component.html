@@ -26,7 +26,7 @@
 			<div class="inputbox">
 				<input class="date-time" type="datetime-local" id="dateTime" [(ngModel)]="newEvent.dateTime" formControlName="dateTime">
 				<div class="alert" *ngIf="eventForm.get('dateTime')?.hasError('dateRange')">
-					Please select a date within 1 year
+					Please select a date between tomorrow and 1 year
 				</div>
 			</div>
 			<div class="inputbox">
