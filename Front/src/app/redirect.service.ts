@@ -14,6 +14,12 @@ export class RedirectService {
   getRedirect(){
 	return this.redirectTo;
   }
+
+  isLogged: boolean = false;
+
+  setIsLogged(bool: boolean) {
+		this.isLogged = bool;
+	}
 }
 
 

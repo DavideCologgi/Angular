@@ -2,7 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AxiosService } from '../axios.service';
 import { Router } from '@angular/router';
-import { HeaderComponent } from '../header/header.component';
+import { RedirectService } from '../redirect.service';
 
 @Component({
   selector: 'app-two-fa-login',
@@ -14,7 +14,7 @@ export class TwoFALoginComponent {
 	showError = false;
 	errorMessage = '';
 
-	constructor(private formBuilder: FormBuilder, private el: ElementRef, private axiosService: AxiosService, private router: Router) {
+	constructor(private formBuilder: FormBuilder, private el: ElementRef, private axiosService: AxiosService, private router: Router, private redirectService: RedirectService) {
 		this.twoFAForm = this.formBuilder.group({
 			otp: [
 				'',
@@ -61,7 +61,7 @@ export class TwoFALoginComponent {
 						window.localStorage.setItem("expiration_date", response.data.expiration_date);
 						window.localStorage.setItem("userId", response.data.userId);
 						console.log(response.data.expiration_date);
-						// this.header.setIsLoggedIn(true);
+						this.redirectService.setIsLogged(true);
 						this.router.navigate(['/home']);
 					}
 				  })

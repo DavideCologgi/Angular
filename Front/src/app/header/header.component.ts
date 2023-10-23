@@ -13,9 +13,9 @@ import { HostListener } from '@angular/core';
 export class HeaderComponent {
 
   redirection = '';
-  isLoggedIn: boolean = false;
+  isLogged: boolean = false;
   numeroNotifiche: any;
-  imageName: string = '/assets/title.png'; // Imposta l'immagine predefinita
+  imageName: string = '/assets/title.png';
   isMobile: boolean = false;
 
   constructor(
@@ -36,7 +36,7 @@ export class HeaderComponent {
     this.axiosService
       .request2('POST', 'api/auth/logout', {})
       .then((response) => {
-        this.isLoggedIn = false;
+        this.isLogged = false;
         //not logged
         this.router.navigate(['/login']);
       })
@@ -45,8 +45,8 @@ export class HeaderComponent {
       });
   }
 
-  setIsLoggedIn(boolean: boolean) {
-    this.isLoggedIn = boolean;
+  setIsLogged(bool: boolean) {
+    this.isLogged = bool;
   }
 
   updateRedirection(newRedirection: string) {
