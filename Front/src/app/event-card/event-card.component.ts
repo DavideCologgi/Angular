@@ -2,6 +2,13 @@ import { Component, ElementRef, AfterViewInit, Renderer2, Input, OnInit } from '
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
 
+
+
+type CategoryColors = {
+	[key: string]: string;
+  };
+
+
 @Component({
   selector: 'app-event-card',
   templateUrl: './event-card.component.html',
@@ -9,6 +16,23 @@ import { AxiosResponse } from 'axios';
 })
 export class EventCardComponent implements AfterViewInit, OnInit {
   @Input() event: any;
+
+  categoryColors: CategoryColors = {
+    PARTY: '#ff0000', // Rosso
+    GYM: '#ff8000' ,// Arancio
+    ROLEGAME: '#653239', // Giallo
+    SPORT: '#27AE60', // Verde
+    MEETING: '#083D77', // Blu
+    CONFERENCE: '#FFBA08', // Ciano
+    NETWORKING: '#7f5539', // Giallo
+    HOBBY: '#f032e6', // Magenta
+    MUSIC: '#fabed4', // Pink
+    BUSINESS: '#34495E', // Grigio scuro
+    FOOD: '#911eb4', // Viola
+    NIGHTLIFE: 'black', // Arancione
+    HEALTH: '#27AE60', // Verde
+    HOLIDAYS: '#3498DB' // Blu
+  };
 
   constructor(private elementRef: ElementRef, private renderer: Renderer2, private axiosService: AxiosService) {}
 
