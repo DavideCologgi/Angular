@@ -38,7 +38,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
 import { FilterFormComponent } from './filter-form/filter-form.component';
-import { MofidyEventsComponent } from './mofidy-events/mofidy-events.component';
+import { MofidyEventsComponent } from './modify-events/mofidy-events.component';
 
 
 register();
