@@ -1,6 +1,6 @@
 <section>
 	<div class="event">
-		<h2>Create a new event:</h2>
+		<h2>Edit event</h2>
 		<form class="form" [formGroup]="eventForm" action="" (ngSubmit)="onSubmit()">
 			<div class="inputbox">
 				<input matInput type="text" [(ngModel)]="newEvent.name" id="name" formControlName="name"
@@ -14,8 +14,7 @@
 				placeholder="Give your event a description"></textarea><br>
 			</div>
 			<div class="inputbox">
-				<input matInput [(ngModel)]="newEvent.address" id="place" formControlName="place"
-				placeholder="Via Marsala, 29H, 00185 Roma RM" (focus)="fieldFocused2 = true" (blur)="fieldFocused2 = false; fieldTouched2 = true">
+				<input matInput [(ngModel)]="newEvent.address" id="place" formControlName="place"(focus)="fieldFocused2 = true" (blur)="fieldFocused2 = false; fieldTouched2 = true">
 				<div class="alert" *ngIf="(fieldFocused2 || fieldTouched2) && eventForm.get('place')?.hasError('required')">
 					Address missing!
 				</div>
@@ -52,14 +51,20 @@
 					Please select a category for the event
 				</div>
 			</div>
-			<div class="photo-alert">
-				Add at least one photo to present your event:
+			<div class="image-preview-container">
+				<div class="image-preview" *ngFor="let image of imageFiles; let i = index">
+					<img [src]="image" alt="Image Preview">
+					<button mat-icon-button color="primary" (click)="removeImage(i)">
+						<mat-icon>close</mat-icon>
+					</button>
+				</div>
 			</div>
+
 			<div class="inputbox">
 				<input class="photo" type="file" name="images" accept="image/*" (change)="onFileChange($event)" multiple formControlName="photo">
 			</div>
 			<div class="actions">
-				<button mat-raised-button color="primary">Create</button>
+				<button mat-raised-button color="primary">Submit</button>
 			</div>
 		</form>
 	</div>

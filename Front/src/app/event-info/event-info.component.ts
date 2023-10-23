@@ -32,6 +32,18 @@ export class EventInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+	if (!this.event) {
+		// Se l'evento non è stato fornito, crea un evento di esempio
+		this.event = {
+		  id: '0',
+		  title: 'Evento di esempio',
+		  category: 'Esempio',
+		  description: 'Questo è un evento di esempio.',
+		  address: 'Indirizzo di esempio',
+		  date: new Date().toISOString(),
+		  // image:
+		};
+	  }
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.axiosService.request("GET", `/api/event/findById/${id}`, {})
@@ -156,7 +168,18 @@ export class EventInfoComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  editEvent() {
+	this.route.params.subscribe(params => {
+	  const eventId = +params['id'];
+	  this.router.navigate(['/event-edit']);
+	});
+  }
+
 }
+
+
+
 
 @Component({
 	selector: 'dialog-content-example-dialog',

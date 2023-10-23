@@ -38,6 +38,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { register } from 'swiper/element/bundle';
 import { FilterFormComponent } from './filter-form/filter-form.component';
+import { MofidyEventsComponent } from './mofidy-events/mofidy-events.component';
 
 
 register();
@@ -59,6 +60,7 @@ register();
 		TwoFALoginComponent,
 		ProfileComponent,
   		FilterFormComponent,
+    MofidyEventsComponent,
 	],
 	imports: [
 		MatExpansionModule,
@@ -90,6 +92,7 @@ register();
 			{ path: 'event-info/:id', component: EventInfoComponent },
 			{ path: 'event-board', title: 'Eventify/registered-events', component: EventBoardComponent },
 			{path:  'event-board-filters', title: 'Eventify/event-board-filter', component: FilterFormComponent },
+			{path:  'event-edit', title: 'Eventify/event-edit', component: MofidyEventsComponent },
 		]),
 		BrowserAnimationsModule,
 		MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule,
