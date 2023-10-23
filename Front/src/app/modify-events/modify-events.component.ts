@@ -3,11 +3,11 @@ import { AxiosService } from '../axios.service';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
-  selector: 'app-mofidy-events',
-  templateUrl: './mofidy-events.component.html',
-  styleUrls: ['./mofidy-events.component.css']
+  selector: 'app-modify-events',
+  templateUrl: './modify-events.component.html',
+  styleUrls: ['./modify-events.component.css']
 })
-export class MofidyEventsComponent {
+export class ModifyEventsComponent {
   newEvent: any = {
     name: 'Default Event Title',
     description: 'Default event description goes here.',
@@ -95,6 +95,6 @@ export class MofidyEventsComponent {
   }
 
   removeImage(index: number): void {
-    this.imageFiles.splice(index, 1); // Rimuovi l'immagine dall'array delle immagini
+    this.imageFiles.splice(index, 1);
 }
 }

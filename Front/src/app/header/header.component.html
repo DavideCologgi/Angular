@@ -27,7 +27,7 @@
 		</mat-menu>
 	<button class="user-menu" mat-icon-button [matMenuTriggerFor]="menu">
 		<ng-container *ngIf="!isLogged; else loggedIcon">
-			<mat-icon class="icon">person</mat-icon>
+			<mat-icon class="user">person</mat-icon>
 		</ng-container>
 		<ng-template #loggedIcon>
 			<img class="photo" src="/assets/profile.jpg" alt="">

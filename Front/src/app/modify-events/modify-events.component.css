@@ -53,10 +53,10 @@ section {
 
   .category,
   .date-time {
-	width: 50%; /* Sostituisci con la larghezza desiderata */
+	width: 50%;
   }
 
-  .option {
+  option {
 	color: black;
   }
 
@@ -69,7 +69,7 @@ section {
 
   .image-preview {
     position: relative;
-    display: inline-block; /* Per consentire al contenitore di adattarsi alle dimensioni dell'immagine */
+    display: inline-block;
 }
 
 .remove-button {
@@ -86,7 +86,7 @@ section {
     align-items: center;
     cursor: pointer;
     font-size: 18px;
-    color: primary; /* Assicurati che "primary" sia la classe CSS corretta per il colore desiderato */
+    color: primary;
 }
 
 button {
