@@ -37,7 +37,7 @@
 					Upload a new profile photo:
 				</div>
 				<input type="file" class="file" #fileInput [hidden]="!modifyPermit"
-				(change)="UploadNewPhoto($event)">
+				accept="image/*" (change)="UploadNewPhoto($event)">
 			</form>
 		</mat-card-content>
 		<div class="button">
