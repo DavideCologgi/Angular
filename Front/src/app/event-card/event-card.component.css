@@ -36,11 +36,10 @@
 
 .category {
 	font-size: 15px;
-	color: rgb(38, 0, 255);
+	color: rgb(255, 255, 255);
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	background: rgba(255, 255, 255, 0.7);
 	border-radius: 5px;
 	padding: 5px 10px;
 }

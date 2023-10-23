@@ -73,13 +73,13 @@
 							</div>
 						</div>
 					</div>
-			<div class="inputbox upload">
-				<label for="fileInput" class="upload-label">Upload photo</label>
-				<div class="input-container">
-					<input type="file" #fileInput id="file" formControlName="photo">
-					<span id="fileName" class="file-name"></span>
-				</div>
-			</div>
+					<div class="inputbox upload">
+						<label for="fileInput" class="upload-label">Upload photo</label>
+						<div class="input-container">
+							<input type="file" #fileInput id="file" formControlName="photo" accept="image/*">
+							<span id="fileName" class="file-name"></span>
+						</div>
+					</div>
 			<div class="inputbox privacy">
 				<label for="privacy" class="privacy-label">Accept terms and conditions</label>
 				<div class="input-container">

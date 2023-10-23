@@ -38,7 +38,7 @@ export class HeaderComponent {
       .then((response) => {
         this.isLogged = false;
         //not logged
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       })
       .catch((error) => {
         console.error('Error logging out:', error);

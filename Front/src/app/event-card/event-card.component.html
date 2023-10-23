@@ -2,7 +2,7 @@
 	<mat-card class="event-card" [style.background-image]="'url(' + event.imageURL + ')'">
 		<mat-card-header>
 			<mat-card-title class="title">{{ event.title }}</mat-card-title>
-			<p class="category">{{ event.category }}</p>
+			<p class="category" [ngStyle]="{'background-color': categoryColors[event.category]}">{{ event.category }}</p>
 		</mat-card-header>
 		<mat-card-content>
 			<p class="description">{{ event.description }}</p>
