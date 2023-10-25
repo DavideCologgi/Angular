@@ -38,7 +38,7 @@ export class FilterFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.axiosService.authenticate();
+    //this.axiosService.authenticate();
   }
 
   applicaFiltro() {

@@ -66,7 +66,7 @@ constructor(private axiosService: AxiosService, private formBuilder: FormBuilder
   }
 
   ngOnInit(): void {
-	  this.axiosService.authenticate();
+	  //this.axiosService.authenticate();
   }
 
 DateRangeValidator(): Validators {

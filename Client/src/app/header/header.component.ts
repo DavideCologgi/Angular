@@ -104,18 +104,18 @@ export class HeaderComponent implements OnInit{
     this.redirection = newRedirection;
   }
 
-  authenticate() {
-    this.axiosService
-      .request('POST', 'api/authenticate', {})
-      .then((response) => {
-        console.log('test');
-        this.router.navigate([this.redirection]);
-      })
-      .catch((error) => {
-        console.log('error');
-        this.router.navigate(['/login']);
-      });
-  }
+  // authenticate() {
+  //   this.axiosService
+  //     .request('POST', 'api/authenticate', {})
+  //     .then((response) => {
+  //       console.log('test');
+  //       this.router.navigate([this.redirection]);
+  //     })
+  //     .catch((error) => {
+  //       console.log('error');
+  //       this.router.navigate(['/login']);
+  //     });
+  // }
 
   resetNumeroNotifiche() {
     this.numeroNotifiche = 0;

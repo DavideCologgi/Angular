@@ -20,7 +20,7 @@ export class EventBoardComponent implements OnInit {
   ngOnInit() {
 	console.log("Requesting events...");
 
-	this.axiosService.authenticate();
+	//this.axiosService.authenticate();
 	this.route.queryParams.subscribe((params) => {
 	  if (params['filtro']) {
 		this.filtro = JSON.parse(params['filtro']);

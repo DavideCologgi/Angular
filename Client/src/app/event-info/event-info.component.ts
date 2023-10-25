@@ -37,7 +37,7 @@ export class EventInfoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.axiosService.authenticate();
+    //this.axiosService.authenticate();
 
     if (!this.event) {
       // Se l'evento non è stato fornito, crea un evento di esempio

@@ -153,14 +153,14 @@ export class AxiosService {
       });
   }
 
-  authenticate() {
-      this.request('POST', 'api/authenticate', {})
-      .then((response) => {
-        this.redirect.setIsLogged(true);
-      })
-      .catch((error) => {
-        console.log('error');
-        this.router.navigate(['/login']);
-      });
-  }
+  // authenticate() {
+  //     this.request('POST', 'api/authenticate', {})
+  //     .then((response) => {
+  //       this.redirect.setIsLogged(true);
+  //     })
+  //     .catch((error) => {
+  //       console.log('error');
+  //       this.router.navigate(['/login']);
+  //     });
+  // }
 }

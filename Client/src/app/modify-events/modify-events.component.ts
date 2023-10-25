@@ -43,7 +43,7 @@ export class ModifyEventsComponent {
   event: any;
 
   ngOnInit(): void {
-    this.axiosService.authenticate();
+    //this.axiosService.authenticate();
 
     if (!this.event) {
       // Se l'evento non è stato fornito, crea un evento di esempio
