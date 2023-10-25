@@ -1,0 +1,203 @@
+section {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	width: 100%;
+	min-height: 80vh;
+	background-image: whitespace-between="10";
+	background-position: center;
+}
+
+swiper-container {
+	width: 100%;
+	flex: 1;
+}
+
+swiper-slide img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.event-card {
+	width: 80%;
+	color: white;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	background-color: rgba(249, 249, 249, 0.312);
+	backdrop-filter: blur(10px);
+	border: 2px solid rgba(155, 152, 152, 0.5);
+	margin: 1em;
+}
+
+	.event-card-content {
+		flex: 1;
+		overflow: auto;
+	}
+
+.title {
+	font-size: 32px;
+    padding: 1em;
+	color: #FF6700;
+	font-weight: 900;
+}
+
+	.title::after {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 1px;
+		background-color: rgb(0, 0, 0);
+		margin-top: 10px;
+	}
+
+.info {
+    justify-content: center;
+    align-items: center;
+}
+
+.description {
+	overflow-wrap: break-word;
+	color: black;
+}
+
+.category {
+	display: flex;
+	font-size: 20px;
+	font-weight: 800;
+	color: #004E98;
+}
+
+.description,
+.address,
+.time,
+.category {
+	font-size: 18px;
+	margin: 0;
+    padding: 0.5em;
+}
+
+.address{
+	font-size: 20px;
+	font-weight: 700;
+	color: black;
+}
+
+.time {
+	font-size: 20px;
+	font-weight: 700;
+	color: black;
+}
+
+.actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    margin-top: auto;
+    margin-bottom: 1em;
+	padding: 1em;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+}
+
+.address-container {
+    display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.join-button,
+.people-button,
+.delete-button,
+.edit-button {
+    margin-right: 1em;
+    width: 3em;
+    height: 3em;
+}
+
+.join-button {
+	background-color: rgb(6, 222, 6);
+	color: white;
+	transition: background-color 0.3s;
+}
+
+	.join-button:hover {
+		background-color: greenyellow;
+	}
+
+.red-button {
+	background-color: red;
+	color: white;
+	transition: background-color 0.3s;
+}
+
+	.red-button:hover {
+		background-color: rgb(255, 42, 0);
+	}
+
+.people-button {
+	background-color: #004E98;
+	color: white;
+	transition: background-color 0.3s;
+}
+
+	.people-button:hover {
+		background-color: rgb(15, 147, 241);
+	}
+
+.delete-button {
+	background-color: #c0c0c0;
+	color: white;
+	transition: background-color 0.3s;
+}
+
+	.delete-button:hover {
+		background-color: gray;
+	}
+
+.edit-button {
+	background-color: #FF6700;
+	color: white;
+	transition: background-color 0.3s;
+}
+
+	.edit-button:hover {
+		background-color: #ff8400;
+	}
+
+@media (max-width: 600px) {
+	.event-card {
+		width: 100%;
+		max-height: 70vh;
+		overflow-y: auto;
+	}
+
+	.title {
+		font-size: 20px;
+	}
+
+	.category {
+		left: 1em;
+		bottom: 1em;
+	}
+
+	.join-button,
+	.people-button,
+	.delete-button {
+		margin-right: 0.5em;
+		width: 3em;
+		height: 3em;
+	}
+}
+
+@media (min-width: 1024px) {
+    .event-card {
+        width: 30%;
+		margin: 3em;
+	}
+}
