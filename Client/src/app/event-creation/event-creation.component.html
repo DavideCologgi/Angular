@@ -6,33 +6,33 @@
 				<input matInput type="text" [(ngModel)]="newEvent.name" id="name" formControlName="name"
 				placeholder="Insert a title" (focus)="fieldFocused = true" (blur)="fieldFocused = false; fieldTouched = true">
 				<div class="alert" *ngIf="(fieldFocused || fieldTouched) && eventForm.get('name')?.hasError('required')">
-					Title missing!
+					Missing title!
 				</div>
 			</div>
 			<div class="inputbox">
 				<textarea class="description" matInput [(ngModel)]="newEvent.description" id="description" formControlName="description"
-				placeholder="Give your event a description"></textarea><br>
+				placeholder="Add a description" (focus)="fieldFocused4 = true" (blur)="fieldFocused4 = false; fieldTouched4 = true"></textarea><br>
 				<div class="alert" *ngIf="(fieldFocused4 || fieldTouched4) && eventForm.get('description')?.hasError('required')">
-					Description missing!
+					Missing description!
 				</div>
 			</div>
 			<div class="inputbox">
 				<input matInput [(ngModel)]="newEvent.address" id="place" formControlName="place"
 				placeholder="Via Marsala, 29H, 00185 Roma RM" (focus)="fieldFocused2 = true" (blur)="fieldFocused2 = false; fieldTouched2 = true">
 				<div class="alert" *ngIf="(fieldFocused2 || fieldTouched2) && eventForm.get('place')?.hasError('required')">
-					Address missing!
+					Missing address!
 				</div>
 				<div class="alert" *ngIf="eventForm.get('place')?.hasError('pattern')">
 					Please specify civic, CAP and city! (Via Marsala, 29H, 00185 Rome RM)
 				</div>
 			</div>
-			<div class="inputbox">
+			<div class="inputbox date">
 				<input class="date-time" type="datetime-local" id="dateTime" [(ngModel)]="newEvent.dateTime" formControlName="dateTime">
 				<div class="alert" *ngIf="eventForm.get('dateTime')?.hasError('dateRange')">
 					Please select a date between tomorrow and 1 year
 				</div>
 			</div>
-			<div class="inputbox">
+			<div class="inputbox genre">
 				<select class="category" id="category" [(ngModel)]="newEvent.category" formControlName="category"
 				(focus)="fieldFocused3 = true" (blur)="fieldFocused3 = false; fieldTouched3 = true">
 					<option value="" [selected]="!newEvent.category" disabled selected>Select a category</option>
@@ -52,13 +52,13 @@
 					<option value="HOLIDAYS">Holidays</option>
 				</select>
 				<div class="alert" *ngIf="(fieldFocused3 || fieldTouched3) && eventForm.get('category')?.hasError('required')">
-					Please select a category for the event
+					Missing category!
 				</div>
 			</div>
 			<div class="inputbox">
 				<input class="photo" type="file" name="images" accept="image/*" (change)="onFileChange($event)" multiple formControlName="photo">
 				<div class="alert" *ngIf="eventForm.get('photo')?.hasError('required')">
-					Photo missing!
+					Missing photo!
 				</div>
 			</div>
 			<div class="actions">

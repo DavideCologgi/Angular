@@ -77,7 +77,7 @@
 							<input type="file" #fileInput id="file" formControlName="photo" accept="image/*">
 							<span id="fileName" class="file-name"></span>
 							<div class="photo-alert" *ngIf="registerForm.get('photo')?.hasError('required')">
-								Photo missing!
+								Missing photo!
 							</div>
 						</div>
 					</div>
