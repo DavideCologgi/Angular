@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AxiosService } from '../axios.service';
 import { Router } from '@angular/router';
 import axios from 'axios';
@@ -38,7 +38,8 @@ export class RegisterComponent {
 				'',
 				[
 					Validators.required,
-					this.ageValidator(18)
+					this.ageValidator(18),
+					this.dateValidator.bind(this)
 				]
 			],
 			email: [
@@ -91,16 +92,28 @@ export class RegisterComponent {
 
 	ageValidator(minAge: number) {
 		return (control: FormGroup): { [key: string]: boolean } | null => {
-		  const birthDate = new Date(control.value);
-		  const today = new Date();
-		  const age = today.getFullYear() - birthDate.getFullYear();
+			const birthDate = new Date(control.value);
+			const today = new Date();
+			const age = today.getFullYear() - birthDate.getFullYear();
+			
+			if (age < minAge && birthDate < today) {
+				return { 'minAge': true };
+			}
 
-		  if (age < minAge) {
-			return { 'minAge': true };
-		  }
-		  return null;
+			return null;
 		};
 	};
+
+	dateValidator(control: FormControl) {
+		const birthDate = new Date(control.value);
+		const today = new Date();
+
+		if (birthDate >= today) {
+			return { 'futureDate': true };
+		}
+
+		return null;
+	}
 
 	onSubmit() {
 		const passwordValue = this.registerForm.get('password')?.value;

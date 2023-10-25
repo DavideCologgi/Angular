@@ -207,7 +207,12 @@ export class EventInfoComponent implements OnInit {
       this.router.navigate(['/event-edit', eventId]);
     });
   }
+  
+  BacktoBoard() {
+    this.router.navigate(['/event-board']);
+  }
 }
+
 
 @Component({
   selector: 'dialog-content-example-dialog',
