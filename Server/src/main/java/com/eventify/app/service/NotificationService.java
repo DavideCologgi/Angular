@@ -51,8 +51,14 @@ public class NotificationService {
 
         if (message == "Subscribed for creator") {
             message = "The user" + user.getFirstname() + " " + user.getLastname() + " is subscribed to your event: " + event.getTitle();
+            if (eventId != null) {
+                user = userService.getById(event.getCreator().getId()).get();
+            }
         } else if (message == "Unsubscribed for creator") {
             message = "The user" + user.getFirstname() + " " + user.getLastname() + " is unsubscribed to your event: " + event.getTitle();
+            if (eventId != null) {
+                user = userService.getById(event.getCreator().getId()).get();
+            }
         } else {
             if (eventId != null) {
                 message += event.getTitle();
@@ -88,11 +94,13 @@ public class NotificationService {
         List<NotificationForm> resultNotifications = new ArrayList<>();
 
         for (Notification notification : notificationList) {
-            resultNotifications.add(NotificationForm.builder()
-            .isRead(notification.getIsRead())
-            .message(notification.getMessage())
-            .dateTime(notification.getDateTime())
-            .build());
+            if (notification.getUser().getId() == userId) {
+                resultNotifications.add(NotificationForm.builder()
+                .isRead(notification.getIsRead())
+                .message(notification.getMessage())
+                .dateTime(notification.getDateTime())
+                .build());
+            }
         }
         resultNotifications.sort(Comparator.comparing(NotificationForm::getDateTime).reversed());
 

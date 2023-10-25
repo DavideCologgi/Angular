@@ -11,7 +11,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatMenu } from '@angular/material/menu';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
@@ -84,6 +83,7 @@ export class EventInfoComponent implements OnInit {
         })
         .catch((error) => {
           console.log(error);
+          this.router.navigate(['/event-board']);
         });
     });
   }
@@ -128,6 +128,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   toggleRegistration() {
+    this.axiosService.authenticate();
     this.route.params.subscribe((params) => {
       const eventId = +params['id'];
       const userId = window.localStorage.getItem('userId');
@@ -136,9 +137,10 @@ export class EventInfoComponent implements OnInit {
 
       // Chiamata per aggiungere/rimuovere partecipante
       const requestMethod = this.isRegistered ? 'POST' : 'DELETE';
+      const requestEndpoint = this.isRegistered ? `/api/event/${eventId}/register/${userId}` : `/api/event/${eventId}/unregister/${userId}`;
 
       this.axiosService
-        .request(requestMethod, `/api/event/${eventId}/register/${userId}`, {})
+        .request(requestMethod, requestEndpoint, {})
         .then(() => {
           console.log('Registration request succeeded');
           // Altra chiamata per aggiornare la lista di partecipanti
@@ -146,16 +148,18 @@ export class EventInfoComponent implements OnInit {
         })
         .catch((error) => {
           console.error('Registration request failed', error);
+          this.router.navigate(['/event-board']);
         });
     });
   }
 
   updateParticipantsList(eventId: number) {
+    this.axiosService.authenticate();
     this.axiosService
       .request('GET', `/api/event/findById/${eventId}`, {})
       .then((response) => {
         console.log('Fetched updated participants list');
-        this.event.participants = response.data;
+        this.event.participants = response.data.participants;
         console.log(this.event.participants);
       })
       .catch((error) => {
@@ -207,7 +211,7 @@ export class EventInfoComponent implements OnInit {
       this.router.navigate(['/event-edit', eventId]);
     });
   }
-  
+
   BacktoBoard() {
     this.router.navigate(['/event-board']);
   }

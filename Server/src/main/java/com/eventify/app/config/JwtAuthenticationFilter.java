@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
 
-        if (request.getRequestURI().equals("/api/auth/refreshToken")) {
+        if (request.getRequestURI().startsWith("/api/auth/")) {
             chain.doFilter(request, response);
             return;
         }

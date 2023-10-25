@@ -72,7 +72,7 @@ export class ModifyEventsComponent {
             .catch(error => {
               console.error('Error loading image URLs:', error);
             });
-          })
+          }).catch(error => {})
         })
      }
     }

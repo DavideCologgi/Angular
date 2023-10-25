@@ -15,12 +15,7 @@ export class HeaderComponent implements OnInit{
 
   redirection = '';
   numeroNotifiche: any = 0; // Initialize to 0
-  notifications: any[] = [
-    {
-    name: "boooooo"
-    },
-    
-]; // Store the notification list
+  notifications: any[] = []; // Store the notification list
   imageName: string = '/assets/title.png'; // Imposta l'immagine predefinita
   isMobile: boolean = false;
   profilePhoto: string = '';
@@ -28,30 +23,32 @@ export class HeaderComponent implements OnInit{
   constructor(
     private router: Router,
     private redirectService: RedirectService,
-    private axiosService: AxiosService,
+    protected axiosService: AxiosService,
     private sseService: SseService
   ) {
-    this.sseService.getEvents().subscribe((eventData) => {
-      //aggiornare il numero di notifiche
-      console.log("arrived eventData");
-      for (const event of eventData) {
-        console.log(event.dateTime);
-      }
-      this.notifications = eventData;
-      console.log("pushed inside notification");
-      for (const notification of this.notifications) {
-        console.log(notification.dateTime);
-      }
-      this.numeroNotifiche = 0;
-      for (const notification of this.notifications) {
-        if (notification.read == false) {
-          this.numeroNotifiche++;
+      this.sseService.getEvents().subscribe((eventData) => {
+        //aggiornare il numero di notifiche
+        console.log("arrived eventData");
+        for (const event of eventData) {
+          console.log(event.dateTime);
         }
-      }
-    });
+        this.notifications = eventData;
+        console.log("pushed inside notification");
+        for (const notification of this.notifications) {
+          console.log(notification.dateTime);
+        }
+        this.numeroNotifiche = 0;
+        for (const notification of this.notifications) {
+          if (notification.read == false) {
+            this.numeroNotifiche++;
+          }
+        }
+      });
     this.isMobile = window.innerWidth < 768;
   }
+
   ngOnInit(): void {
+    this.axiosService.authenticate();
     if (this.redirectService.getIsLogged() === true) {
       const userId = window.localStorage.getItem("userId");
       this.axiosService
@@ -108,10 +105,12 @@ export class HeaderComponent implements OnInit{
     this.axiosService
       .request('POST', 'api/authenticate', {})
       .then((response) => {
+        this.redirectService.setIsLogged(true);
         console.log('test');
         this.router.navigate([this.redirection]);
       })
       .catch((error) => {
+        this.redirectService.setIsLogged(false);
         console.log('error');
         this.router.navigate(['/login']);
       });
@@ -146,7 +145,6 @@ export class HeaderComponent implements OnInit{
       "POST",
       `/setNotificationRead/${userId}`,
       {
-        notificationsToSet: this.numeroNotifiche
       });
       this.numeroNotifiche = 0;
 

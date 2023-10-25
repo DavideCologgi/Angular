@@ -6,12 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eventify.app.model.Notification;
 import com.eventify.app.model.json.NotificationForm;
-import com.eventify.app.model.json.NotificationsToSetOtp;
 import com.eventify.app.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 
@@ -29,9 +27,6 @@ public class NotificationController {
         if (!notifications.isEmpty()) {
             for (Notification notification : notifications) {
 
-                if (!notification.getIsRead())
-                    notification.setIsRead(true);
-
                 NotificationForm notificForm = new NotificationForm(notification.getMessage(), notification.getDateTime(), notification.getIsRead());
 
                 notificheUser.add(notificForm);
@@ -43,9 +38,8 @@ public class NotificationController {
     }
 
     @PostMapping("/setNotificationRead/{userId}")
-    public ResponseEntity<String> SetNotificationsAsRead(@PathVariable Long userId, @RequestBody NotificationsToSetOtp notificationsToSetOtp) {
+    public ResponseEntity<String> SetNotificationsAsRead(@PathVariable Long userId) {
 
-        int notNumber = Integer.parseInt(notificationsToSetOtp.notificationsToSet());
         List<Notification> notifications = notificationService.getNotificationsByUserId(userId);
 
         for (Notification notification: notifications) {

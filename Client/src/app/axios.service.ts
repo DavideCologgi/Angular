@@ -159,6 +159,7 @@ export class AxiosService {
         this.redirect.setIsLogged(true);
       })
       .catch((error) => {
+        this.redirect.setIsLogged(false);
         console.log('error');
         this.router.navigate(['/login']);
       });

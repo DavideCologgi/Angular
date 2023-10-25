@@ -93,6 +93,7 @@ public class UserController {
         .email(user.get().getEmail())
         .firstName(user.get().getFirstname())
         .lastName(user.get().getLastname())
+        .imageUrl("/api/download/" + user.get().getProfilePicture().getId())
         .build());
     }
 
