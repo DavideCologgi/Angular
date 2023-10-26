@@ -6,6 +6,7 @@ import { AxiosService } from './axios.service';
 })
 export class RedirectService{
 	private redirectTo: string = '/event-board';
+  
   isLogged: boolean = false;
 
   constructor() { }
@@ -25,6 +26,8 @@ export class RedirectService{
   getIsLogged(): boolean {
     return this.isLogged;
   }
+
+
 }
 
 

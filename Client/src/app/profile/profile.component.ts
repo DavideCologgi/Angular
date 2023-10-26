@@ -42,8 +42,14 @@ export class ProfileComponent implements OnInit{
 	lastname: string = '';
 	oldEmail: string = '';
 	newEmail: string = '';
+	newFirstname: string = '';
+	newLastname: string = '';
 	date: string = '';
 	profilePhoto: string = '';
+	returnProfilePhoto: File | undefined;
+	returnFirstname: string = '';
+	returnLastname: string = '';
+	returnEmail: string = '';
 
 	ngOnInit(): void {
 
@@ -55,14 +61,15 @@ export class ProfileComponent implements OnInit{
 			{}
 		).then(response => {
 			this.firstname = response.data.firstName;
+			this.newFirstname = response.data.firstName;
 			this.lastname = response.data.lastName;
+			this.newLastname = response.data.lastName;
 			this.oldEmail = response.data.email;
 			this.newEmail = response.data.email;
 			this.date = response.data.date;
 			this.loadURL(response.data.imageUrl)
 			.then((result) => {
 				this.profilePhoto = result;
-				console.log(this.profilePhoto);
 			})
 			.catch((error) => {
 				console.error('Error loading profile photo:', error);
@@ -85,13 +92,62 @@ export class ProfileComponent implements OnInit{
 		this.newEmail = tmp;
 	}
 
+	firstNameChange(tmp: string) {
+		this.newFirstname = tmp;
+		console.log(this.newFirstname);
+	}
+
+	lastNameChange(tmp: string) {
+		this.newLastname = tmp;
+	}
+
 	SaveChanges() {
-		if (this.newEmail != this.oldEmail) {
-			this.router.navigate(['/2FA-login']);
+		console.log(this.newFirstname + ", " + this.firstname);
+		const userId = window.localStorage.getItem("userId");
+		if (this.newEmail !== this.oldEmail) {
+			this.returnEmail = this.newEmail;
 		}
-		else {
-			// salva firstname e lastname nel database
-			window.location.reload();
+		if (this.newFirstname !== this.firstname) {
+			this.returnFirstname = this.firstname;
+		}
+		if (this.newLastname !== this.lastname) {
+			this.returnLastname = this.lastname;
+		}
+		if (this.returnProfilePhoto === undefined) {
+			//chiamata non multipart
+			const endpoint = `/api/modify-profile-multipart/${userId}`;
+			this.axiosService.requestMultipart("PUT", endpoint,
+			{
+				firstname: this.returnFirstname,
+				lastname: this.returnLastname,
+				email: this.returnEmail,
+				profilePhoto: this.returnProfilePhoto,
+			}).then(response => {
+				if (response.data === "Profile succesfully updated.") {
+					window.location.reload();
+				} else if (response.data === "Email isn't let validated.") {
+					this.router.navigate(['/2FA-login']);
+				} else {
+					//mostra errore scritto in response.data
+				}
+			});
+		} else {
+			const endpoint = `/api/modify-profile/${userId}`;
+			this.axiosService.request("PUT", endpoint,
+			{
+				firstname: this.returnFirstname,
+				lastname: this.returnLastname,
+				email: this.returnEmail,
+				profilePhoto: this.returnProfilePhoto,
+			}).then(response => {
+				if (response.data === "Profile succesfully updated.") {
+					window.location.reload();
+				} else if (response.data === "Email isn't let validated.") {
+					this.router.navigate(['/2FA-login']);
+				} else {
+					//mostra errore scritto in response.data
+				}
+			});
 		}
 	}
 
@@ -100,14 +156,14 @@ export class ProfileComponent implements OnInit{
 	}
 
 	UploadNewPhoto(event: any) {
-		const file = event.target.files[0]; // Ottieni il file selezionato dall'input
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = (e: any) => {
-				this.profilePhoto = e.target.result; // Imposta l'immagine visualizzata sulla pagina con i dati del file caricato
-			};
-			reader.readAsDataURL(file);
-		}
+		this.returnProfilePhoto = event.target.files[0]; // Ottieni il file selezionato dall'input
+		// if (file) {
+		// 	const reader = new FileReader();
+		// 	reader.onload = (e: any) => {
+		// 		this.returnProfilePhoto = e.target.result; // Imposta l'immagine visualizzata sulla pagina con i dati del file caricato
+		// 	};
+		// 	reader.readAsDataURL(file);
+		// }
 	}
 
 	loadURL(endpoint: string): Promise<string> {

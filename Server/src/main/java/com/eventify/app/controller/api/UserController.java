@@ -98,16 +98,17 @@ public class UserController {
     }
 
     @PutMapping("/api/modify-profile/{userId}")
-    public ResponseEntity<String> modifyProfile(@PathVariable Long userId, @RequestParam String firstname, @RequestParam String lastname, @RequestParam String email, @RequestParam MultipartFile pics) throws Exception {
+    public ResponseEntity<String> modifyProfileMultipart(@PathVariable Long userId, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("email") String email, @RequestParam("profilePhoto") MultipartFile pics) throws Exception {
         Optional<User> userOptional = userService.getById(userId);
 
+        System.out.println("modify profile credentials" + email + email.length() + firstname + firstname.length() + lastname + lastname.length() + "\n\n\n");
         if (userOptional.isPresent()) {
 
-            if (firstname != null) {
+            if (firstname.length() != 0) {
                 if (!userValidator.isValidName(firstname))
                     return ResponseEntity.ok("Firstname of user not valid.");
             }
-            if (lastname != null) {
+            if (lastname.length() != 0) {
                 if (!userValidator.isValidName(lastname))
                     return ResponseEntity.ok("Lastname of user not valid.");
             }
@@ -115,23 +116,24 @@ public class UserController {
                 if (!userValidator.isImageFile(pics))
                     return ResponseEntity.ok("Image not PNG, JPG or JPEG");
             }
-            if (email == null) {
+            if (email.length() == 0) {
                 User user = userOptional.get();
-                if (firstname != null)
+                if (firstname.length() != 0)
                     user.setFirstname(firstname);
-                if (lastname != null)
+                if (lastname.length() != 0)
                     user.setLastname(lastname);
                 if (pics != null) {
                     try {
                         Photo profilePics = photoService.uploadPhoto(pics);
+                        photoService.create(profilePics);
                         user.setProfilePicture(profilePics);
-                    } catch (MessagingException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+                        e.getMessage();
                     }
                 }
                 userService.update(userId, user);
                 try {
-                    emailService.sendChangesAdviseAboutProfile(email);
+                    emailService.sendChangesAdviseAboutProfile(user.getEmail());
                 	notificationService.createNotification(userId, null, "Your has been updated", null);
                 } catch (MessagingException e) {
                     e.printStackTrace();
@@ -157,4 +159,52 @@ public class UserController {
         return ResponseEntity.ok("User not found.");
     }
 
+    @PutMapping("/api/modify-profile-multipart/{userId}")
+    public ResponseEntity<String> modifyProfile(@PathVariable Long userId, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("email") String email) throws Exception {
+        Optional<User> userOptional = userService.getById(userId);
+
+        System.out.println("modify profile credentials" + email + email.length() + firstname + firstname.length() + lastname + lastname.length() + "\n\n\n");
+        if (userOptional.isPresent()) {
+
+            if (firstname.length() != 0) {
+                if (!userValidator.isValidName(firstname))
+                    return ResponseEntity.ok("Firstname of user not valid.");
+            }
+            if (lastname.length() != 0) {
+                if (!userValidator.isValidName(lastname))
+                    return ResponseEntity.ok("Lastname of user not valid.");
+            }
+            if (email.length() == 0) {
+                User user = userOptional.get();
+                if (firstname.length() != 0)
+                    user.setFirstname(firstname);
+                if (lastname.length() != 0)
+                    user.setLastname(lastname);
+                userService.update(userId, user);
+                try {
+                    emailService.sendChangesAdviseAboutProfile(user.getEmail());
+                	notificationService.createNotification(userId, null, "Your has been updated", null);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email.");
+                }
+                return ResponseEntity.ok("Profile succesfully updated.");
+            } else {
+                if (!userValidator.isValidEmail(email))
+                    return ResponseEntity.ok("Email insert is not valid.");
+                String secretKey = authService.generateSecretKey();
+                int otp = authService.generateOtp(secretKey);
+                User user = userOptional.get();
+                user.setOtp(otp);
+                try {
+                    emailService.sendConfirmChangeEmail(email, otp);
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email.");
+                }
+                return ResponseEntity.ok("Email isn't let validated.");
+            }
+        }
+        return ResponseEntity.ok("User not found.");
+    }
 }
