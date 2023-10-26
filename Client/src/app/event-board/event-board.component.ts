@@ -4,6 +4,7 @@ import { AxiosResponse } from 'axios';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { RedirectService } from '../redirect.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-board',
@@ -11,7 +12,7 @@ import { RedirectService } from '../redirect.service';
   styleUrls: ['./event-board.component.css'],
 })
 export class EventBoardComponent implements OnInit {
-  constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute, private redirectService: RedirectService) {}
+  constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute, private redirectService: RedirectService, private router: Router) {}
   showFilterForm = false;
 
   events: any[] = [{
@@ -124,5 +125,9 @@ export class EventBoardComponent implements OnInit {
 
   toggleFilterForm() {
 	this.showFilterForm = !this.showFilterForm;
+  }
+
+  addFilter() {
+	this.router.navigate(["/event-board-filters"]);
   }
 }

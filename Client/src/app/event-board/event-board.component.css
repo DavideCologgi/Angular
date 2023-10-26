@@ -5,19 +5,24 @@ section {
 	align-items: center;
 	height: 80vh;
 	backdrop-filter: blur(30px);
-	background: white;
+	background: #e3e0e0;
 	background-size: 100% 100%;
 	background-position: center;
 }
 
 a {
-	padding-top: 0;
+	padding: 0;
 }
 
 	.filter-icon {
 		color: #FF6700;
 		transform: scale(1.5);
 		padding-top: 0;
+	}
+
+	.icon {
+		padding-top: 13px;
+		height: fit-content;
 	}
 
 .swiper {
