@@ -3,7 +3,7 @@
 		<h2>Create a new event:</h2>
 		<form class="form" [formGroup]="eventForm" action="" (ngSubmit)="onSubmit()">
 			<div class="inputbox">
-				<input matInput type="text" [(ngModel)]="newEvent.name" id="name" formControlName="name"
+				<input matInput type="text" [(ngModel)]="newEvent.name" id="name" formControlName="name" maxlength="30"
 				placeholder="Insert a title" (focus)="fieldFocused = true" (blur)="fieldFocused = false; fieldTouched = true">
 				<div class="alert" *ngIf="(fieldFocused || fieldTouched) && eventForm.get('name')?.hasError('required')">
 					Missing title!

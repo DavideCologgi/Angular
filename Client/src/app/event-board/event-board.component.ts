@@ -14,7 +14,30 @@ export class EventBoardComponent implements OnInit {
   constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute, private redirectService: RedirectService) {}
   showFilterForm = false;
 
-  events: any[] = [ ];
+  events: any[] = [{
+		title: 'Eventodiesempioagasvvavvwr',
+		category: 'PARTY',
+		description: 'Questo è un evento di esempio. sdfafpdjaspjfsapVJASJV]AJVD[Jvvdsnclvnsdvnlzxnvozvvzndnvdzlkvnzdpvzxlvnzsdvldzvnzpvnzvlkcnvzidz',
+		address: 'Viale della Grande Muraglia 155, 00144 Roma',
+		date: new Date().toISOString(),
+		imageURL: '/assets/background6.jpg'
+  	},
+	{
+		title: 'Evento di esempio',
+		category: 'Esempio',
+		description: 'Questo è un evento di esempio.',
+		address: 'Indirizzo di esempio',
+		date: new Date().toISOString(),
+		imageURL: '/assets/background.jpeg'
+ 	},
+  	{
+		title: 'Evento di esempio',
+		category: 'Esempio',
+		description: 'Questo è un evento di esempio.',
+		address: 'Indirizzo di esempio',
+		date: new Date().toISOString(),
+		imageURL: '/assets/profile.jpg'
+  	}];
   filtro: any;
 
   ngOnInit() {

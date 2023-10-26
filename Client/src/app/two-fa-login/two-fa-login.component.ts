@@ -13,6 +13,10 @@ export class TwoFALoginComponent {
 	twoFAForm: FormGroup;
 	showError = false;
 	errorMessage = '';
+	firstNametmp: string = '';
+	lastNametmp: string = '';
+	emailtmp: string = '';
+	profilePhototmp: string = '';
 
 	constructor(private formBuilder: FormBuilder, private el: ElementRef, private axiosService: AxiosService, private router: Router, private redirectService: RedirectService) {
 		this.twoFAForm = this.formBuilder.group({

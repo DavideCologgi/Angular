@@ -1,11 +1,11 @@
 <nav class="navbar">
 	<div class="title">
-		<img [src]="isMobile ? '/assets/titlemobile.png' : '/assets/title.png'" alt="Image">
+		<img [src]="isMobile ? titleMobile : titleWeb" alt="Image">
 	</div>
 	<button mat-icon-button (click)="navigateTo('/home')">
 		<mat-icon class="icon">home</mat-icon>
 	</button>
-	<button mat-icon-button (click)="updateRedirection('/event-board')">  <!-- ; authenticate() -->
+	<button mat-icon-button routerLink="/event-board">  <!-- (click)="updateRedirection('/event-board'); authenticate() -->
 		<mat-icon class="icon">event</mat-icon>
 	</button>
 	<div *ngIf="this.getIsLogged()">
@@ -23,12 +23,15 @@
 			</mat-menu>
 		</div>
 	</div>
-	<button mat-icon-button [matMenuTriggerFor]="menu">
-		<mat-icon class="icon">person</mat-icon>
+	<button mat-icon-button class="user-menu" [matMenuTriggerFor]="menu">
+		<mat-icon class="user" *ngIf="!this.getIsLogged(); else loggedIcon">person</mat-icon>
+		<ng-template #loggedIcon>
+			<img class="photo" [src]="profilePhoto" alt="">
+		</ng-template>
 	</button>
 	<mat-menu #menu="matMenu">
 		<a mat-menu-item (click)="navigateTo('/home')">Home</a>
-		<a mat-menu-item (click)="updateRedirection('/event-board')">Board</a>  <!-- ; authenticate() -->
+		<a mat-menu-item routerLink="/event-board">Board</a>  <!-- (click)="updateRedirection('/event-board')"; authenticate() -->
 		<a mat-menu-item [hidden]="!this.getIsLogged()" (click)="navigateToMyEvents()">My Events</a>
 		<a mat-menu-item [hidden]="!this.getIsLogged()" (click)="navigateToRegisteredEvents()">Registered Event</a>
 		<a mat-menu-item [hidden]="this.getIsLogged()" (click)="navigateTo('/login')">Sign in</a>

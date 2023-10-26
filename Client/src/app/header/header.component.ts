@@ -21,7 +21,8 @@ export class HeaderComponent implements OnInit{
     },
     
 ]; // Store the notification list
-  imageName: string = '/assets/title.png'; // Imposta l'immagine predefinita
+  titleWeb: string = '/assets/title.png';
+  titleMobile: string = '/assets/titlemobile.png';
   isMobile: boolean = false;
   profilePhoto: string = '';
 
@@ -96,7 +97,6 @@ export class HeaderComponent implements OnInit{
   }
 
   getIsLogged(): boolean {
-    // console.log(this.redirectService.getIsLogged());
     return this.redirectService.getIsLogged();
   }
 

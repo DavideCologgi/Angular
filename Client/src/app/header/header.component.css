@@ -22,10 +22,6 @@
 	transform: scale(2);
 }
 
-button {
-	margin-right: 10px;
-}
-
 .icon {
 	font-size: 20px;
 	color: #004E98;
@@ -47,14 +43,14 @@ button {
 		justify-content: center;
 		align-items: center;
 		padding: 0;
-		margin-top: 20px;
+		padding-top: 3px;
 	}
 
 	.photo {
 		padding: 0;
 		width: 50px;
 		height: 50px;
-		border-radius: 20px;
+		border-radius: 40px;
 	}
 
 @media (max-width: 768px) {
@@ -72,18 +68,21 @@ button {
 
 	.user-menu {
 		padding: 0;
-		margin-right: 20px;
 		width: 50px;
 		height: 50px;
 	}
 
 	.user {
-		font-size: 18px;
+		font-size: 15px;
+		padding-top: 7px;
+	}
+	
+	button {
+		padding: 0;
 	}
 
 	.photo {
-		padding: 0;
-		width: 50px;
-		height: 50px;
+		width: 40px;
+		height: 40px;
 	}
 }
