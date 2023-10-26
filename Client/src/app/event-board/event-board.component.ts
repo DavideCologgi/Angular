@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AxiosService } from '../axios.service';
 import { AxiosResponse } from 'axios';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./event-board.component.css'],
 })
 export class EventBoardComponent implements OnInit {
-  constructor(private axiosService: AxiosService, public dialog: MatDialog, private route: ActivatedRoute, private redirectService: RedirectService, private router: Router) {}
+  constructor(private axiosService: AxiosService, public dialog: MatDialog,
+	private route: ActivatedRoute, private redirectService: RedirectService,
+	private router: Router) {}
   showFilterForm = false;
 
   events: any[] = [{

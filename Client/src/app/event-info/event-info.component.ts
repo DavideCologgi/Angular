@@ -11,7 +11,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatMenu } from '@angular/material/menu';
 import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
@@ -42,12 +41,13 @@ export class EventInfoComponent implements OnInit {
     if (!this.event) {
       // Se l'evento non è stato fornito, crea un evento di esempio
       this.event = {
-        id: '',
-        title: '',
-        category: '',
-        description: '',
-        address: '',
+        id: '0',
+        title: 'Titolo di esempio',
+        category: 'Esempio',
+        description: 'asdhffhasdfshdfh ashghsh  ashghasg ash gsadhsgdahg asdghb sgjags a gsagfjgj g gdjasgjgjas gsjags gj g',
+        address: 'Indirizzo di esempio',
         date: new Date().toISOString(),
+        imageURL: ['/assets/background.jpeg', 'assets/profile.jpg', '/assets/background6.jpg']
       };
     }
     this.route.params.subscribe((params) => {
