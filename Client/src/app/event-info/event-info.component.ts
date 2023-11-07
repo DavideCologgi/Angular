@@ -212,9 +212,6 @@ export class EventInfoComponent implements OnInit {
     });
   }
 
-  BacktoBoard() {
-    this.router.navigate(['/event-board']);
-  }
 }
 
 

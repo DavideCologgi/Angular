@@ -31,6 +31,7 @@ h2 {
 
 .inputbox {
 	display: flex;
+	align-items: center;
 	margin-bottom: 20px;
 }
 
@@ -44,7 +45,7 @@ h2 {
 	}
 
 		input::placeholder {
-			color: #fff;
+			color: #8f8d8d;
 		}
 
 	.description {
@@ -58,7 +59,7 @@ h2 {
 	}
 
 		.description::placeholder {
-			color: #fff;
+			color: #8f8d8d;
 		}
 
 	.category,
@@ -104,6 +105,12 @@ h2 {
 	font-weight: 500;
 }
 
+.inputbox.genre .alert {
+	width: 50%;
+	text-align: center;
+	margin-left: 45px;
+}
+
 .photo-alert {
 	margin-top: 40px;
 	margin-bottom: 40px;
@@ -113,15 +120,56 @@ h2 {
 }
 
 @media (max-width: 768px) {
-
 	.event {
 		width: 90%;
 	}
 
+	h2 {
+		font-size: 1.7em;
+	}
+
 	input,
 	.category,
-	.date-time,
+	.photo,
+	.description,
 	.photo {
 		width: 100%;
+		font-size: 15px;
+	}
+
+	.date-time,
+	.category {
+		width: 70%;
+	}
+
+	.inputbox.genre .alert {
+		width: 30%;
+		margin-left: 30px;
+	}
+
+	.alert {
+		font-size: 0.7rem;
+	}
+}
+
+@media (min-width: 1200px) {
+	.event {
+		max-width: 900px;
+	}
+
+	.inputbox.date .alert {
+		width: 100%;
+		text-align: right;
+	}
+
+	.inputbox.genre .alert {
+		width: 50%;
+		text-align: right;
+		margin-left: 30px;
+	}
+
+	.alert {
+		width: 50%;
+		text-align: center;
 	}
 }

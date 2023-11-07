@@ -3,45 +3,44 @@ section {
     justify-content: center;
     align-items: center;
 	width: 100%;
-	min-height: 80vh;
-	background-image: whitespace-between="10";
-	background-position: center;
+	height: 80vh;
+	background-color: #c0c0c0;
 }
 
-swiper-container {
+.swiper {
+	height: 500px;
 	width: 100%;
 	flex: 1;
 }
 
-swiper-slide img {
+.slide img {
+	height: 500px;
 	width: 100%;
-	height: auto;
 	object-fit: cover;
 }
 
 .event-card {
-	width: 80%;
-	color: white;
-	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
-	position: relative;
-	background-color: rgba(249, 249, 249, 0.312);
+	width: 80%;
+	height: 90%;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+	background-color: white;
+	border-radius: 10px;
 	backdrop-filter: blur(10px);
-	border: 2px solid rgba(155, 152, 152, 0.5);
+	border: 2px solid rgba(191, 188, 188, 0.7);
 	margin: 1em;
 }
 
-	.event-card-content {
-		flex: 1;
-		overflow: auto;
+	.event-card:hover{
+		box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
 	}
 
 .title {
 	font-size: 32px;
+	font-weight: 900;
     padding: 1em;
 	color: #FF6700;
-	font-weight: 900;
 }
 
 	.title::after {
@@ -53,11 +52,6 @@ swiper-slide img {
 		margin-top: 10px;
 	}
 
-.info {
-    justify-content: center;
-    align-items: center;
-}
-
 .description {
 	overflow-wrap: break-word;
 	color: black;
@@ -65,6 +59,9 @@ swiper-slide img {
 
 .category {
 	display: flex;
+	position: absolute;
+	top: 0;
+	right: 10px;
 	font-size: 20px;
 	font-weight: 800;
 	color: #004E98;
@@ -82,16 +79,16 @@ swiper-slide img {
 .address{
 	font-size: 20px;
 	font-weight: 700;
-	color: black;
+	color: #004E98;
 }
 
 .time {
 	font-size: 20px;
 	font-weight: 700;
-	color: black;
+	color: #004E98;
 }
 
-.actions {
+.footer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -111,6 +108,10 @@ swiper-slide img {
 	align-items: flex-start;
 }
 
+.content {
+	padding-bottom: 50px;
+}
+
 .join-button,
 .people-button,
 .delete-button,
@@ -121,13 +122,13 @@ swiper-slide img {
 }
 
 .join-button {
-	background-color: rgb(6, 222, 6);
+	background-color: #fc7c26;
 	color: white;
 	transition: background-color 0.3s;
 }
 
 	.join-button:hover {
-		background-color: greenyellow;
+		background-color: #fa9b1e;
 	}
 
 .red-button {
@@ -137,7 +138,7 @@ swiper-slide img {
 }
 
 	.red-button:hover {
-		background-color: rgb(255, 42, 0);
+		background-color: rgb(253, 104, 40);
 	}
 
 .people-button {
@@ -151,53 +152,101 @@ swiper-slide img {
 	}
 
 .delete-button {
-	background-color: #c0c0c0;
+	background-color: black;
 	color: white;
 	transition: background-color 0.3s;
 }
 
 	.delete-button:hover {
-		background-color: gray;
+		background-color: rgb(48, 46, 46);
 	}
 
 .edit-button {
-	background-color: #FF6700;
+	background-color: #c0c0c0;
 	color: white;
 	transition: background-color 0.3s;
 }
 
 	.edit-button:hover {
-		background-color: #ff8400;
+		background-color: #7b7a7a;
 	}
 
 @media (max-width: 600px) {
 	.event-card {
 		width: 100%;
-		max-height: 70vh;
+		height: 95%;
 		overflow-y: auto;
 	}
 
-	.title {
-		font-size: 20px;
+		.title {
+			font-size: 20px;
+			padding-left: 0;
+		}
+
+	.swiper {
+		height: 40%;
 	}
 
-	.category {
-		left: 1em;
-		bottom: 1em;
+	.slide {
+		height: 100%;
+	}
+
+		.slide img {
+			height: 100%;
+		}
+
+	.content {
+		padding: 0;
+	}
+
+	.footer {
+		padding-top: 10px;
 	}
 
 	.join-button,
 	.people-button,
-	.delete-button {
+	.delete-button,
+	.edit-button {
 		margin-right: 0.5em;
-		width: 3em;
-		height: 3em;
+		width: 2em;
+		height: 2em;
 	}
+
+		.icon {
+			padding-top: 1px;
+			font-size: 20px;
+		}
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1400px) {
     .event-card {
-        width: 30%;
-		margin: 3em;
+		width: 1200px;
+		height: 95%;
+		margin: 2em;
+	}
+	
+		.title {
+			font-size: 35px;
+		}
+
+	.category {
+		font-size: 25px;
+	}
+
+	.swiper {
+		height: 50%;
+	}
+
+	.slide {
+		height: 100%;
+	}
+
+	.slide img {
+		height: 100%;
+	}
+
+	.content {
+		padding-top: 10px;
+		padding-bottom: 40px;
 	}
 }

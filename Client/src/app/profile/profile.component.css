@@ -32,10 +32,6 @@ section {
 	font-weight: 800;
 }
 
-.photo {
-	border-radius: 20px;
-}
-
 .inputbox {
 	display: flex;
 	align-items: center;
@@ -123,8 +119,8 @@ input {
 	display: none;
 }
 
-	.delete-button:hover {
-			background-color: #c0c0c0;
+.delete-button:hover {
+		background-color: #c0c0c0;
 	}
 
 .alert {
