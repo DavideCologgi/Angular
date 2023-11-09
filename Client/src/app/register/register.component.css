@@ -21,6 +21,8 @@ section {
 	background: rgba(92, 80, 80, 0.707);
 	align-items: center;
 	justify-content: center;
+	margin-top: 5%;
+	margin-bottom: 5%;
 }
 
 .form-space {
@@ -69,10 +71,6 @@ h2 {
 
 .inputbox.date input {
 	text-align: center;
-}
-
-.inputbox.password .alert {
-	border-bottom: 2px solid #fff;
 }
 
 .password-container {
@@ -137,7 +135,7 @@ button {
 	width: 70%;
 	color:  #FF6700;
 	text-align: center;
-	padding-top: 10px;
+	padding-bottom: 20px;
 	padding-left: 55px;
 	font-size: 0.9rem;
 	font-weight: 500;

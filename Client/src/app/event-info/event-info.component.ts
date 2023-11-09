@@ -219,7 +219,7 @@ export class EventInfoComponent implements OnInit {
   selector: 'dialog-content-example-dialog',
   templateUrl: './people-list.html',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatListModule],
+  imports: [MatDialogModule, MatButtonModule, MatListModule, CommonModule],
 })
 export class PeopleList {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { participants: any[] }) {}

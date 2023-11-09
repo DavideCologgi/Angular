@@ -16,7 +16,8 @@ export class HeaderComponent implements OnInit{
   redirection = '';
   numeroNotifiche: any = 0; // Initialize to 0
   notifications: any[] = []; // Store the notification list
-  imageName: string = '/assets/title.png'; // Imposta l'immagine predefinita
+  titleWeb: string = '/assets/title.png';
+  titleMobile: string = '/assets/titlemobile.png';
   isMobile: boolean = false;
   profilePhoto: string = '';
 
@@ -48,7 +49,7 @@ export class HeaderComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.axiosService.authenticate();
+    // this.axiosService.authenticate();
     if (this.redirectService.getIsLogged() === true) {
       const userId = window.localStorage.getItem("userId");
       this.axiosService
