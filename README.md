@@ -1,6 +1,6 @@
 # Guida di Avvio dell'Applicazione Eventify
 
-Benvenuti in Eventify, la piattaforma che connette le persone e offre esperienze uniche. Per iniziare, seguite questa guida passo dopo passo per avviare correttamente l'applicazione Eventify sul vostro sistema.
+Benvenuti in Eventify, la piattaforma che connette le persone e offre esperienze uniche. Per iniziare, seguite questa guida passo dopo passo per avviare correttamente l'applicazione sul vostro sistema.
 
 ## Requisiti di Sistema
 
